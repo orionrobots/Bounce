@@ -16,15 +16,20 @@
         }
 
         $(function () {
-            var workspace = Blockly.inject('blocklyDiv',
+            var blocklyDiv = document.getElementById('blocklyDiv');
+            var workspace = Blockly.inject(blocklyDiv,
                 { toolbox: document.getElementById('toolbox') });
         });
     </script>
+
+    <style>
+        body, html {
+            height: 98%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Blockly Lua Here</h1>
-    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-    <a href="google-blockly-17ead47/blockly_compressed.js">google-blockly-17ead47/blockly_compressed.js</a>
+    <div id="blocklyDiv" style="width: 100%; height: 100%;"></div>
     <div id="code"></div>
     <xml id="toolbox" style="display: none">
         <block type="controls_if"></block>
