@@ -57,7 +57,6 @@ namespace MainUi
             foreach (var name in names)
             {
                 // Try finding NodeMCU at 9600 Baud.
-                int baud = 9600;
                 string test_cmd = "print(node.heap())\n";
                 SerialPort _port = new SerialPortWithDescription(names[0], 9600);
                 output.WriteLine(_port.BaudRate);

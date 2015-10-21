@@ -14,52 +14,42 @@ namespace MainUi
 {
     public partial class Form1 : Form
     {
+        private BlocklyLua lua_control;
+        private OutputConsole con;
+
         public Form1()
         {
             InitializeComponent();
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
             outputBrowser.Navigate(Path.Combine(appDir, "emptyOutput.html"));
+            lua_control = new BlocklyLua(codeBrowser);
         }
-
-        public class HtmlOutputWrapper : OutputConsole
-        {
-            private HtmlElement output_div;
-
-            public HtmlOutputWrapper(HtmlDocument _doc)
-            {
-                output_div = _doc.GetElementById("output_panel");
-            }
-
-            public void Write(string data)
-            {
-                data = data.Replace("\n", "<br>\n");
-                output_div.InnerHtml = String.Concat(output_div.InnerHtml, data);
-            }
-
-            public void Write<T>(T data)
-            {
-                Write(data.ToString());
-            }
-
-            public void WriteLine(string data)
-            {
-                Write(String.Concat(data, "<br>\n"));
-            }
-
-            public void WriteLine<T>(T data)
-            {
-                WriteLine(data.ToString());
-            }
-        } 
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            OutputConsole con = new HtmlOutputWrapper(outputBrowser.Document);
             var nodes = NodeMCU.find_node(con);
             foreach (var node in nodes)
             {
                 toolStripNodes.Items.Add(node.ToString());
             }
+        }
+
+        private void runButton_ButtonClick(object sender, EventArgs e)
+        {
+            var code = lua_control.GetCode();
+            con.WriteLine(code);
+        }
+
+        private void outputBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            if(outputBrowser.Url.ToString().Contains("emptyOutput.html")) { 
+                con = new HtmlOutputWrapper(outputBrowser.Document);
+            }
+        }
+
+        private void codeBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
         }
     }
 }
