@@ -42,11 +42,13 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.codeBrowser = new System.Windows.Forms.WebBrowser();
-            this.outputBrowser = new System.Windows.Forms.WebBrowser();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.connectButton = new System.Windows.Forms.ToolStripButton();
-            this.runButton = new System.Windows.Forms.ToolStripButton();
+            this.outputBrowser = new System.Windows.Forms.WebBrowser();
+            this.toolStripNodes = new System.Windows.Forms.ToolStripComboBox();
+            this.runButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.makeStartupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -83,13 +85,13 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // communicateToolStripMenuItem
@@ -104,13 +106,13 @@
             // runToolStripMenuItem
             // 
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.runToolStripMenuItem.Text = "Run";
             // 
             // alwaysRunToolStripMenuItem
             // 
             this.alwaysRunToolStripMenuItem.Name = "alwaysRunToolStripMenuItem";
-            this.alwaysRunToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.alwaysRunToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.alwaysRunToolStripMenuItem.Text = "Always Run";
             // 
             // openFileDialog1
@@ -147,19 +149,6 @@
             this.codeBrowser.TabIndex = 2;
             this.codeBrowser.WebBrowserShortcutsEnabled = false;
             // 
-            // outputBrowser
-            // 
-            this.outputBrowser.AllowWebBrowserDrop = false;
-            this.outputBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outputBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.outputBrowser.Location = new System.Drawing.Point(0, 0);
-            this.outputBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.outputBrowser.Name = "outputBrowser";
-            this.outputBrowser.Size = new System.Drawing.Size(590, 571);
-            this.outputBrowser.TabIndex = 0;
-            this.outputBrowser.Url = new System.Uri("", System.UriKind.Relative);
-            this.outputBrowser.WebBrowserShortcutsEnabled = false;
-            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -188,7 +177,8 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectButton,
-            this.runButton});
+            this.runButton,
+            this.toolStripNodes});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(590, 133);
@@ -205,14 +195,40 @@
             this.connectButton.ToolTipText = "Find and Connect To The NodeMCU board";
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
+            // outputBrowser
+            // 
+            this.outputBrowser.AllowWebBrowserDrop = false;
+            this.outputBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outputBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.outputBrowser.Location = new System.Drawing.Point(0, 0);
+            this.outputBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.outputBrowser.Name = "outputBrowser";
+            this.outputBrowser.Size = new System.Drawing.Size(590, 571);
+            this.outputBrowser.TabIndex = 0;
+            this.outputBrowser.Url = new System.Uri("", System.UriKind.Relative);
+            this.outputBrowser.WebBrowserShortcutsEnabled = false;
+            // 
+            // toolStripNodes
+            // 
+            this.toolStripNodes.Name = "toolStripNodes";
+            this.toolStripNodes.Size = new System.Drawing.Size(121, 133);
+            // 
             // runButton
             // 
+            this.runButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.makeStartupToolStripMenuItem});
             this.runButton.Image = ((System.Drawing.Image)(resources.GetObject("runButton.Image")));
             this.runButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runButton.Name = "runButton";
-            this.runButton.Size = new System.Drawing.Size(76, 130);
+            this.runButton.Size = new System.Drawing.Size(93, 130);
             this.runButton.Text = "Run!";
             this.runButton.ToolTipText = "Upload and run this code";
+            // 
+            // makeStartupToolStripMenuItem
+            // 
+            this.makeStartupToolStripMenuItem.Name = "makeStartupToolStripMenuItem";
+            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.makeStartupToolStripMenuItem.Text = "Make Startup";
             // 
             // Form1
             // 
@@ -260,7 +276,9 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton connectButton;
-        private System.Windows.Forms.ToolStripButton runButton;
+        private System.Windows.Forms.ToolStripSplitButton runButton;
+        private System.Windows.Forms.ToolStripMenuItem makeStartupToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripNodes;
     }
 }
 

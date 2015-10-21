@@ -11,9 +11,20 @@ namespace MainUi
     interface OutputConsole // Output - made to feel like console output
     {
         void Write(string data);
-        void Write(int data);
+        void Write<T>(T data);
         void WriteLine(string data);
-        void WriteLine(int data);
+        void WriteLine<T>(T data);
+    }
+
+    class SerialPortWithDescription:SerialPort
+    {
+        public SerialPortWithDescription(string portName, int baudRate) 
+            : base(portName, baudRate) { }
+
+        public override string ToString()
+        {
+            return PortName;
+        }
     }
 
     class NodeMCU
@@ -48,7 +59,7 @@ namespace MainUi
                 // Try finding NodeMCU at 9600 Baud.
                 int baud = 9600;
                 string test_cmd = "print(node.heap())\n";
-                SerialPort _port = new SerialPort(names[0], 9600);
+                SerialPort _port = new SerialPortWithDescription(names[0], 9600);
                 output.WriteLine(_port.BaudRate);
                 _port.Open();
                 _port.WriteLine(test_cmd);
