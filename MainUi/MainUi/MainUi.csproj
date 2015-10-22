@@ -205,6 +205,9 @@
     <Content Include="BlocklyMcu\blocklyLua.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="BlocklyMcu\CustomNodeBlocks.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="BlocklyMcu\google-blockly-17ead47\.gitignore" />
     <Content Include="BlocklyMcu\google-blockly-17ead47\appengine\apple-touch-icon.png" />
     <Content Include="BlocklyMcu\google-blockly-17ead47\appengine\favicon.ico" />
