@@ -59,7 +59,7 @@ Blockly.Lua['logic_compare'] = function(block) {
     GT: '>',
     GTE: '>='
   };
-  var operator = OPERATORS[block.getTitleValue('OP')];
+  var operator = OPERATORS[block.getFieldValue('OP')];
   var order = Blockly.Lua.ORDER_RELATIONAL;
   var argument0 = Blockly.Lua.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.Lua.valueToCode(block, 'B', order) || '0';
@@ -69,7 +69,7 @@ Blockly.Lua['logic_compare'] = function(block) {
 
 Blockly.Lua['logic_operation'] = function(block) {
   // Operations 'and', 'or'.
-  var operator = (block.getTitleValue('OP') == 'AND') ? 'and' : 'or';
+  var operator = (block.getFieldValue('OP') == 'AND') ? 'and' : 'or';
   var order = (operator == 'and') ? Blockly.Lua.ORDER_AND :
       Blockly.Lua.ORDER_OR;
   var argument0 = Blockly.Lua.valueToCode(block, 'A', order);
@@ -102,7 +102,7 @@ Blockly.Lua['logic_negate'] = function(block) {
 
 Blockly.Lua['logic_boolean'] = function(block) {
   // Boolean values true and false.
-  var code = (block.getTitleValue('BOOL') == 'TRUE') ? 'true' : 'false';
+  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
   return [code, Blockly.Lua.ORDER_ATOMIC];
 };
 

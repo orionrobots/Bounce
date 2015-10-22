@@ -33,6 +33,8 @@ namespace MainUi
         {
             // This will get the lua code to send to our device.
             var code = _br.Document.InvokeScript("get_code");
+            var warnings = _br.Document.InvokeScript("get_warnings");
+            
             return code.ToString();
         }
     }

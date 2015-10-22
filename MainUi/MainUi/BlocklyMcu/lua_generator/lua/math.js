@@ -29,7 +29,7 @@ goog.require('Blockly.Lua');
 
 Blockly.Lua['math_number'] = function(block) {
   // Numeric value.
-  var code = parseFloat(block.getTitleValue('NUM'));
+  var code = parseFloat(block.getFieldValue('NUM'));
   var order = code < 0 ? Blockly.Lua.ORDER_UNARY :
               Blockly.Lua.ORDER_ATOMIC;
   return [code, order];
@@ -44,7 +44,7 @@ Blockly.Lua['math_arithmetic'] = function(block) {
     DIVIDE: [' / ', Blockly.Lua.ORDER_MULTIPLICATIVE],
     POWER: [' ^ ', Blockly.Lua.ORDER_EXPONENTIATION]
   };
-  var tuple = OPERATORS[block.getTitleValue('OP')];
+  var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
   var order = tuple[1];
   var argument0 = Blockly.Lua.valueToCode(block, 'A', order) || '0';
@@ -55,7 +55,7 @@ Blockly.Lua['math_arithmetic'] = function(block) {
 
 Blockly.Lua['math_single'] = function(block) {
   // Math operators with single operand.
-  var operator = block.getTitleValue('OP');
+  var operator = block.getFieldValue('OP');
   var code;
   var arg;
   if (operator == 'NEG') {
@@ -138,7 +138,7 @@ Blockly.Lua['math_constant'] = function(block) {
     SQRT1_2: ['math.sqrt(1 / 2)', Blockly.Lua.ORDER_HIGH],
     INFINITY: ['math.huge', Blockly.Lua.ORDER_HIGH]
   };
-  var constant = block.getTitleValue('CONSTANT');
+  var constant = block.getFieldValue('CONSTANT');
   return CONSTANTS[constant];
 };
 
@@ -147,7 +147,7 @@ Blockly.Lua['math_number_property'] = function(block) {
   // or if it is divisible by certain number. Returns true or false.
   var number_to_check = Blockly.Lua.valueToCode(block, 'NUMBER_TO_CHECK',
       Blockly.Lua.ORDER_MULTIPLICATIVE) || '0';
-  var dropdown_property = block.getTitleValue('PROPERTY');
+  var dropdown_property = block.getFieldValue('PROPERTY');
   var code;
   if (dropdown_property == 'PRIME') {
     var functionName = Blockly.Lua.provideFunction_(
@@ -213,7 +213,7 @@ Blockly.Lua['math_change'] = function(block) {
   // Add to a variable in place.
   var argument0 = Blockly.Lua.valueToCode(block, 'DELTA',
       Blockly.Lua.ORDER_ADDITIVE) || '0';
-  var varName = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR'),
+  var varName = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   return varName + ' = ' + varName + ' + ' + argument0 + '\n';
 };
@@ -225,7 +225,7 @@ Blockly.Lua['math_trig'] = Blockly.Lua['math_single'];
 
 Blockly.Lua['math_on_list'] = function(block) {
   // Math functions for lists.
-  var func = block.getTitleValue('OP');
+  var func = block.getFieldValue('OP');
   var list = Blockly.Lua.valueToCode(block, 'LIST',
       Blockly.Lua.ORDER_NONE) || '{}';
   var code;

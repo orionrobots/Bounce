@@ -30,7 +30,7 @@ goog.require('Blockly.Lua');
 
 Blockly.Lua['colour_picker'] = function(block) {
   // Colour picker.
-  var code = '\'' + block.getTitleValue('COLOUR') + '\'';
+  var code = '\'' + block.getFieldValue('COLOUR') + '\'';
   return [code, Blockly.Lua.ORDER_ATOMIC];
 };
 

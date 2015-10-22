@@ -87,7 +87,7 @@ Blockly.Lua['lists_indexOf'] = function(block) {
   var argument1 = Blockly.Lua.valueToCode(block, 'VALUE',
       Blockly.Lua.ORDER_HIGH) || '\'\'';
   var code;
-  if (block.getTitleValue('END') == 'FIRST') {
+  if (block.getFieldValue('END') == 'FIRST') {
     var functionName = Blockly.Lua.provideFunction_(
         'first_index',
         ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ + '(t, elem)',
@@ -140,8 +140,8 @@ var gensym_ = function() {
 Blockly.Lua['lists_getIndex'] = function(block) {
   // Get element at index.
   // Note: Until January 2013 this block did not have MODE or WHERE inputs.
-  var mode = block.getTitleValue('MODE') || 'GET';
-  var where = block.getTitleValue('WHERE') || 'FROM_START';
+  var mode = block.getFieldValue('MODE') || 'GET';
+  var where = block.getFieldValue('WHERE') || 'FROM_START';
   var at = Blockly.Lua.valueToCode(block, 'AT',
       Blockly.Lua.ORDER_ADDITIVE) || '1';  // for getIndex_
   var list = Blockly.Lua.valueToCode(block, 'VALUE',
@@ -208,8 +208,8 @@ Blockly.Lua['lists_setIndex'] = function(block) {
   // Note: Until February 2013 this block did not have MODE or WHERE inputs.
   var list = Blockly.Lua.valueToCode(block, 'LIST',
       Blockly.Lua.ORDER_HIGH) || '[]';
-  var mode = block.getTitleValue('MODE') || 'GET';
-  var where = block.getTitleValue('WHERE') || 'FROM_START';
+  var mode = block.getFieldValue('MODE') || 'GET';
+  var where = block.getFieldValue('WHERE') || 'FROM_START';
   var at = Blockly.Lua.valueToCode(block, 'AT',
       Blockly.Lua.ORDER_NONE) || '1';
   var value = Blockly.Lua.valueToCode(block, 'TO',
@@ -278,11 +278,11 @@ Blockly.Lua['lists_setIndex'] = function(block) {
 
 Blockly.Lua['lists_add'] = function(block) {
   // Add element to start or end.
-  var varName = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR'),
+  var varName = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   var element = Blockly.Lua.valueToCode(block, 'ELEMENT',
       Blockly.Lua.ORDER_NONE) || 'null';
-  var location = block.getTitleValue('LOCATION');
+  var location = block.getFieldValue('LOCATION');
   if (location == 'START') {
     return 'table.insert(' + varName + ', 1, ' + element + ')\n';
   } else {
@@ -294,8 +294,8 @@ Blockly.Lua['lists_getSublist'] = function(block) {
   // Get sublist.
   var list = Blockly.Lua.valueToCode(block, 'LIST',
       Blockly.Lua.ORDER_HIGH) || '[]';
-  var where1 = block.getTitleValue('WHERE1');
-  var where2 = block.getTitleValue('WHERE2');
+  var where1 = block.getFieldValue('WHERE1');
+  var where2 = block.getFieldValue('WHERE2');
   var at1 = Blockly.Lua.valueToCode(block, 'AT1',
       Blockly.Lua.ORDER_ADDITIVE) || '1';
   var at2 = Blockly.Lua.valueToCode(block, 'AT2',

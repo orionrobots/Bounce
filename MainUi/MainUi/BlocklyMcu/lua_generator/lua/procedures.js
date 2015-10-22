@@ -30,7 +30,7 @@ goog.require('Blockly.Lua');
 
 Blockly.Lua['procedures_defreturn'] = function(block) {
   // Define a procedure with a return value.
-  var funcName = Blockly.Lua.variableDB_.getName(block.getTitleValue('NAME'),
+  var funcName = Blockly.Lua.variableDB_.getName(block.getFieldValue('NAME'),
       Blockly.Procedures.NAME_TYPE);
   var branch = Blockly.Lua.statementToCode(block, 'STACK');
   if (Blockly.Lua.INFINITE_LOOP_TRAP) {
@@ -63,7 +63,7 @@ Blockly.Lua['procedures_defnoreturn'] =
 
 Blockly.Lua['procedures_callreturn'] = function(block) {
   // Call a procedure with a return value.
-  var funcName = Blockly.Lua.variableDB_.getName(block.getTitleValue('NAME'),
+  var funcName = Blockly.Lua.variableDB_.getName(block.getFieldValue('NAME'),
       Blockly.Procedures.NAME_TYPE);
   var args = [];
   for (var x = 0; x < block.arguments_.length; x++) {
@@ -76,7 +76,7 @@ Blockly.Lua['procedures_callreturn'] = function(block) {
 
 Blockly.Lua['procedures_callnoreturn'] = function(block) {
   // Call a procedure with no return value.
-  var funcName = Blockly.Lua.variableDB_.getName(block.getTitleValue('NAME'),
+  var funcName = Blockly.Lua.variableDB_.getName(block.getFieldValue('NAME'),
       Blockly.Procedures.NAME_TYPE);
   var args = [];
   for (var x = 0; x < block.arguments_.length; x++) {

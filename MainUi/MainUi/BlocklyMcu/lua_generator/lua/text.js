@@ -30,7 +30,7 @@ goog.require('Blockly.Lua');
 
 Blockly.Lua['text'] = function(block) {
   // Text value.
-  var code = Blockly.Lua.quote_(block.getTitleValue('TEXT'));
+  var code = Blockly.Lua.quote_(block.getFieldValue('TEXT'));
   return [code, Blockly.Lua.ORDER_ATOMIC];
 };
 
@@ -64,7 +64,7 @@ Blockly.Lua['text_join'] = function(block) {
 
 Blockly.Lua['text_append'] = function(block) {
   // Append to a variable in place.
-  var varName = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR'),
+  var varName = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Lua.valueToCode(block, 'TEXT',
       Blockly.Lua.ORDER_NONE) || '\'\'';
@@ -92,7 +92,7 @@ Blockly.Lua['text_indexOf'] = function(block) {
       Blockly.Lua.ORDER_NONE) || '\'\'';
   var str = Blockly.Lua.valueToCode(block, 'VALUE',
       Blockly.Lua.ORDER_HIGH) || '\'\'';
-  if (block.getTitleValue('END') == 'FIRST') {
+  if (block.getFieldValue('END') == 'FIRST') {
     var functionName = Blockly.Lua.provideFunction_(
         'firstIndexOf',
         ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ + '(str, substr) ',
@@ -122,7 +122,7 @@ Blockly.Lua['text_indexOf'] = function(block) {
 Blockly.Lua['text_charAt'] = function(block) {
   // Get letter at index.
   // Note: Until January 2013 this block did not have the WHERE input.
-  var where = block.getTitleValue('WHERE') || 'FROM_START';
+  var where = block.getFieldValue('WHERE') || 'FROM_START';
   var text = Blockly.Lua.valueToCode(block, 'VALUE',
       Blockly.Lua.ORDER_HIGH) || '\'\'';
   if (where == 'RANDOM') {
@@ -160,7 +160,7 @@ Blockly.Lua['text_getSubstring'] = function(block) {
       Blockly.Lua.ORDER_HIGH) || '\'\'';
 
   // Get start index.
-  var where1 = block.getTitleValue('WHERE1');
+  var where1 = block.getFieldValue('WHERE1');
   var at1 = Blockly.Lua.valueToCode(block, 'AT1',
       Blockly.Lua.ORDER_ADDITIVE) || '1';
   if (where1 == 'FIRST') {
@@ -174,7 +174,7 @@ Blockly.Lua['text_getSubstring'] = function(block) {
   }
 
   // Get end index.
-  var where2 = block.getTitleValue('WHERE2');
+  var where2 = block.getFieldValue('WHERE2');
   var at2 = Blockly.Lua.valueToCode(block, 'AT2',
       Blockly.Lua.ORDER_ADDITIVE) || '1';
   if (where2 == 'LAST') {
@@ -192,7 +192,7 @@ Blockly.Lua['text_getSubstring'] = function(block) {
 
 Blockly.Lua['text_changeCase'] = function(block) {
   // Change capitalization.
-  var operator = block.getTitleValue('CASE');
+  var operator = block.getFieldValue('CASE');
   var argument0 = Blockly.Lua.valueToCode(block, 'TEXT',
       Blockly.Lua.ORDER_HIGH) || '\'\'';
   if (operator == 'UPPERCASE') {
@@ -234,7 +234,7 @@ Blockly.Lua['text_trim'] = function(block) {
     RIGHT: '(.-)%s*$',
     BOTH: '^%s*(.-)%s*$'
   };
-  var operator = OPERATORS[block.getTitleValue('MODE')];
+  var operator = OPERATORS[block.getFieldValue('MODE')];
   var text = Blockly.Lua.valueToCode(block, 'TEXT',
       Blockly.Lua.ORDER_HIGH) || '\'\'';
   var code = 'string.gsub(' + text + ', "' + operator + '", "%1")';
@@ -258,7 +258,7 @@ Blockly.Lua['text_prompt'] = function(block) {
        '  io.flush()',
        '  return io.read()',
        'end']);
-  var msg = Blockly.Lua.quote_(block.getTitleValue('TEXT'));
+  var msg = Blockly.Lua.quote_(block.getFieldValue('TEXT'));
   var code = functionName + '(' + msg + ')';
   return [code, Blockly.Lua.ORDER_HIGH];
 };

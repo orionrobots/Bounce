@@ -34,7 +34,7 @@ goog.require('Blockly.Lua');
 
 Blockly.Lua['variables_get'] = function(block) {
   // Variable getter.
-  var code = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR'),
+  var code = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   return [code, Blockly.Lua.ORDER_ATOMIC];
 };
@@ -43,7 +43,7 @@ Blockly.Lua['variables_set'] = function(block) {
   // Variable setter.
   var argument0 = Blockly.Lua.valueToCode(block, 'VALUE',
       Blockly.Lua.ORDER_NONE) || '0';
-  var varName = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR'),
+  var varName = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
   return varName + ' = ' + argument0 + '\n';
 };
@@ -55,9 +55,9 @@ Blockly.Lua['variables_set_two'] = function(block) {
   // changing to the Lua tab.
   var value = Blockly.Lua.valueToCode(block, 'VALUE',
       Blockly.Lua.ORDER_NONE) || 'nil, nil';
-  var varName1 = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR1'),
+  var varName1 = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR1'),
       Blockly.Variables.NAME_TYPE);
-  var varName2 = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR2'),
+  var varName2 = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR2'),
       Blockly.Variables.NAME_TYPE);
   return varName1 + ', ' + varName2 + ' = ' + value + '\n';
 };
@@ -69,11 +69,11 @@ Blockly.Lua['variables_set_three'] = function(block) {
   // changing to the Lua tab.
   var value = Blockly.Lua.valueToCode(block, 'VALUE',
       Blockly.Lua.ORDER_NONE) || 'nil, nil, nil';
-  var varName1 = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR1'),
+  var varName1 = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR1'),
       Blockly.Variables.NAME_TYPE);
-  var varName2 = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR2'),
+  var varName2 = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR2'),
       Blockly.Variables.NAME_TYPE);
-  var varName3 = Blockly.Lua.variableDB_.getName(block.getTitleValue('VAR3'),
+  var varName3 = Blockly.Lua.variableDB_.getName(block.getFieldValue('VAR3'),
       Blockly.Variables.NAME_TYPE);
   return varName1 + ', ' + varName2 + ', ' + varName3 + ' = ' + value + '\n';
 };

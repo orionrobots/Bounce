@@ -28,7 +28,7 @@
         }
         var console = {warnings:[]};
         var workspace;
-        console.warn = function (stuff) { console.warnings.push(stuff); };
+        console.warn = function (stuff) { alert(stuff); console.warnings.push(stuff); };
  
         function get_warnings() {
             return console.warnings;

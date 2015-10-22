@@ -30,7 +30,7 @@ goog.require('Blockly.Lua');
 
 Blockly.Lua['controls_repeat'] = function(block) {
   // Repeat n times (internal number).
-  var repeats = parseInt(block.getTitleValue('TIMES'), 10);
+  var repeats = parseInt(block.getFieldValue('TIMES'), 10);
   var branch = Blockly.Lua.statementToCode(block, 'DO') || '';
   var loopVar = Blockly.Lua.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
@@ -57,12 +57,12 @@ Blockly.Lua['controls_repeat_ext'] = function(block) {
 
 Blockly.Lua['controls_whileUntil'] = function(block) {
   // Do while/until loop.
-  var until = block.getTitleValue('MODE') == 'UNTIL';
+  var until = block.getFieldValue('MODE') == 'UNTIL';
   var argument0 = Blockly.Lua.valueToCode(block, 'BOOL',
       until ? Blockly.Lua.ORDER_UNARY :
       Blockly.Lua.ORDER_NONE) || 'False';
   var branch = Blockly.Lua.statementToCode(block, 'DO') || '\n';
-  if (block.getTitleValue('MODE') == 'UNTIL') {
+  if (block.getFieldValue('MODE') == 'UNTIL') {
     if (!argument0.match(/^\w+$/)) {
       argument0 = '(' + argument0 + ')';
     }
@@ -74,7 +74,7 @@ Blockly.Lua['controls_whileUntil'] = function(block) {
 Blockly.Lua['controls_for'] = function(block) {
   // For loop.
   var variable0 = Blockly.Lua.variableDB_.getName(
-      block.getTitleValue('VAR'), Blockly.Variables.NAME_TYPE);
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Lua.valueToCode(block, 'FROM',
       Blockly.Lua.ORDER_NONE) || '0';
   var argument1 = Blockly.Lua.valueToCode(block, 'TO',
@@ -95,7 +95,7 @@ Blockly.Lua['controls_for'] = function(block) {
 Blockly.Lua['controls_forEach'] = function(block) {
   // For each loop.
   var variable0 = Blockly.Lua.variableDB_.getName(
-      block.getTitleValue('VAR'), Blockly.Variables.NAME_TYPE);
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.Lua.valueToCode(block, 'LIST',
       Blockly.Lua.ORDER_RELATIONAL) || '[]';
   var branch = Blockly.Lua.statementToCode(block, 'DO') || '\n';
