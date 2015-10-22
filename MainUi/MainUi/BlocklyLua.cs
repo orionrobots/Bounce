@@ -32,8 +32,8 @@ namespace MainUi
         public string GetCode()
         {
             // This will get the lua code to send to our device.
-            _br.Document.InvokeScript("do_boo");
-            return _br.Document.GetElementById("code").InnerText;
+            var code = _br.Document.InvokeScript("get_code");
+            return code.ToString();
         }
     }
 }

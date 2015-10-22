@@ -71,6 +71,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="BlocklyMcu\BuildCombined.py" />
     <None Include="BlocklyMcu\google-blockly-17ead47\.jshintignore" />
     <None Include="BlocklyMcu\google-blockly-17ead47\appengine\app.yaml" />
     <None Include="BlocklyMcu\google-blockly-17ead47\appengine\index.yaml" />
@@ -202,6 +203,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlocklyMcu\lua_generator\lua.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="BlocklyMcu\blocklyLua.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -540,6 +544,30 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="BlocklyMcu\jquery-1.11.3.min.js" />
+    <Content Include="BlocklyMcu\lua_generator\lua\colour.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\lists.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\logic.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\loops.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\math.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\procedures.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\text.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BlocklyMcu\lua_generator\lua\variables.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="emptyOutput.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

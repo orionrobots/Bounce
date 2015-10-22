@@ -8,6 +8,17 @@
     <script src="jquery-1.11.3.js"></script>
     <script src="google-blockly-17ead47/blockly_compressed.js"></script>
     <script src="google-blockly-17ead47/blocks_compressed.js"></script>
+    
+    <script src="lua_generator/lua.js"></script>
+    <script src="lua_generator/lua/logic.js"></script>
+    <script src="lua_generator/lua/loops.js"></script>
+    <script src="lua_generator/lua/math.js"></script>
+    <script src="lua_generator/lua/text.js"></script>
+    <script src="lua_generator/lua/lists.js"></script>
+    <script src="lua_generator/lua/colour.js"></script>
+    <script src="lua_generator/lua/variables.js"></script>
+    <script src="lua_generator/lua/procedures.js"></script>
+
     <script src="google-blockly-17ead47/javascript_compressed.js"></script> <!-- TODO: Replace with lua generator -->
     <script src="google-blockly-17ead47/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
@@ -15,13 +26,25 @@
         function do_boo() {
             $("#code").innerHTML = "Boo!";
         }
+        var console = {warnings:[]};
+        var workspace;
+        console.warn = function (stuff) { console.warnings.push(stuff); };
+ 
+        function get_warnings() {
+            return console.warnings;
+        }
 
+        function get_code() {
+            return Blockly.Lua.workspaceToCode(workspace);
+        }
         $(function () {
             var blocklyDiv = document.getElementById('blocklyDiv');
 
-            var workspace = Blockly.inject(blocklyDiv,
+            workspace = Blockly.inject(blocklyDiv,
                 { toolbox: document.getElementById('toolbox') });
         });
+
+
     </script>
 
     <style>
