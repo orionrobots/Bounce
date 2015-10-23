@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,26 +18,35 @@ namespace MainUi
         // Printing?
     class BlocklyLua
     {
-        private WebBrowser _br;
-        public BlocklyLua(WebBrowser br)
+        private IBrowser _br;
+        public BlocklyLua(ChromiumWebBrowser br)
         {
-            _br = br;   
-            loadPage();
+            _br = br.GetBrowser();   
         }
 
-        private void loadPage()
+        public static Uri GetAddress()
         {
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
-            _br.Navigate(Path.Combine(appDir, "BlocklyMcu", "blocklyLua.html"));
+            return new Uri(Path.Combine(appDir, "BlocklyMcu", "blocklyLua.html"));
+        }
+        
+        public async Task<string> GetCode()
+        {
+            // This will get the lua code to send to our device.   
+            JavascriptResponse r = await _br.MainFrame.EvaluateScriptAsync("Blockly.Lua.workspaceToCode(workspace);");
+            if(! r.Success )
+            {
+                throw new OperationCanceledException(r.Message);
+            }
+            return r.Result.ToString();
         }
 
-        public string GetCode()
+        public async Task SaveDocument(Stream output)
         {
-            // This will get the lua code to send to our device.
-            var code = _br.Document.InvokeScript("get_code");
-            var warnings = _br.Document.InvokeScript("get_warnings");
-            
-            return code.ToString();
+            JavascriptResponse r = await _br.FocusedFrame.EvaluateScriptAsync("export_document();");
+            var sw = new StreamWriter(output);
+            sw.Write(r.Result.ToString());
+            sw.Flush();
         }
     }
 }
