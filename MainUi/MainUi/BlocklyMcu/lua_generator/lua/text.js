@@ -86,6 +86,16 @@ Blockly.Lua['text_isEmpty'] = function(block) {
   return [code, Blockly.Lua.ORDER_RELATIONAL];
 };
 
+Blockly.Lua['text_rep'] = function (block) {
+    // Repeat string
+    var text = Blockly.Lua.valueToCode(block, 'TEXT',
+        Blockly.Lua.ORDER_ATOMIC) || '\'\'';
+    var count = Blockly.Lua.valueToCode(block, 'COUNT',
+        Blockly.Lua.ORDER_ATOMIC) || '0';
+    var code = text + ':rep(' + count + ')';
+    return [code, Blockly.Lua.ORDER_RELATIONAL];
+}
+
 Blockly.Lua['text_indexOf'] = function(block) {
   // Search the text for a substring (case-sensitive).
   var substr = Blockly.Lua.valueToCode(block, 'FIND',
