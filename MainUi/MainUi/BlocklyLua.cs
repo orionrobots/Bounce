@@ -19,9 +19,11 @@ namespace MainUi
     class BlocklyLua
     {
         private IBrowser _br;
+        
+
         public BlocklyLua(ChromiumWebBrowser br)
         {
-            _br = br.GetBrowser();   
+            _br = br.GetBrowser();
         }
 
         public static Uri GetAddress()
@@ -47,6 +49,11 @@ namespace MainUi
             var sw = new StreamWriter(output);
             sw.Write(r.Result.ToString());
             sw.Flush();
+        }
+
+        internal void InitiateLoad()
+        {
+            _br.FocusedFrame.EvaluateScriptAsync("load_document();");
         }
     }
 }

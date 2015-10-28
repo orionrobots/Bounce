@@ -93,8 +93,9 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // communicateToolStripMenuItem
             // 

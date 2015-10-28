@@ -13,13 +13,73 @@ namespace MainUi
         private BlocklyLua lua_control;
         private ChromiumWebBrowser codeBrowser;
         private OutputConsole con;
-        
+
+        public class DialogState
+        {
+            public DialogResult result;
+            public FileDialog dialog;
+ 
+            public void ThreadProcShowDialog()
+            {
+                result = dialog.ShowDialog();
+            }
+        }
+
+        public class FileSystem
+        {
+            private OpenFileDialog openDialog;
+            private SaveFileDialog saveDialog;
+            public FileSystem(OpenFileDialog openDialog, SaveFileDialog saveDialog)
+            {
+                this.openDialog = openDialog;
+                this.saveDialog = saveDialog;
+            }
+
+            /* STAShowDialog takes a FileDialog and shows it on a background STA thread and returns the results.
+             * Usage:
+             *   OpenFileDialog d = new OpenFileDialog();
+             *   DialogResult ret = STAShowDialog(d);
+             *   if (ret == DialogResult.OK)
+             *      MessageBox.Show(d.FileName);
+             */
+            private DialogResult STAShowDialog(FileDialog dialog)
+            {
+                DialogState state = new DialogState();
+                state.dialog = dialog;
+                System.Threading.Thread t = new System.Threading.Thread(state.ThreadProcShowDialog);
+                t.SetApartmentState(System.Threading.ApartmentState.STA);
+                t.Start();
+                t.Join();
+                return state.result;
+            }
+
+            public string LoadFile()
+            {
+                string data;
+                if (STAShowDialog(openDialog) == DialogResult.OK)
+                {
+                    using (StreamReader reader = new StreamReader(openDialog.OpenFile()))
+                    {
+                        data = reader.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    data = "not loaded";
+                }
+                return data;
+            }
+
+            public void SaveFile(string data) { throw new NotImplementedException(); }
+        }
+
         public Form1()
         {
             InitializeComponent();
             Cef.Initialize();
 
             codeBrowser = new ChromiumWebBrowser(BlocklyLua.GetAddress().ToString());
+            codeBrowser.RegisterJsObject("FileSystem", new FileSystem(openFileDialog1, saveFileDialog1));
             Debug.WriteLine(BlocklyLua.GetAddress());
             codeBrowser.Dock = DockStyle.Fill;
             this.splitContainer1.Panel1.Controls.Add(codeBrowser);
@@ -79,6 +139,11 @@ namespace MainUi
         private void showWebConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeBrowser.ShowDevTools();
+        }
+
+        private async void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lua_control.InitiateLoad();  
         }
     }
 }

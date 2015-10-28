@@ -262,6 +262,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlocklyMcu\BlocklyLua.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="BlocklyMcu\closure-library\.gitignore" />
     <Content Include="BlocklyMcu\closure-library\alltests.js" />
     <Content Include="BlocklyMcu\closure-library\all_tests.html" />

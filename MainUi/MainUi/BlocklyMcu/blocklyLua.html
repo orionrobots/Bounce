@@ -21,13 +21,24 @@
     <script src="google-blockly-17ead47/javascript_compressed.js"></script> <!-- TODO: Replace with lua generator -->
     <script src="google-blockly-17ead47/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
+    <script>
+        goog.require('goog.dom');
+    </script>
+    <!-- <script src="BlocklyLua.js"></script> -->
     <script type="text/javascript">
         var workspace;
 
         function export_document() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
+            
             var xml_text = Blockly.Xml.domToPrettyText(xml);
             return xml_text;
+        }
+
+        function load_document() {
+            var text = FileSystem.loadFile();
+            var xml = Blockly.Xml.textToDom(text);
+            Blockly.Xml.domToWorkspace(workspace, xml);
         }
 
         $(function () {
@@ -35,6 +46,7 @@
 
             workspace = Blockly.inject(blocklyDiv,
                 { toolbox: document.getElementById('toolbox') });
+            //blocklylua.ide.makeMenu();
         });
     </script>
 
@@ -45,6 +57,8 @@
     </style>
 </head>
 <body>
+    <div id="menu">
+    </div>
     <div id="blocklyDiv" style="width: 100%; height: 100%;"></div>
     <xml id="toolbox" style="display: none">
         <category name="Core">
