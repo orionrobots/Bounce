@@ -96,6 +96,11 @@ namespace MainUi
             SendTestCmd(_port);
         }
 
+        public void run_code(string code)
+        {
+            _port.WriteLine(code);
+        }
+
         private void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             _console.Write(_port.ReadExisting());   

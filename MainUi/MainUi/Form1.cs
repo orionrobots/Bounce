@@ -13,6 +13,7 @@ namespace MainUi
         private BlocklyLua lua_control;
         private ChromiumWebBrowser codeBrowser;
         private OutputConsole con;
+        private NodeMCU connection;
 
         public class DialogState
         {
@@ -100,13 +101,14 @@ namespace MainUi
         private void connectButton_Click(object sender, EventArgs e)
         {
             string node_port = (string)toolStripNodes.SelectedItem;
-            NodeMCU connection = new NodeMCU(node_port, con);
+            connection = new NodeMCU(node_port, con);
         }
 
         private async void runButton_ButtonClick(object sender, EventArgs e)
         {
             var code = await lua_control.GetCode();
             con.WriteLine(code);
+            connection.run_code(code);
         }
 
         private void outputBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
