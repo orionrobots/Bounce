@@ -12,6 +12,11 @@
         this.setHelpUrl('http://www.example.com/');
     }
 };
+
+Blockly.Lua['pin_write'] = {
+
+};
+
 Blockly.Blocks['pin_write'] = {
     init: function () {
         this.appendValueInput("pin")
@@ -29,6 +34,8 @@ Blockly.Blocks['pin_write'] = {
     }
 };
 
+
+
 Blockly.Blocks['tmr_alarm'] = {
     init: function() {
         this.appendValueInput("timer")
@@ -43,6 +50,24 @@ Blockly.Blocks['tmr_alarm'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setColour(60);
+        this.setTooltip('');
+        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Blocks['text_rep'] = {
+    init: function () {
+        this.appendValueInput("TEXT")
+            .setCheck("String")
+            .appendField("repeat text");
+        this.appendValueInput("COUNT")
+            .setCheck("Number")
+            .appendField("for");
+        this.appendDummyInput()
+            .appendField("times");
+        this.setInputsInline(true);
+        this.setOutput(true, "String");
+        this.setColour(160);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
