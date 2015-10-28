@@ -100,13 +100,34 @@ namespace MainUi
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            string node_port = (string)toolStripNodes.SelectedItem;
-            connection = new NodeMCU(node_port, con);
+            if (connection == null)
+            {
+                string node_port = (string)toolStripNodes.SelectedItem;
+                connection = new NodeMCU(node_port, con);
+                connectButton.Text = "--Connected--";
+                connectButton.ToolTipText = "Click to disconnect";
+                toolStripNodes.Enabled = false;
+            } else
+            {
+                connection.Close();
+                connection = null;
+                connectButton.Text = "Connect";
+                connectButton.ToolTipText = "Click to connect";
+                toolStripNodes.Enabled = true;
+            }
         }
 
         private async void runButton_ButtonClick(object sender, EventArgs e)
         {
-            var code = await lua_control.GetCode();
+            string code;
+            try
+            {
+                code = await lua_control.GetCode();
+            } catch(System.OperationCanceledException err)
+            {
+                Console.WriteLine("An error has occured reading the code");
+                return;
+            }
             con.WriteLine(code);
             connection.run_code(code);
         }
@@ -150,6 +171,11 @@ namespace MainUi
         }
 
         private void toolStripNodes_Click(object sender, EventArgs e)
+        {
+            connectButton.Enabled = toolStripNodes.SelectedItem != null;
+        }
+
+        private void toolStripNodes_OwnerChanged(object sender, EventArgs e)
         {
             connectButton.Enabled = toolStripNodes.SelectedItem != null;
         }

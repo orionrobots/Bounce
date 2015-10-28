@@ -220,7 +220,7 @@
             // makeStartupToolStripMenuItem
             // 
             this.makeStartupToolStripMenuItem.Name = "makeStartupToolStripMenuItem";
-            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(203, 30);
             this.makeStartupToolStripMenuItem.Text = "Make Startup";
             // 
             // toolStripNodes
@@ -228,6 +228,7 @@
             this.toolStripNodes.Name = "toolStripNodes";
             this.toolStripNodes.Size = new System.Drawing.Size(121, 133);
             this.toolStripNodes.Click += new System.EventHandler(this.toolStripNodes_Click);
+            this.toolStripNodes.OwnerChanged += new System.EventHandler(this.toolStripNodes_OwnerChanged);
             // 
             // findNodesButton
             // 

@@ -98,7 +98,10 @@ namespace MainUi
 
         public void run_code(string code)
         {
-            _port.WriteLine(code);
+            foreach (string line in code.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None))
+            {
+                _port.WriteLine(line);
+            }
         }
 
         private void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
