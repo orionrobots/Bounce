@@ -57,11 +57,10 @@ namespace MainUi
             foreach (var name in names)
             {
                 // Try finding NodeMCU at 9600 Baud.
-                string test_cmd = "print(node.heap())\n";
                 SerialPort _port = new SerialPortWithDescription(names[0], 9600);
                 output.WriteLine(_port.BaudRate);
                 _port.Open();
-                _port.WriteLine(test_cmd);
+                SendTestCmd(_port);
                 Thread.Sleep(300); // chance to respond.
                 output.WriteLine("Response was:");
                 string response = _port.ReadExisting();
@@ -78,6 +77,33 @@ namespace MainUi
                 _port.Close();
             }
             return valid_list;
+        }
+
+        public static void SendTestCmd(SerialPort port)
+        {
+            string test_cmd = "print(node.heap())\n";
+            port.WriteLine(test_cmd);
+        }
+
+        private SerialPort _port;
+        private OutputConsole _console;
+        public NodeMCU(string portName, OutputConsole console)
+        {
+            _port = new SerialPort(portName, 9600);
+            _console = console;
+            _port.Open();
+            _port.DataReceived += _port_DataReceived;
+            SendTestCmd(_port);
+        }
+
+        private void _port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            _console.Write(_port.ReadExisting());   
+        }
+
+        public void Close()
+        {
+            _port.Close();
         }
     }
 

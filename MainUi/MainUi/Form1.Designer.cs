@@ -37,6 +37,8 @@
             this.communicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showWebConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -47,9 +49,8 @@
             this.runButton = new System.Windows.Forms.ToolStripSplitButton();
             this.makeStartupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripNodes = new System.Windows.Forms.ToolStripComboBox();
+            this.findNodesButton = new System.Windows.Forms.ToolStripButton();
             this.outputBrowser = new System.Windows.Forms.WebBrowser();
-            this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showWebConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -85,6 +86,7 @@
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
             this.saveToolStripMenuItem.Text = "Save";
@@ -92,8 +94,9 @@
             // 
             // loadToolStripMenuItem
             // 
+            this.loadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadToolStripMenuItem.Image")));
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(136, 30);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -117,6 +120,21 @@
             this.alwaysRunToolStripMenuItem.Name = "alwaysRunToolStripMenuItem";
             this.alwaysRunToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.alwaysRunToolStripMenuItem.Text = "Always Run";
+            // 
+            // debugToolStripMenuItem
+            // 
+            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showWebConsoleToolStripMenuItem});
+            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(78, 29);
+            this.debugToolStripMenuItem.Text = "Debug";
+            // 
+            // showWebConsoleToolStripMenuItem
+            // 
+            this.showWebConsoleToolStripMenuItem.Name = "showWebConsoleToolStripMenuItem";
+            this.showWebConsoleToolStripMenuItem.Size = new System.Drawing.Size(249, 30);
+            this.showWebConsoleToolStripMenuItem.Text = "Show Web console";
+            this.showWebConsoleToolStripMenuItem.Click += new System.EventHandler(this.showWebConsoleToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -168,7 +186,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectButton,
             this.runButton,
-            this.toolStripNodes});
+            this.toolStripNodes,
+            this.findNodesButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(690, 133);
@@ -177,6 +196,7 @@
             // 
             // connectButton
             // 
+            this.connectButton.Enabled = false;
             this.connectButton.Image = ((System.Drawing.Image)(resources.GetObject("connectButton.Image")));
             this.connectButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.connectButton.Name = "connectButton";
@@ -200,13 +220,23 @@
             // makeStartupToolStripMenuItem
             // 
             this.makeStartupToolStripMenuItem.Name = "makeStartupToolStripMenuItem";
-            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(203, 30);
+            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.makeStartupToolStripMenuItem.Text = "Make Startup";
             // 
             // toolStripNodes
             // 
             this.toolStripNodes.Name = "toolStripNodes";
             this.toolStripNodes.Size = new System.Drawing.Size(121, 133);
+            this.toolStripNodes.Click += new System.EventHandler(this.toolStripNodes_Click);
+            // 
+            // findNodesButton
+            // 
+            this.findNodesButton.Image = ((System.Drawing.Image)(resources.GetObject("findNodesButton.Image")));
+            this.findNodesButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.findNodesButton.Name = "findNodesButton";
+            this.findNodesButton.Size = new System.Drawing.Size(131, 130);
+            this.findNodesButton.Text = "Find Nodes";
+            this.findNodesButton.Click += new System.EventHandler(this.findNodesButton_Click);
             // 
             // outputBrowser
             // 
@@ -222,21 +252,6 @@
             this.outputBrowser.WebBrowserShortcutsEnabled = false;
             this.outputBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.outputBrowser_DocumentCompleted);
             // 
-            // debugToolStripMenuItem
-            // 
-            this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showWebConsoleToolStripMenuItem});
-            this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(78, 29);
-            this.debugToolStripMenuItem.Text = "Debug";
-            // 
-            // showWebConsoleToolStripMenuItem
-            // 
-            this.showWebConsoleToolStripMenuItem.Name = "showWebConsoleToolStripMenuItem";
-            this.showWebConsoleToolStripMenuItem.Size = new System.Drawing.Size(249, 30);
-            this.showWebConsoleToolStripMenuItem.Text = "Show Web console";
-            this.showWebConsoleToolStripMenuItem.Click += new System.EventHandler(this.showWebConsoleToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -247,7 +262,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -287,6 +301,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripNodes;
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showWebConsoleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton findNodesButton;
     }
 }
 

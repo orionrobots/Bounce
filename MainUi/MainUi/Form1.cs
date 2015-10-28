@@ -99,11 +99,8 @@ namespace MainUi
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            var nodes = NodeMCU.find_node(con);
-            foreach (var node in nodes)
-            {
-                toolStripNodes.Items.Add(node.ToString());
-            }
+            string node_port = (string)toolStripNodes.SelectedItem;
+            NodeMCU connection = new NodeMCU(node_port, con);
         }
 
         private async void runButton_ButtonClick(object sender, EventArgs e)
@@ -131,19 +128,28 @@ namespace MainUi
             }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Cef.Shutdown();
-        }
-
         private void showWebConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeBrowser.ShowDevTools();
         }
 
-        private async void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lua_control.InitiateLoad();  
+        }
+
+        private void findNodesButton_Click(object sender, EventArgs e)
+        {
+            var nodes = NodeMCU.find_node(con);
+            foreach (var node in nodes)
+            {
+                toolStripNodes.Items.Add(node.ToString());
+            }
+        }
+
+        private void toolStripNodes_Click(object sender, EventArgs e)
+        {
+            connectButton.Enabled = toolStripNodes.SelectedItem != null;
         }
     }
 }

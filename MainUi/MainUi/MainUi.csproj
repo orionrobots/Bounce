@@ -2717,6 +2717,8 @@
     <Content Include="BlocklyMcu\closure-library\third_party\closure\goog\mochikit\async\deferred_test.html" />
     <Content Include="BlocklyMcu\closure-library\third_party\closure\goog\osapi\osapi.js" />
     <Content Include="BlocklyMcu\closure-library\third_party\closure\goog\svgpan\svgpan.js" />
+    <Content Include="BlocklyMcu\glyphicons-174-play.png" />
+    <Content Include="BlocklyMcu\glyphicons-82-refresh.png" />
     <Content Include="BlocklyMcu\lua_generator\lua.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
