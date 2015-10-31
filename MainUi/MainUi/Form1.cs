@@ -129,7 +129,10 @@ namespace MainUi
                 return;
             }
             con.WriteLine(code);
-            connection.run_code(code);
+            if (connection != null)
+            {
+                connection.run_code(code);
+            }
         }
 
         private void outputBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
