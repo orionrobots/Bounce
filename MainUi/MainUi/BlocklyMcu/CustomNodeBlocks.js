@@ -69,6 +69,21 @@ Blockly.Blocks['pin_read'] = {
     }
 };
 
+Blockly.Lua['analog_read'] = function (block) {
+    // Analog pin is fixed on the esp.
+    var code = "adc.read(0)";
+    return [code, Blockly.Lua.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Blocks['analog_read'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField('Read analog');
+        this.setOutput(true);
+        this.setColour(20);
+    }
+};
+
 Blockly.Lua['tmr_alarm'] = function (block) {
     // Repeat string
     var timer = Blockly.Lua.valueToCode(block, 'timer',
