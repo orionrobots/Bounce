@@ -98,9 +98,10 @@ namespace MainUi
 
         public void run_code(string code)
         {
-            foreach (string line in code.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None))
+            foreach (string line in code.Split(new string[] { System.Environment.NewLine, "\n" }, StringSplitOptions.None))
             {
                 _port.WriteLine(line);
+                Thread.Sleep(300);
             }
         }
 

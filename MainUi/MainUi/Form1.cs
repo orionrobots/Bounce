@@ -120,6 +120,7 @@ namespace MainUi
         private async void runButton_ButtonClick(object sender, EventArgs e)
         {
             string code;
+            runButton.Enabled = false;
             try
             {
                 code = await lua_control.GetCode();
@@ -133,6 +134,7 @@ namespace MainUi
             {
                 connection.run_code(code);
             }
+            runButton.Enabled = true;
         }
 
         private void outputBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

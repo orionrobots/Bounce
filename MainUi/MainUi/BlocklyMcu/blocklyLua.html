@@ -364,9 +364,27 @@
         <sep></sep>
         <category name="NodeMCU">
             <category name="io" colour="20">
-                <block type="pin_mode"></block>
-                <block type="pin_read"></block>
-                <block type="pin_write"></block>
+                <block type="pin_mode">
+                    <value name="pin">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>                        
+                    </value>
+                </block>
+                <block type="pin_read">
+                    <value name="pin">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="pin_write">
+                    <value name="pin">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
                 <block type="pin_when_changed"></block>
             </category>
             <category name="timers" colour="60">
