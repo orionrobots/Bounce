@@ -1,0 +1,27 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="tmr_alarm" x="56" y="68">
+    <field name="repeat">1</field>
+    <value name="timer">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <value name="interval">
+      <block type="math_number">
+        <field name="NUM">500</field>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+          <block type="text">
+            <field name="TEXT">alarm</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>

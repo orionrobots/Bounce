@@ -1,0 +1,22 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="variables_set" x="52" y="27">
+    <field name="VAR">item</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <next>
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+          <block type="variables_get">
+            <field name="VAR">item</field>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml>
