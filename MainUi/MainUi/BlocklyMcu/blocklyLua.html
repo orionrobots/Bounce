@@ -363,15 +363,19 @@
         </category>
         <sep></sep>
         <category name="NodeMCU">
-            <category name="io" colour="20">
-                <block type="pin_mode">
+            <category name="input" colour="20">
+                <block type="pin_read">
                     <value name="pin">
                         <block type="math_number">
                             <field name="NUM">0</field>
-                        </block>                        
+                        </block>
                     </value>
                 </block>
-                <block type="pin_read">
+                <block type="pin_when_changed"></block>
+                <block type="analog_read"></block>
+            </category>
+            <category name="output" colour="20">
+                <block type="pin_mode">
                     <value name="pin">
                         <block type="math_number">
                             <field name="NUM">0</field>
@@ -385,13 +389,23 @@
                         </block>
                     </value>
                 </block>
-                <block type="pin_when_changed"></block>
-                <block type="analog_read"></block>
             </category>
             <category name="timers" colour="60">
                 <block type="tmr_delay"></block>
                 <block type="tmr_now"></block>
-                <block type="tmr_alarm"></block>
+                <block type="tmr_alarm">
+                    <value name="timer">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                    <value name="interval">
+                        <block type="math_number">
+                            <field name="NUM">500</field>
+                        </block>
+                    </value>
+
+                </block>
                 <block type="tmr_stop"></block>
                 <block type="tmr_wdclr"></block>
                 <block type="tmr_time"></block>

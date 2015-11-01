@@ -14,9 +14,6 @@
     <statement name="DO">
       <block type="text_print">
         <value name="TEXT">
-          <shadow type="text">
-            <field name="TEXT">abc</field>
-          </shadow>
           <block type="text">
             <field name="TEXT">alarm</field>
           </block>
