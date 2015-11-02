@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace MainUi
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         private BlocklyLua lua_control;
         private ChromiumWebBrowser codeBrowser;
@@ -74,7 +74,7 @@ namespace MainUi
             public void SaveFile(string data) { throw new NotImplementedException(); }
         }
 
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
             Cef.Initialize();
