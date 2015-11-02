@@ -185,5 +185,10 @@ namespace MainUi
         {
             connectButton.Enabled = toolStripNodes.SelectedItem != null;
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lua_control.NewDocument();
+        }
     }
 }

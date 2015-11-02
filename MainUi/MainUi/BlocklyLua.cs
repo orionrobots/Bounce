@@ -57,7 +57,12 @@ namespace MainUi
         public void LoadDocument(string text)
         {
             LoadedData = text;
-            _br.FocusedFrame.EvaluateScriptAsync("load_document(blocklyLua.loadedData)");            
+            _br.FocusedFrame.EvaluateScriptAsync("new_document(); load_document(blocklyLua.loadedData)");            
+        }
+
+        internal void NewDocument()
+        {
+            _br.FocusedFrame.EvaluateScriptAsync("new_document();");
         }
     }
 }

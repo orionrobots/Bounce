@@ -27,7 +27,7 @@
     <!-- <script src="BlocklyLua.js"></script> -->
     <script type="text/javascript">
         var workspace;
-
+        var blocklyDiv;
         function export_document() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
             
@@ -40,9 +40,12 @@
             Blockly.Xml.domToWorkspace(workspace, xml);
         }
 
-        $(function () {
-            var blocklyDiv = document.getElementById('blocklyDiv');
+        function new_document() {
+            Blockly.mainWorkspace.clear();
+        }
 
+        $(function () {
+            blocklyDiv = document.getElementById('blocklyDiv');
             workspace = Blockly.inject(blocklyDiv,
                 { toolbox: document.getElementById('toolbox') });
             //blocklylua.ide.makeMenu();
