@@ -25,7 +25,7 @@ namespace MainUi
         public static Uri GetAddress()
         {
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
-            return new Uri(Path.Combine(appDir, "BlocklyMcu", "blocklyLua.html"));
+            return new Uri(Path.Combine(appDir, "Bounce", "blocklyLua.html"));
         }
         
         public async Task<string> GetCode()
