@@ -35,8 +35,7 @@
             return xml_text;
         }
 
-        function load_document() {
-            var text = FileSystem.loadFile();
+        function load_document(text) {
             var xml = Blockly.Xml.textToDom(text);
             Blockly.Xml.domToWorkspace(workspace, xml);
         }

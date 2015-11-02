@@ -14,88 +14,80 @@ namespace MainUi
         private ChromiumWebBrowser codeBrowser;
         private OutputConsole con;
         private NodeMCU connection;
-
-        public class DialogState
-        {
-            public DialogResult result;
-            public FileDialog dialog;
- 
-            public void ThreadProcShowDialog()
-            {
-                result = dialog.ShowDialog();
-            }
-        }
-
-        public class FileSystem
-        {
-            private OpenFileDialog openDialog;
-            private SaveFileDialog saveDialog;
-            public FileSystem(OpenFileDialog openDialog, SaveFileDialog saveDialog)
-            {
-                this.openDialog = openDialog;
-                this.saveDialog = saveDialog;
-            }
-
-            /* STAShowDialog takes a FileDialog and shows it on a background STA thread and returns the results.
-             * Usage:
-             *   OpenFileDialog d = new OpenFileDialog();
-             *   DialogResult ret = STAShowDialog(d);
-             *   if (ret == DialogResult.OK)
-             *      MessageBox.Show(d.FileName);
-             */
-            private DialogResult STAShowDialog(FileDialog dialog)
-            {
-                DialogState state = new DialogState();
-                state.dialog = dialog;
-                System.Threading.Thread t = new System.Threading.Thread(state.ThreadProcShowDialog);
-                t.SetApartmentState(System.Threading.ApartmentState.STA);
-                t.Start();
-                t.Join();
-                return state.result;
-            }
-
-            public string LoadFile()
-            {
-                string data;
-                if (STAShowDialog(openDialog) == DialogResult.OK)
-                {
-                    using (StreamReader reader = new StreamReader(openDialog.OpenFile()))
-                    {
-                        data = reader.ReadToEnd();
-                    }
-                }
-                else
-                {
-                    data = "not loaded";
-                }
-                return data;
-            }
-
-            public void SaveFile(string data) { throw new NotImplementedException(); }
-        }
-
+        
         public MainWindow()
         {
             InitializeComponent();
             Cef.Initialize();
 
+            InitialiseCodeBrowser();
+            RestoreSettings();
+            string appDir = Path.GetDirectoryName(Application.ExecutablePath);
+            outputBrowser.Navigate(Path.Combine(appDir, "emptyOutput.html"));
+        }
+
+        private void RestoreSettings()
+        {
+            var recentFiles = Properties.Settings.Default.RecentFiles;
+            if(recentFiles != null && recentFiles.Count > 0) {            
+                recentFilesToolStripMenuItem.DropDownItems.Remove(noRecentFilesToolStripMenuItem);
+                // Read the recent file list
+                foreach (string fileName in Properties.Settings.Default.RecentFiles)
+                {
+                    AddRecentFile(fileName, true);
+                }
+            } else
+            {
+                Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+            }
+
+        }
+
+        private void AddRecentFile(string fileName, bool from_settings=false)
+        {
+
+            if(recentFilesToolStripMenuItem.DropDownItems.Count > 0 && 
+                recentFilesToolStripMenuItem.DropDownItems[0] == noRecentFilesToolStripMenuItem)
+            {
+                recentFilesToolStripMenuItem.DropDownItems.Remove(noRecentFilesToolStripMenuItem);
+            }
+
+            // Make a new menu item - added to the recentFilesToolStripMenuItem
+            ToolStripMenuItem t = new ToolStripMenuItem(fileName);
+            recentFilesToolStripMenuItem.DropDownItems.Insert(0, t);
+            t.Click += T_Click;
+
+            if (!from_settings)
+            {
+                Properties.Settings.Default.RecentFiles.Insert(0, fileName);
+            }
+            if (Properties.Settings.Default.RecentFiles.Count > 10)
+            {
+                Properties.Settings.Default.RecentFiles.RemoveAt(10);
+            }
+            Properties.Settings.Default.Save();
+        }
+
+        private void T_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem t = (ToolStripMenuItem)sender;
+
+            using (StreamReader reader = new StreamReader(t.Text))
+            {
+                lua_control.LoadDocument(reader.ReadToEnd());
+            }
+        }
+
+        private void InitialiseCodeBrowser()
+        {
             codeBrowser = new ChromiumWebBrowser(BlocklyLua.GetAddress().ToString());
-            codeBrowser.RegisterJsObject("FileSystem", new FileSystem(openFileDialog1, saveFileDialog1));
+            lua_control = new BlocklyLua(codeBrowser);
             Debug.WriteLine(BlocklyLua.GetAddress());
             codeBrowser.Dock = DockStyle.Fill;
             this.splitContainer1.Panel1.Controls.Add(codeBrowser);
             codeBrowser.Location = new Point(0, 0);
             codeBrowser.MinimumSize = new Size(20, 20);
             codeBrowser.Size = new Size(690, 571);
-            codeBrowser.IsBrowserInitializedChanged += CodeBrowser_IsBrowserInitializedChanged;
-
-            string appDir = Path.GetDirectoryName(Application.ExecutablePath);
-            outputBrowser.Navigate(Path.Combine(appDir, "emptyOutput.html"));
-        }
-
-        private void CodeBrowser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
-        {
-            lua_control = new BlocklyLua(codeBrowser);
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -153,6 +145,19 @@ namespace MainUi
                 {
                     await lua_control.SaveDocument(myStream);
                 }
+                AddRecentFile(saveFileDialog1.FileName);
+            }
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader reader = new StreamReader(openFileDialog1.OpenFile()))
+                {
+                    lua_control.LoadDocument(reader.ReadToEnd());
+                }
+                AddRecentFile(openFileDialog1.FileName);
             }
         }
 
@@ -161,10 +166,6 @@ namespace MainUi
             codeBrowser.ShowDevTools();
         }
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            lua_control.InitiateLoad();  
-        }
 
         private void findNodesButton_Click(object sender, EventArgs e)
         {

@@ -13,13 +13,20 @@ namespace MainUi
     // Loading
     // Get Lua Code
     // Printing?
-    class BlocklyLua
+    public class BlocklyLua
     {
+        public String LoadedData { get; set; }
+
         private IBrowser _br;
-        
         public BlocklyLua(ChromiumWebBrowser br)
         {
-            _br = br.GetBrowser();
+            br.RegisterJsObject("blocklyLua", this);
+            br.IsBrowserInitializedChanged += Br_IsBrowserInitializedChanged;
+        }
+
+        private void Br_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
+        {
+            _br = ((ChromiumWebBrowser)sender).GetBrowser();
         }
 
         public static Uri GetAddress()
@@ -47,9 +54,10 @@ namespace MainUi
             sw.Flush();
         }
 
-        internal void InitiateLoad()
+        public void LoadDocument(string text)
         {
-            _br.FocusedFrame.EvaluateScriptAsync("load_document();");
+            LoadedData = text;
+            _br.FocusedFrame.EvaluateScriptAsync("load_document(blocklyLua.loadedData)");            
         }
     }
 }

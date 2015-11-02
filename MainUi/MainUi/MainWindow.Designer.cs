@@ -34,6 +34,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.communicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +52,7 @@
             this.toolStripNodes = new System.Windows.Forms.ToolStripComboBox();
             this.findNodesButton = new System.Windows.Forms.ToolStripButton();
             this.outputBrowser = new System.Windows.Forms.WebBrowser();
-            this.recentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,9 +99,17 @@
             // 
             this.loadToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("loadToolStripMenuItem.Image")));
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // recentFilesToolStripMenuItem
+            // 
+            this.recentFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noRecentFilesToolStripMenuItem});
+            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
+            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.recentFilesToolStripMenuItem.Text = "Recent Files";
             // 
             // communicateToolStripMenuItem
             // 
@@ -255,13 +264,14 @@
             this.outputBrowser.WebBrowserShortcutsEnabled = false;
             this.outputBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.outputBrowser_DocumentCompleted);
             // 
-            // recentFilesToolStripMenuItem
+            // noRecentFilesToolStripMenuItem
             // 
-            this.recentFilesToolStripMenuItem.Name = "recentFilesToolStripMenuItem";
-            this.recentFilesToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
-            this.recentFilesToolStripMenuItem.Text = "Recent Files";
+            this.noRecentFilesToolStripMenuItem.Enabled = false;
+            this.noRecentFilesToolStripMenuItem.Name = "noRecentFilesToolStripMenuItem";
+            this.noRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.noRecentFilesToolStripMenuItem.Text = "No recent files";
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -269,7 +279,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "Bounce";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -312,6 +322,7 @@
         private System.Windows.Forms.ToolStripMenuItem showWebConsoleToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton findNodesButton;
         private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noRecentFilesToolStripMenuItem;
     }
 }
 
