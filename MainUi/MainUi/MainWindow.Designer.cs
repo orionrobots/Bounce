@@ -53,6 +53,7 @@
             this.findNodesButton = new System.Windows.Forms.ToolStripButton();
             this.outputBrowser = new System.Windows.Forms.WebBrowser();
             this.noRecentFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -80,6 +81,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.loadToolStripMenuItem,
             this.recentFilesToolStripMenuItem});
@@ -271,6 +273,13 @@
             this.noRecentFilesToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.noRecentFilesToolStripMenuItem.Text = "No recent files";
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.newToolStripMenuItem.Text = "New";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -323,6 +332,7 @@
         private System.Windows.Forms.ToolStripButton findNodesButton;
         private System.Windows.Forms.ToolStripMenuItem recentFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noRecentFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
     }
 }
 
