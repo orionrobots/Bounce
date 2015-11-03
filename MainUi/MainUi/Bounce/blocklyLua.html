@@ -34,21 +34,33 @@
             var xml_text = Blockly.Xml.domToPrettyText(xml);
             return xml_text;
         }
+        var is_preparing = false;
 
         function load_document(text) {
+            is_preparing = true;
             var xml = Blockly.Xml.textToDom(text);
             Blockly.Xml.domToWorkspace(workspace, xml);
         }
 
         function new_document() {
+            is_preparing = true;
             Blockly.mainWorkspace.clear();
+        }
+
+        function changed() {
+            console.log("Workspace changed");
+            if (is_preparing) {
+                is_preparing = false;
+            } else {
+                blocklyLua.notifyDocumentChanged();
+            }
         }
 
         $(function () {
             blocklyDiv = document.getElementById('blocklyDiv');
             workspace = Blockly.inject(blocklyDiv,
                 { toolbox: document.getElementById('toolbox') });
-            //blocklylua.ide.makeMenu();
+            workspace.addChangeListener(changed);
         });
     </script>
 

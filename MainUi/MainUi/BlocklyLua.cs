@@ -16,12 +16,22 @@ namespace MainUi
     public class BlocklyLua
     {
         public String LoadedData { get; set; }
+        public delegate void DocumentChangedHandler(object sender, EventArgs e);
+        public event DocumentChangedHandler DocumentChanged;
 
         private IBrowser _br;
         public BlocklyLua(ChromiumWebBrowser br)
         {
             br.RegisterJsObject("blocklyLua", this);
             br.IsBrowserInitializedChanged += Br_IsBrowserInitializedChanged;
+        }
+
+        // This is for the browser to notify that a change was made
+        public void NotifyDocumentChanged()
+        {
+            if (DocumentChanged == null) return;
+            EventArgs args = new EventArgs();
+            DocumentChanged.Invoke(this, args);
         }
 
         private void Br_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
