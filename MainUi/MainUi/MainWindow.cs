@@ -14,6 +14,7 @@ namespace MainUi
         private ChromiumWebBrowser codeBrowser;
         private OutputConsole con;
         private NodeMCU connection;
+        private string current_document;
         
         public MainWindow()
         {
@@ -76,6 +77,8 @@ namespace MainUi
             {
                 lua_control.LoadDocument(reader.ReadToEnd());
             }
+            current_document = t.Text;
+            setTitle();
         }
 
         private void InitialiseCodeBrowser()
@@ -138,14 +141,10 @@ namespace MainUi
 
         private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Show the save dialog
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            // Save using current name
+            using (Stream myStream = new FileStream(current_document, FileMode.Create))
             {
-                using (Stream myStream = saveFileDialog1.OpenFile())
-                {
-                    await lua_control.SaveDocument(myStream);
-                }
-                AddRecentFile(saveFileDialog1.FileName);
+                await lua_control.SaveDocument(myStream);
             }
         }
 
@@ -158,6 +157,8 @@ namespace MainUi
                     lua_control.LoadDocument(reader.ReadToEnd());
                 }
                 AddRecentFile(openFileDialog1.FileName);
+                current_document = openFileDialog1.FileName;
+                setTitle();
             }
         }
 
@@ -189,6 +190,32 @@ namespace MainUi
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             lua_control.NewDocument();
+            current_document = "";
+            setTitle();
+        }
+
+        private void setTitle()
+        {
+            Text = "Bounce";
+            if(current_document != "")
+            {
+                Text += " - " + current_document;
+            }
+        }
+
+        private async void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Show the save dialog
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (Stream myStream = saveFileDialog1.OpenFile())
+                {
+                    await lua_control.SaveDocument(myStream);
+                }
+                AddRecentFile(saveFileDialog1.FileName);
+                current_document = saveFileDialog1.FileName;
+                setTitle();
+            }
         }
     }
 }
