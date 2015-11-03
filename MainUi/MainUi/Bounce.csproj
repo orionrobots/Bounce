@@ -267,13 +267,13 @@
     <None Include="Bounce\google-blockly-17ead47\msg\json\zh-hant.json" />
     <None Include="Bounce\google-blockly-17ead47\package.json" />
     <None Include="Bounce\google-blockly-17ead47\README.md" />
-    <None Include="Examples\alarm_test.node" />
+    <None Include="Examples\timers.node" />
     <None Include="Examples\blink.node" />
     <None Include="Examples\digital_read_test.node" />
     <None Include="Examples\loops.node" />
     <None Include="Examples\multi_statements.node" />
     <None Include="Examples\pin_write.node" />
-    <None Include="Examples\test.node" />
+    <None Include="Examples\print_hello_world.node" />
     <None Include="Examples\variable_test.node" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
