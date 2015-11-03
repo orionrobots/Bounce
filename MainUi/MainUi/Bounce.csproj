@@ -3208,9 +3208,11 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>setlocal enableextensions
-mkdir "$(TargetDir)\Bounce\closure-library"
-echo xcopy /s /d /y "$(ProjectDir)\Bounce\closure-library\*.*" "$(TargetDir)\Bounce\closure-library"
-xcopy /s /d /y "$(ProjectDir)\Bounce\closure-library" "$(TargetDir)\Bounce\closure-library"</PostBuildEvent>
+mkdir "$(TargetDir)Bounce\closure-library"
+mkdir "$(TargetDir)Bounce\Examples"
+echo xcopy /s /d /y "$(ProjectDir)Bounce\closure-library\*.*" "$(TargetDir)Bounce\closure-library"
+xcopy /s /d /y "$(ProjectDir)Bounce\closure-library" "$(TargetDir)Bounce\closure-library"
+xcopy /s /d /y "$(ProjectDir)Examples" "$(TargetDir)Bounce\Examples"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\cef.redist.x64.3.2357.1287\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2357.1287\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

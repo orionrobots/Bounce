@@ -24,11 +24,11 @@ namespace MainUi
 
             InitialiseCodeBrowser();
             RestoreSettings();
+            SetupExamples();
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
             outputBrowser.Navigate(Path.Combine(appDir, "emptyOutput.html"));
             changed = false;
         }
-
 
         private void InitialiseCodeBrowser()
         {
@@ -79,7 +79,7 @@ namespace MainUi
             try
             {
                 code = await lua_control.GetCode();
-            } catch(System.OperationCanceledException err)
+            } catch(System.OperationCanceledException)
             {
                 Console.WriteLine("An error has occured reading the code");
                 return;
@@ -146,6 +146,35 @@ namespace MainUi
             }
         }
 
+        private class FileItem
+        {
+            public string FilePath;
+
+            public FileItem(string the_path)
+            {
+                FilePath = the_path;
+            }
+
+            public string ToString()
+            {
+                return Path.GetFileNameWithoutExtension(FilePath);
+            }
+        }
+
+        private void SetupExamples()
+        {
+            string appDir = Path.GetDirectoryName(Application.ExecutablePath);
+            string[] examples = Directory.GetFiles(Path.Combine(appDir, "Bounce", "Examples"));
+            foreach (string example_file in examples)
+            {
+                ToolStripMenuItem t = new ToolStripMenuItem();
+                t.Tag = example_file;
+                t.Text = Path.GetFileNameWithoutExtension(example_file);
+
+                t.Click += ItemLoadClick;
+                examplesToolStripMenuItem.DropDownItems.Add(t);
+            }
+        }        
 
         private void RestoreSettings()
         {
@@ -177,8 +206,9 @@ namespace MainUi
 
             // Make a new menu item - added to the recentFilesToolStripMenuItem
             ToolStripMenuItem t = new ToolStripMenuItem(fileName);
+            t.Tag = fileName;
             recentFilesToolStripMenuItem.DropDownItems.Insert(0, t);
-            t.Click += T_Click;
+            t.Click += ItemLoadClick;
 
             if (!from_settings)
             {
@@ -191,16 +221,22 @@ namespace MainUi
             Properties.Settings.Default.Save();
         }
 
-        private void T_Click(object sender, EventArgs e)
+        private void ItemLoadClick(object sender, EventArgs e)
         {
             ToolStripMenuItem t = (ToolStripMenuItem)sender;
 
-            using (StreamReader reader = new StreamReader(t.Text))
+            using (StreamReader reader = new StreamReader((string)t.Tag))
             {
                 lua_control.LoadDocument(reader.ReadToEnd());
             }
             changed = false;
-            current_document = t.Text;
+            if(!t.Tag.ToString().Contains("Examples")) {
+                current_document = (string)t.Tag;
+            }
+            else
+            {
+                current_document = "";
+            }
             setTitle();
         }
 
