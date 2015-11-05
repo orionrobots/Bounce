@@ -16,7 +16,7 @@ namespace MainUi
         private NodeMCU connection;
         private string current_document;
         private bool changed;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -62,7 +62,8 @@ namespace MainUi
                 connectButton.Text = "--Connected--";
                 connectButton.ToolTipText = "Click to disconnect";
                 toolStripNodes.Enabled = false;
-            } else
+            }
+            else
             {
                 connection.Close();
                 connection = null;
@@ -79,7 +80,8 @@ namespace MainUi
             try
             {
                 code = await lua_control.GetCode();
-            } catch(System.OperationCanceledException)
+            }
+            catch (System.OperationCanceledException)
             {
                 Console.WriteLine("An error has occured reading the code");
                 return;
@@ -94,7 +96,8 @@ namespace MainUi
 
         private void outputBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            if(outputBrowser.Url.ToString().Contains("emptyOutput.html")) { 
+            if (outputBrowser.Url.ToString().Contains("emptyOutput.html"))
+            {
                 con = new HtmlOutputWrapper(outputBrowser.Document);
             }
         }
@@ -140,24 +143,9 @@ namespace MainUi
             {
                 saveToolStripMenuItem.Enabled = false;
             }
-            if(changed)
+            if (changed)
             {
                 Text += " *";
-            }
-        }
-
-        private class FileItem
-        {
-            public string FilePath;
-
-            public FileItem(string the_path)
-            {
-                FilePath = the_path;
-            }
-
-            public string ToString()
-            {
-                return Path.GetFileNameWithoutExtension(FilePath);
             }
         }
 
@@ -174,7 +162,7 @@ namespace MainUi
                 t.Click += ItemLoadClick;
                 examplesToolStripMenuItem.DropDownItems.Add(t);
             }
-        }        
+        }
 
         private void RestoreSettings()
         {
@@ -223,6 +211,11 @@ namespace MainUi
 
         private void ItemLoadClick(object sender, EventArgs e)
         {
+            if (DoYouWantToSave() == DialogResult.Cancel)
+            {
+                return;
+            }
+
             ToolStripMenuItem t = (ToolStripMenuItem)sender;
 
             using (StreamReader reader = new StreamReader((string)t.Tag))
@@ -230,7 +223,8 @@ namespace MainUi
                 lua_control.LoadDocument(reader.ReadToEnd());
             }
             changed = false;
-            if(!t.Tag.ToString().Contains("Examples")) {
+            if (!t.Tag.ToString().Contains("Examples"))
+            {
                 current_document = (string)t.Tag;
             }
             else
@@ -242,10 +236,39 @@ namespace MainUi
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lua_control.NewDocument();
-            current_document = "";
-            changed = false;
-            setTitle();
+            if (DoYouWantToSave() != DialogResult.Cancel)
+            {
+                lua_control.NewDocument();
+                current_document = "";
+                changed = false;
+                setTitle();
+            }
+        }
+
+        private DialogResult DoYouWantToSave()
+        {
+            DialogResult result = DialogResult.No;
+            // Return A DialogResult
+            if (changed)
+            {
+                // Show the do you wnat to save.
+                result = MessageBox.Show("Would you like to save this?", "You have made changes.", MessageBoxButtons.YesNoCancel);
+                // Yes - do a save/save as
+                if (result == DialogResult.Yes)
+                {
+                    if (current_document == "" || current_document == null)
+                    {
+                        saveAsToolStripMenuItem_Click(new object(), new EventArgs());
+                    }
+                    else
+                    {
+                        saveToolStripMenuItem_Click(new object(), new EventArgs());
+                    }
+                }
+                // NO - Forget it
+                // Cancel - Cancel the calling action
+            }
+            return result;
         }
 
         private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -260,17 +283,20 @@ namespace MainUi
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (DoYouWantToSave() != DialogResult.Cancel)
             {
-                using (StreamReader reader = new StreamReader(openFileDialog1.OpenFile()))
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    lua_control.LoadDocument(reader.ReadToEnd());
+                    using (StreamReader reader = new StreamReader(openFileDialog1.OpenFile()))
+                    {
+                        lua_control.LoadDocument(reader.ReadToEnd());
+                    }
+                    AddRecentFile(openFileDialog1.FileName);
+                    current_document = openFileDialog1.FileName;
+                    setTitle();
                 }
-                AddRecentFile(openFileDialog1.FileName);
-                current_document = openFileDialog1.FileName;
-                setTitle();
+                changed = false;
             }
-            changed = false;
         }
 
         private async void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -278,16 +304,23 @@ namespace MainUi
             // Show the save dialog
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                current_document = saveFileDialog1.FileName;
                 using (Stream myStream = saveFileDialog1.OpenFile())
                 {
                     await lua_control.SaveDocument(myStream);
                 }
                 AddRecentFile(saveFileDialog1.FileName);
-                current_document = saveFileDialog1.FileName;
                 setTitle();
             }
             changed = false;
         }
-    }
 
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DoYouWantToSave() == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+        }
+    }
 }
