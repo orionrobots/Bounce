@@ -1,0 +1,21 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="text_print" x="9" y="30">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+      <block type="text_rep">
+        <value name="TEXT">
+          <block type="text">
+            <field name="TEXT">hello </field>
+          </block>
+        </value>
+        <value name="COUNT">
+          <block type="math_number">
+            <field name="NUM">5</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>
