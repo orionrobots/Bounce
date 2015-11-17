@@ -34,7 +34,7 @@ $(function () {
     workspace = Blockly.inject(blocklyDiv,
         { toolbox: goog.dom.$('toolbox') });
     workspace.addChangeListener(changed);
-    make_toolbar();
+    //make_toolbar();
     $('#load_file').click(function () {
         var reader = new FileReader();
         var fd = goog.dom.$('test_file').files[0];
