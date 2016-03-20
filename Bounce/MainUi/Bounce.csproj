@@ -97,7 +97,6 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="HtmlOutputWrapper.cs" />
     <Compile Include="NodeMCU.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -3256,9 +3255,6 @@
     </Content>
     <Content Include="Bounce\jquery-1.11.3.min.js" />
     <Content Include="Bounce\TextFile1.txt" />
-    <Content Include="emptyOutput.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
