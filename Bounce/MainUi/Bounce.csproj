@@ -115,8 +115,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Bounce\build.py" />
-    <None Include="Bounce\BuildCombined.py" />
     <None Include="Bounce\closure-library\.travis.yml" />
     <None Include="Bounce\closure-library\AUTHORS" />
     <None Include="Bounce\closure-library\closure\bin\build\closurebuilder.py" />
@@ -151,123 +149,122 @@
     <None Include="Bounce\closure-library\scripts\ci\run_all_tests.sh" />
     <None Include="Bounce\closure-library\scripts\ci\sauce_connect.sh" />
     <None Include="Bounce\closure-library\scripts\http\simple_http_server.py" />
-    <None Include="Bounce\google-blockly-17ead47\.jshintignore" />
-    <None Include="Bounce\google-blockly-17ead47\appengine\app.yaml" />
-    <None Include="Bounce\google-blockly-17ead47\appengine\index.yaml" />
-    <None Include="Bounce\google-blockly-17ead47\appengine\index_redirect.py" />
-    <None Include="Bounce\google-blockly-17ead47\appengine\storage.py" />
-    <None Include="Bounce\google-blockly-17ead47\build.py" />
-    <None Include="Bounce\google-blockly-17ead47\COPYING" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\soy\COPYING" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\soy\README" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\template.soy" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\extracted_msgs.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ar.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_be-tarask.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_br.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ca.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_da.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_de.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_el.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_en.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_es.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_fa.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_fr.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_he.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_hrx.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_hu.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ia.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_is.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_it.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ja.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ko.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ms.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_nb.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_nl.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_pl.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_pms.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_pt-br.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ro.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_ru.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_sc.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_sv.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_th.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_tr.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_uk.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_vi.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_zh-hans.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\demos\plane\xlf\translated_msgs_zh-hant.xlf" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\common.py" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\create_messages.py" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\dedup_json.py" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\json_to_js.py" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\js_to_json.py" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\tests.py" />
-    <None Include="Bounce\google-blockly-17ead47\i18n\xliff_to_json.py" />
-    <None Include="Bounce\google-blockly-17ead47\media\click.ogg" />
-    <None Include="Bounce\google-blockly-17ead47\media\delete.ogg" />
-    <None Include="Bounce\google-blockly-17ead47\media\disconnect.ogg" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ar.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\az.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\bcc.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\be-tarask.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\bg.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\bn.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\br.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ca.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\cs.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\da.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\de.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\el.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\en.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\es.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\fa.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\fi.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\fr.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\he.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\hi.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\hrx.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\hu.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ia.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\id.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\is.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\it.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ja.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ko.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\lb.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\lrc.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\lt.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\mk.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ms.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\nb.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\nl.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\oc.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\pl.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\pms.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\pt-br.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\pt.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\qqq.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ro.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ru.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\sc.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\shn.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\sk.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\sq.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\sr.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\sv.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\synonyms.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\ta.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\tcy.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\th.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\tl.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\tlh.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\tr.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\uk.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\vi.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\zh-hans.json" />
-    <None Include="Bounce\google-blockly-17ead47\msg\json\zh-hant.json" />
-    <None Include="Bounce\google-blockly-17ead47\package.json" />
-    <None Include="Bounce\google-blockly-17ead47\README.md" />
+    <None Include="Bounce\blockly-nodemcu\.jshintignore" />
+    <None Include="Bounce\blockly-nodemcu\appengine\app.yaml" />
+    <None Include="Bounce\blockly-nodemcu\appengine\index.yaml" />
+    <None Include="Bounce\blockly-nodemcu\appengine\index_redirect.py" />
+    <None Include="Bounce\blockly-nodemcu\appengine\storage.py" />
+    <None Include="Bounce\blockly-nodemcu\COPYING" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\soy\COPYING" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\soy\README" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\template.soy" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\extracted_msgs.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ar.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_be-tarask.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_br.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ca.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_da.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_de.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_el.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_en.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_es.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_fa.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_fr.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_he.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_hrx.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_hu.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ia.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_is.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_it.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ja.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ko.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ms.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_nb.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_nl.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_pl.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_pms.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_pt-br.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ro.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_ru.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_sc.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_sv.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_th.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_tr.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_uk.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_vi.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_zh-hans.xlf" />
+    <None Include="Bounce\blockly-nodemcu\demos\plane\xlf\translated_msgs_zh-hant.xlf" />
+    <None Include="Bounce\blockly-nodemcu\i18n\common.py" />
+    <None Include="Bounce\blockly-nodemcu\i18n\create_messages.py" />
+    <None Include="Bounce\blockly-nodemcu\i18n\dedup_json.py" />
+    <None Include="Bounce\blockly-nodemcu\i18n\json_to_js.py" />
+    <None Include="Bounce\blockly-nodemcu\i18n\js_to_json.py" />
+    <None Include="Bounce\blockly-nodemcu\i18n\tests.py" />
+    <None Include="Bounce\blockly-nodemcu\i18n\xliff_to_json.py" />
+    <None Include="Bounce\blockly-nodemcu\media\click.ogg" />
+    <None Include="Bounce\blockly-nodemcu\media\delete.ogg" />
+    <None Include="Bounce\blockly-nodemcu\media\disconnect.ogg" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ar.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\az.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\bcc.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\be-tarask.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\bg.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\bn.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\br.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ca.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\cs.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\da.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\de.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\el.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\en.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\es.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\fa.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\fi.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\fr.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\he.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\hi.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\hrx.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\hu.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ia.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\id.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\is.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\it.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ja.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ko.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\lb.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\lrc.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\lt.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\mk.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ms.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\nb.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\nl.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\oc.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\pl.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\pms.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\pt-br.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\pt.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\qqq.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ro.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ru.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\sc.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\shn.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\sk.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\sq.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\sr.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\sv.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\synonyms.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\ta.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\tcy.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\th.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\tl.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\tlh.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\tr.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\uk.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\vi.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\zh-hans.json" />
+    <None Include="Bounce\blockly-nodemcu\msg\json\zh-hant.json" />
+    <None Include="Bounce\blockly-nodemcu\package.json" />
+    <None Include="Bounce\blockly-nodemcu\README.md" />
     <None Include="Examples\timers.node" />
     <None Include="Examples\blink.node" />
     <None Include="Examples\digital_read_test.node" />
@@ -291,6 +288,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bounce\blockly-nodemcu\lua_compressed.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blocklyLua.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Bounce\Bounce.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2842,457 +2845,417 @@
     <Content Include="Bounce\closure-library\third_party\closure\goog\svgpan\svgpan.js" />
     <Content Include="Bounce\glyphicons-174-play.png" />
     <Content Include="Bounce\glyphicons-82-refresh.png" />
-    <Content Include="Bounce\lua_generator\lua.js">
+    <None Include="Bounce\blockly-nodemcu\build.py" />
+    <Content Include="Bounce\blockly-nodemcu\generators\lua.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\blocklyLua.html">
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\colour.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\lists.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\logic.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\loops.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\math.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\procedures.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\text.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blockly-nodemcu\generators\lua\variables.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bounce\blocklyLua_debug.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Bounce\CustomNodeBlocks.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\.gitignore" />
-    <Content Include="Bounce\google-blockly-17ead47\appengine\apple-touch-icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\appengine\favicon.ico" />
-    <Content Include="Bounce\google-blockly-17ead47\appengine\README.txt" />
-    <Content Include="Bounce\google-blockly-17ead47\appengine\redirect.html" />
-    <Content Include="Bounce\google-blockly-17ead47\appengine\robots.txt" />
-    <Content Include="Bounce\google-blockly-17ead47\appengine\storage.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blockly_compressed.js">
+    <Content Include="Bounce\blockly-nodemcu\.gitignore" />
+    <Content Include="Bounce\blockly-nodemcu\appengine\apple-touch-icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\appengine\favicon.ico" />
+    <Content Include="Bounce\blockly-nodemcu\appengine\README.txt" />
+    <Content Include="Bounce\blockly-nodemcu\appengine\redirect.html" />
+    <Content Include="Bounce\blockly-nodemcu\appengine\robots.txt" />
+    <Content Include="Bounce\blockly-nodemcu\appengine\storage.js" />
+    <Content Include="Bounce\blockly-nodemcu\blockly_compressed.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\blockly_uncompressed.js">
+    <Content Include="Bounce\blockly-nodemcu\blockly_uncompressed.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\blocks\colour.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\lists.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\logic.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\loops.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\math.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\procedures.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\text.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks\variables.js" />
-    <Content Include="Bounce\google-blockly-17ead47\blocks_compressed.js">
+    <Content Include="Bounce\blockly-nodemcu\blocks\colour.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\lists.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\logic.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\loops.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\math.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\procedures.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\text.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks\variables.js" />
+    <Content Include="Bounce\blockly-nodemcu\blocks_compressed.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\block.js">
+    <Content Include="Bounce\blockly-nodemcu\core\block.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\blockly.js">
+    <Content Include="Bounce\blockly-nodemcu\core\blockly.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\blocks.js">
+    <Content Include="Bounce\blockly-nodemcu\core\blocks.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\block_svg.js">
+    <Content Include="Bounce\blockly-nodemcu\core\block_svg.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\bubble.js">
+    <Content Include="Bounce\blockly-nodemcu\core\bubble.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\comment.js">
+    <Content Include="Bounce\blockly-nodemcu\core\comment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\connection.js">
+    <Content Include="Bounce\blockly-nodemcu\core\connection.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\contextmenu.js">
+    <Content Include="Bounce\blockly-nodemcu\core\contextmenu.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\css.js">
+    <Content Include="Bounce\blockly-nodemcu\core\css.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_angle.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_angle.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_checkbox.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_checkbox.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_colour.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_colour.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_date.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_date.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_dropdown.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_dropdown.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_image.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_image.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_label.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_label.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_textinput.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_textinput.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\field_variable.js">
+    <Content Include="Bounce\blockly-nodemcu\core\field_variable.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\flyout.js">
+    <Content Include="Bounce\blockly-nodemcu\core\flyout.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\generator.js">
+    <Content Include="Bounce\blockly-nodemcu\core\generator.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\icon.js">
+    <Content Include="Bounce\blockly-nodemcu\core\icon.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\inject.js">
+    <Content Include="Bounce\blockly-nodemcu\core\inject.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\input.js">
+    <Content Include="Bounce\blockly-nodemcu\core\input.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\msg.js">
+    <Content Include="Bounce\blockly-nodemcu\core\msg.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\mutator.js">
+    <Content Include="Bounce\blockly-nodemcu\core\mutator.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\names.js">
+    <Content Include="Bounce\blockly-nodemcu\core\names.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\procedures.js">
+    <Content Include="Bounce\blockly-nodemcu\core\procedures.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\realtime-client-utils.js">
+    <Content Include="Bounce\blockly-nodemcu\core\realtime-client-utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\realtime.js">
+    <Content Include="Bounce\blockly-nodemcu\core\realtime.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\scrollbar.js">
+    <Content Include="Bounce\blockly-nodemcu\core\scrollbar.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\toolbox.js">
+    <Content Include="Bounce\blockly-nodemcu\core\toolbox.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\tooltip.js">
+    <Content Include="Bounce\blockly-nodemcu\core\tooltip.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\trashcan.js">
+    <Content Include="Bounce\blockly-nodemcu\core\trashcan.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\utils.js">
+    <Content Include="Bounce\blockly-nodemcu\core\utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\variables.js">
+    <Content Include="Bounce\blockly-nodemcu\core\variables.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\warning.js">
+    <Content Include="Bounce\blockly-nodemcu\core\warning.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\widgetdiv.js">
+    <Content Include="Bounce\blockly-nodemcu\core\widgetdiv.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\workspace.js">
+    <Content Include="Bounce\blockly-nodemcu\core\workspace.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\workspace_svg.js">
+    <Content Include="Bounce\blockly-nodemcu\core\workspace_svg.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\xml.js">
+    <Content Include="Bounce\blockly-nodemcu\core\xml.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\core\zoom_controls.js">
+    <Content Include="Bounce\blockly-nodemcu\core\zoom_controls.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\dart_compressed.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\blockfactory\blocks.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\blockfactory\factory.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\blockfactory\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\blockfactory\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\blockfactory\link.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\code.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\icons.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ar.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\be-tarask.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\br.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ca.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\cs.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\da.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\de.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\el.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\en.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\es.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\fa.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\fr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\he.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\hrx.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\hu.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ia.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\is.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\it.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ja.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ko.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\mk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ms.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\nb.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\nl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\oc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\pl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\pms.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\pt-br.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ro.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\ru.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\sc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\sk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\sr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\sv.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\th.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\tlh.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\tr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\uk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\vi.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\zh-hans.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\msg\zh-hant.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\code\style.css" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\fixed\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\fixed\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\generator\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\generator\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\graph\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\graph\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\headless\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\headless\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\interpreter\acorn_interpreter.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\interpreter\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\interpreter\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\maxBlocks\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\maxBlocks\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\blocks.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ar.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\be-tarask.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\br.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ca.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\da.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\de.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\el.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\en.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\es.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\fa.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\fr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\he.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\hrx.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\hu.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ia.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\is.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\it.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ja.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ko.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ms.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\nb.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\nl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\pl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\pms.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\pt-br.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ro.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\ru.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\sc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\sv.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\th.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\tr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\uk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\vi.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\zh-hans.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\generated\zh-hant.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\plane.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\README.txt" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\slider.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\soy\SoyMsgExtractor.jar" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\soy\SoyToJsSrcCompiler.jar" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\soy\soyutils.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\plane\style.css" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\prettify.css" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\prettify.js" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\realtime\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\resizable\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\resizable\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\resizable\overlay.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\rtl\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\rtl\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\storage\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\storage\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\toolbox\icon.png" />
-    <Content Include="Bounce\google-blockly-17ead47\demos\toolbox\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\colour.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\lists.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\logic.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\loops.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\math.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\procedures.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\text.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\dart\variables.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\colour.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\lists.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\logic.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\loops.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\math.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\procedures.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\text.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\javascript\variables.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\colour.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\lists.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\logic.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\loops.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\math.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\procedures.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\text.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\php\variables.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\colour.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\lists.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\logic.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\loops.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\math.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\procedures.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\text.js" />
-    <Content Include="Bounce\google-blockly-17ead47\generators\python\variables.js" />
-    <Content Include="Bounce\google-blockly-17ead47\javascript_compressed.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\google-blockly-17ead47\media\1x1.gif" />
-    <Content Include="Bounce\google-blockly-17ead47\media\anon.jpeg" />
-    <Content Include="Bounce\google-blockly-17ead47\media\click.mp3" />
-    <Content Include="Bounce\google-blockly-17ead47\media\click.wav" />
-    <Content Include="Bounce\google-blockly-17ead47\media\delete.mp3" />
-    <Content Include="Bounce\google-blockly-17ead47\media\delete.wav" />
-    <Content Include="Bounce\google-blockly-17ead47\media\disconnect.mp3" />
-    <Content Include="Bounce\google-blockly-17ead47\media\disconnect.wav" />
-    <Content Include="Bounce\google-blockly-17ead47\media\handclosed.cur" />
-    <Content Include="Bounce\google-blockly-17ead47\media\handdelete.cur" />
-    <Content Include="Bounce\google-blockly-17ead47\media\handopen.cur" />
-    <Content Include="Bounce\google-blockly-17ead47\media\icons.svg" />
-    <Content Include="Bounce\google-blockly-17ead47\media\progress.gif" />
-    <Content Include="Bounce\google-blockly-17ead47\media\quote0.png" />
-    <Content Include="Bounce\google-blockly-17ead47\media\quote1.png" />
-    <Content Include="Bounce\google-blockly-17ead47\media\sprites.png" />
-    <Content Include="Bounce\google-blockly-17ead47\media\sprites.svg" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ar.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\az.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\bcc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\be-tarask.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\bg.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\bn.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\br.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ca.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\cs.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\da.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\de.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\el.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\en.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\es.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\fa.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\fi.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\fr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\he.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\hi.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\hrx.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\hu.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ia.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\id.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\is.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\it.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ja.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ko.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\lb.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\lrc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\lt.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\mk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ms.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\nb.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\nl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\oc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\pl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\pms.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\pt-br.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\pt.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ro.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ru.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\sc.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\shn.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\sk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\sq.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\sr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\sv.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\ta.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\tcy.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\th.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\tl.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\tlh.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\tr.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\uk.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\vi.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\zh-hans.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\js\zh-hant.js" />
-    <Content Include="Bounce\google-blockly-17ead47\msg\messages.js">
+    <Content Include="Bounce\blockly-nodemcu\demos\blockfactory\blocks.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\blockfactory\factory.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\blockfactory\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\blockfactory\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\blockfactory\link.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\code.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\icons.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ar.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\be-tarask.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\br.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ca.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\cs.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\da.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\de.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\el.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\en.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\es.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\fa.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\fr.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\he.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\hrx.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\hu.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ia.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\is.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\it.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ja.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ko.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\mk.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ms.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\nb.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\nl.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\oc.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\pl.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\pms.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\pt-br.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ro.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\ru.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\sc.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\sk.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\sr.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\sv.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\th.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\tlh.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\tr.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\uk.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\vi.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\zh-hans.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\msg\zh-hant.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\code\style.css" />
+    <Content Include="Bounce\blockly-nodemcu\demos\fixed\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\fixed\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\generator\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\generator\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\graph\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\graph\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\headless\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\headless\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\interpreter\acorn_interpreter.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\interpreter\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\interpreter\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\maxBlocks\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\maxBlocks\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\blocks.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ar.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\be-tarask.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\br.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ca.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\da.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\de.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\el.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\en.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\es.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\fa.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\fr.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\he.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\hrx.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\hu.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ia.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\is.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\it.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ja.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ko.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ms.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\nb.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\nl.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\pl.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\pms.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\pt-br.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ro.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\ru.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\sc.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\sv.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\th.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\tr.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\uk.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\vi.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\zh-hans.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\generated\zh-hant.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\plane.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\README.txt" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\slider.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\soy\SoyMsgExtractor.jar" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\soy\SoyToJsSrcCompiler.jar" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\soy\soyutils.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\plane\style.css" />
+    <Content Include="Bounce\blockly-nodemcu\demos\prettify.css" />
+    <Content Include="Bounce\blockly-nodemcu\demos\prettify.js" />
+    <Content Include="Bounce\blockly-nodemcu\demos\realtime\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\resizable\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\resizable\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\resizable\overlay.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\rtl\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\rtl\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\storage\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\storage\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\demos\toolbox\icon.png" />
+    <Content Include="Bounce\blockly-nodemcu\demos\toolbox\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\media\1x1.gif" />
+    <Content Include="Bounce\blockly-nodemcu\media\anon.jpeg" />
+    <Content Include="Bounce\blockly-nodemcu\media\click.mp3" />
+    <Content Include="Bounce\blockly-nodemcu\media\click.wav" />
+    <Content Include="Bounce\blockly-nodemcu\media\delete.mp3" />
+    <Content Include="Bounce\blockly-nodemcu\media\delete.wav" />
+    <Content Include="Bounce\blockly-nodemcu\media\disconnect.mp3" />
+    <Content Include="Bounce\blockly-nodemcu\media\disconnect.wav" />
+    <Content Include="Bounce\blockly-nodemcu\media\handclosed.cur" />
+    <Content Include="Bounce\blockly-nodemcu\media\handdelete.cur" />
+    <Content Include="Bounce\blockly-nodemcu\media\handopen.cur" />
+    <Content Include="Bounce\blockly-nodemcu\media\icons.svg" />
+    <Content Include="Bounce\blockly-nodemcu\media\progress.gif" />
+    <Content Include="Bounce\blockly-nodemcu\media\quote0.png" />
+    <Content Include="Bounce\blockly-nodemcu\media\quote1.png" />
+    <Content Include="Bounce\blockly-nodemcu\media\sprites.png" />
+    <Content Include="Bounce\blockly-nodemcu\media\sprites.svg" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ar.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\az.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\bcc.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\be-tarask.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\bg.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\bn.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\br.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ca.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\cs.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\da.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\de.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\el.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\en.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\es.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\fa.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\fi.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\fr.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\he.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\hi.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\hrx.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\hu.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ia.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\id.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\is.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\it.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ja.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ko.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\lb.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\lrc.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\lt.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\mk.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ms.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\nb.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\nl.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\oc.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\pl.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\pms.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\pt-br.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\pt.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ro.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ru.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\sc.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\shn.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\sk.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\sq.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\sr.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\sv.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\ta.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\tcy.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\th.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\tl.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\tlh.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\tr.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\uk.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\vi.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\zh-hans.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\js\zh-hant.js" />
+    <Content Include="Bounce\blockly-nodemcu\msg\messages.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bounce\google-blockly-17ead47\php_compressed.js" />
-    <Content Include="Bounce\google-blockly-17ead47\python_compressed.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\colour.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\lists.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\logic.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\loops1.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\loops2.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\loops3.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\math.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\procedures.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\text.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\unittest.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\unittest_dart.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\unittest_javascript.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\unittest_php.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\unittest_python.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\generators\variables.xml" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\jsunit\blockly_test.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\jsunit\generator_test.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\jsunit\index.html" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\jsunit\names_test.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\jsunit\workspace_test.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\jsunit\xml_test.js" />
-    <Content Include="Bounce\google-blockly-17ead47\tests\playground.html" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\colour.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\lists.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\logic.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\loops1.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\loops2.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\loops3.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\math.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\procedures.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\text.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\unittest.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\unittest_dart.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\unittest_javascript.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\unittest_php.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\unittest_python.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\generators\variables.xml" />
+    <Content Include="Bounce\blockly-nodemcu\tests\jsunit\blockly_test.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\jsunit\generator_test.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\jsunit\index.html" />
+    <Content Include="Bounce\blockly-nodemcu\tests\jsunit\names_test.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\jsunit\workspace_test.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\jsunit\xml_test.js" />
+    <Content Include="Bounce\blockly-nodemcu\tests\playground.html" />
     <Content Include="Bounce\jquery-1.11.3.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Bounce\jquery-1.11.3.min.js" />
-    <Content Include="Bounce\lua_generator\lua\colour.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\lists.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\logic.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\loops.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\math.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\procedures.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\text.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bounce\lua_generator\lua\variables.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Bounce\TextFile1.txt" />
     <Content Include="emptyOutput.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3322,6 +3285,12 @@ xcopy /s /d /y "$(ProjectDir)Examples" "$(TargetDir)Bounce\Examples"</PostBuildE
   </Target>
   <Import Project="..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\CefSharp.Common.43.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.43.0.0\build\CefSharp.Common.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>pushd  $(ProjectDir)Bounce\blockly-nodemcu
+python build.py
+popd
+</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

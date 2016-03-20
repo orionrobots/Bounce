@@ -1,4 +1,22 @@
-﻿var workspace;
+﻿goog.require('goog.array');
+goog.require('goog.dom');
+goog.require('goog.events');
+goog.require('goog.events.EventType');
+goog.require('goog.ui');
+goog.require('goog.object');
+goog.require('goog.style');
+//goog.require('goog.ui.Button');
+//goog.require('goog.ui.ButtonSide');
+//goog.require('goog.ui.Component.EventType');
+//goog.require('goog.ui.Component.State');
+//goog.require('goog.ui.Menu');
+//goog.require('goog.ui.MenuItem');
+//goog.require('goog.ui.Toolbar');
+//goog.require('goog.ui.ToolbarRenderer');
+//goog.require('goog.ui.ToolbarButton');
+//goog.require('goog.ui.ToolbarMenuButton');
+
+var workspace;
 var blocklyDiv;
 function export_document() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
