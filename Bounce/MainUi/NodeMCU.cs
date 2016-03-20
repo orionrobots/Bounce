@@ -5,12 +5,24 @@ using System.Threading;
 
 namespace MainUi
 {
-    interface OutputConsole // Output - made to feel like console output
+    public abstract class OutputConsole // Output - made to feel like console output
     {
-        void Write(string data);
-        void Write<T>(T data);
-        void WriteLine(string data);
-        void WriteLine<T>(T data);
+        public abstract void Write(string data);
+
+        public void Write<T>(T data)
+        {
+            Write(data.ToString());
+        }
+
+        public virtual void WriteLine(string data)
+        {
+            Write(String.Concat(data, "\n"));
+        }
+
+        public void WriteLine<T>(T data)
+        {
+            WriteLine(data.ToString());
+        }
     }
 
     class SerialPortWithDescription:SerialPort

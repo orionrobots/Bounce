@@ -17,16 +17,45 @@ namespace MainUi
         private string current_document = "";
         private bool changed;
 
+        private class TextBoxOutputWrapper : OutputConsole
+        {
+            private TextBox _tb;
+            public TextBoxOutputWrapper(TextBox tb)
+            {
+                _tb = tb;
+            }
+
+            delegate void AppendTextCallback(string text);
+
+            private void AppendText(string text)
+            {
+                if(_tb.InvokeRequired)
+                {
+                    AppendTextCallback d = new AppendTextCallback(AppendText);
+                    _tb.Invoke(d, new object[] { text });
+                }
+                else
+                {
+                    _tb.AppendText(text);
+                }
+            }
+
+            public override void Write(string data)
+            {
+                AppendText(data);
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             Cef.Initialize();
 
+            con = new TextBoxOutputWrapper(outputTextBox);
             InitialiseCodeBrowser();
             RestoreSettings();
             SetupExamples();
             string appDir = Path.GetDirectoryName(Application.ExecutablePath);
-            outputBrowser.Navigate(Path.Combine(appDir, "emptyOutput.html"));
             changed = false;
         }
 
@@ -94,20 +123,10 @@ namespace MainUi
             runButton.Enabled = true;
         }
 
-        private void outputBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            if (outputBrowser.Url.ToString().Contains("emptyOutput.html"))
-            {
-                con = new HtmlOutputWrapper(outputBrowser.Document);
-            }
-        }
-
-
         private void showWebConsoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             codeBrowser.ShowDevTools();
         }
-
 
         private void findNodesButton_Click(object sender, EventArgs e)
         {

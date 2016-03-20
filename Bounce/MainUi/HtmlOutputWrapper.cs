@@ -21,25 +21,15 @@ namespace MainUi
             }
         }
 
-        public void Write(string data)
+        public override void Write(string data)
         {
             data = data.Replace("\n", "<br>\n");
             output_div.InnerHtml = String.Concat(output_div.InnerHtml, data);
         }
 
-        public void Write<T>(T data)
-        {
-            Write(data.ToString());
-        }
-
-        public void WriteLine(string data)
+        public override void WriteLine(string data)
         {
             Write(String.Concat(data, "<br>\n"));
-        }
-
-        public void WriteLine<T>(T data)
-        {
-            WriteLine(data.ToString());
         }
     }
 }
