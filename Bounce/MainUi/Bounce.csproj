@@ -3286,9 +3286,10 @@ xcopy /s /d /y "$(ProjectDir)Examples" "$(TargetDir)Bounce\Examples"</PostBuildE
   <Import Project="..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\CefSharp.Common.43.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.43.0.0\build\CefSharp.Common.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>pushd  $(ProjectDir)Bounce\blockly-nodemcu
-python build.py
-popd
+    <PreBuildEvent>rem pushd  $(ProjectDir)Bounce\blockly-nodemcu
+rem python --version
+rem python build.py
+rem popd
 </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

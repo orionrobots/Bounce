@@ -25,8 +25,8 @@ Blockly.Lua['pin_write'] = function (block) {
     var pin = Blockly.Lua.valueToCode(block, 'pin',
        Blockly.Lua.ORDER_ATOMIC) || 0;
     var level = Blockly.Lua.valueToCode(block, 'level',
-       Blockly.Lua.ORDER_ATOMIC) || 0;
-    var code = "gpio.write(" + pin + ", " + level + ")\n";
+       Blockly.Lua.ORDER_ATOMIC) || 'False';
+    var code = "gpio.write(" + pin + ", " + level + " and 1 or 0)\n";
     return code;
 };
 
@@ -36,7 +36,7 @@ Blockly.Blocks['pin_write'] = {
             .setCheck("Number")
             .appendField("pin");
         this.appendValueInput("level")
-            .setCheck("Number")
+            .setCheck("Boolean")
             .appendField("write");
         this.setInputsInline(true);
         this.setPreviousStatement(true);

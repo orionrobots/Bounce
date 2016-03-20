@@ -14,7 +14,7 @@ namespace MainUi
         private ChromiumWebBrowser codeBrowser;
         private OutputConsole con;
         private NodeMCU connection;
-        private string current_document;
+        private string current_document = "";
         private bool changed;
 
         public MainWindow()
