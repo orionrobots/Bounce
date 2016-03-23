@@ -162,7 +162,13 @@
             <category name="text" colour="160">
                 <block type="text"></block>
                 <block type="text_join"></block>
-                <block type="text_rep"></block>
+                <block type="text_rep">
+                    <value name="COUNT">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
                 <block type="text_append">
                     <value name="TEXT">
                         <shadow type="text"></shadow>
@@ -380,8 +386,14 @@
                 <block type="tmr_wdclr"></block>
                 <block type="tmr_time"></block>
             </category>
-            <category name="lights">
-                <block type="ws2812_writergb"></block>
+            <category name="lights" colour="87">
+                <block type="ws2812_writergb">
+                    <value name="pin">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
             </category>
         </category>
         <category name="Variables" colour="330" custom="VARIABLE"></category>

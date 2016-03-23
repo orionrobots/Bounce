@@ -111,7 +111,6 @@ Blockly.Blocks['tmr_alarm'] = {
         this.setNextStatement(true);
         this.setColour(60);
         this.setTooltip('');
-        this.setHelpUrl('http://www.example.com/');
     }
 };
 
@@ -129,7 +128,6 @@ Blockly.Blocks['tmr_stop'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('');
-        this.setHelpUrl('http://www.example.com/');
         this.setColour(60);
     }
 };
@@ -158,6 +156,33 @@ Blockly.Blocks['text_rep'] = {
         this.setOutput(true, "String");
         this.setColour(160);
         this.setTooltip('');
-        this.setHelpUrl('http://www.example.com/');
+    }
+};
+
+Blockly.Lua['ws2812_writergb'] = function (block) {
+    // Ws2812 write rgb
+    var pin = Blockly.Lua.valueToCode(block, 'pin',
+       Blockly.Lua.ORDER_ATOMIC) || 0;
+    var data = Blockly.Lua.valueToCode(block, 'data',
+        Blockly.Lua.ORDER_ATOMIC) || '\'\'';
+    var code = 'ws2812.writergb(' + pin + ", " + text + ')';
+    return [code, Blockly.Lua.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Blocks['ws2812_writergb'] ={
+    init: function () {
+        this.appendDummyInput()
+            .appendField("ws2812 output");
+        this.appendValueInput("data")
+            .setCheck("String")
+            .appendField("data string");
+        this.appendDummyInput()
+            .appendField("on ");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.setInputsInline(false);
+        this.setColour(87);
+        this.setTooltip('');
     }
 };
