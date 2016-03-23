@@ -9,6 +9,7 @@ See this video for an introduction to it:
 
 https://www.youtube.com/watch?v=I6fKbf_1KuI
 
+![Screenshot of Bounce with Demo Code](https://pbs.twimg.com/media/CeQoGK7UsAAQh8K.jpg)
 ---
 * Currently this requires windows + the DotNet runtime. TODO: Simplify requirements, distribute Mac/Linux versions.
 
