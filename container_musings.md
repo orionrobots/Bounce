@@ -16,3 +16,8 @@ The UI parts could all be put into a single HTML5 app, with the UI rendered ther
 The single html5 app then just needs some back end for the serial and maybe file operations.  This will make ports for different OS backends far simpler. Inverting the embedded CEF (chrome embedded framework) into a service stub that spawns a browser tab back at it may work - but that port operation (listen) may be blocked in education environments.
 
 Pull reqests unifying more of the interface into the web app (and still working) will be gladly accepted.
+
+This might be the right direction:
+https://developer.chrome.com/apps/serial
+
+Creating a chrome extension/app is cross platform, may be mostly html5/js. Time for an experimental branch.
