@@ -49,6 +49,8 @@ var data_from_file;
 
 $(function () {
     blocklyDiv = goog.dom.$('blocklyDiv');
+    // Load other toolbar xml here
+
     workspace = Blockly.inject(blocklyDiv,
         { toolbox: goog.dom.$('toolbox') });
     workspace.addChangeListener(changed);

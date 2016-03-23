@@ -55,6 +55,7 @@
             this.toolStripNodes = new System.Windows.Forms.ToolStripComboBox();
             this.findNodesButton = new System.Windows.Forms.ToolStripButton();
             this.outputTextBox = new System.Windows.Forms.TextBox();
+            this.uploadAsFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -243,7 +244,8 @@
             // runButton
             // 
             this.runButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.makeStartupToolStripMenuItem});
+            this.makeStartupToolStripMenuItem,
+            this.uploadAsFileToolStripMenuItem});
             this.runButton.Image = ((System.Drawing.Image)(resources.GetObject("runButton.Image")));
             this.runButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runButton.Name = "runButton";
@@ -255,7 +257,7 @@
             // makeStartupToolStripMenuItem
             // 
             this.makeStartupToolStripMenuItem.Name = "makeStartupToolStripMenuItem";
-            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.makeStartupToolStripMenuItem.Size = new System.Drawing.Size(217, 30);
             this.makeStartupToolStripMenuItem.Text = "Make Startup";
             // 
             // toolStripNodes
@@ -285,6 +287,12 @@
             this.outputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.outputTextBox.Size = new System.Drawing.Size(690, 571);
             this.outputTextBox.TabIndex = 0;
+            // 
+            // uploadAsFileToolStripMenuItem
+            // 
+            this.uploadAsFileToolStripMenuItem.Name = "uploadAsFileToolStripMenuItem";
+            this.uploadAsFileToolStripMenuItem.Size = new System.Drawing.Size(217, 30);
+            this.uploadAsFileToolStripMenuItem.Text = "Upload as file...";
             // 
             // MainWindow
             // 
@@ -342,6 +350,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem examplesToolStripMenuItem;
         private System.Windows.Forms.TextBox outputTextBox;
+        private System.Windows.Forms.ToolStripMenuItem uploadAsFileToolStripMenuItem;
     }
 }
 

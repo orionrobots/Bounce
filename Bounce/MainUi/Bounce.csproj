@@ -97,9 +97,7 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="NodeMCU.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="NodeMCU.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainWindow.resx">
@@ -2842,6 +2840,7 @@
     <Content Include="Bounce\closure-library\third_party\closure\goog\mochikit\async\deferred_test.html" />
     <Content Include="Bounce\closure-library\third_party\closure\goog\osapi\osapi.js" />
     <Content Include="Bounce\closure-library\third_party\closure\goog\svgpan\svgpan.js" />
+    <Content Include="Bounce\Examples.xml" />
     <Content Include="Bounce\glyphicons-174-play.png" />
     <Content Include="Bounce\glyphicons-82-refresh.png" />
     <None Include="Bounce\blockly-nodemcu\build.py" />

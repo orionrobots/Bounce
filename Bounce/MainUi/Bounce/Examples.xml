@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<category name="Examples" colour="330">
+  <block type="Blink_example">
+    <block type="pin_mode" x="34" y="60">
+      <field name="MODE">gpio.OUTPUT</field>
+      <value name="pin">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <next>
+        <block type="variables_set">
+          <field name="VAR">led_on</field>
+          <value name="VALUE">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <next>
+            <block type="tmr_alarm">
+              <field name="REPEAT">1</field>
+              <value name="timer">
+                <block type="math_number">
+                  <field name="NUM">0</field>
+                </block>
+              </value>
+              <value name="interval">
+                <block type="math_number">
+                  <field name="NUM">100</field>
+                </block>
+              </value>
+              <statement name="DO">
+                <block type="pin_write">
+                  <value name="pin">
+                    <block type="math_number">
+                      <field name="NUM">0</field>
+                    </block>
+                  </value>
+                  <value name="level">
+                    <block type="variables_get">
+                      <field name="VAR">led_on</field>
+                    </block>
+                  </value>
+                  <next>
+                    <block type="variables_set">
+                      <field name="VAR">led_on</field>
+                      <value name="VALUE">
+                        <block type="math_arithmetic">
+                          <field name="OP">MINUS</field>
+                          <value name="A">
+                            <shadow type="math_number">
+                              <field name="NUM">1</field>
+                            </shadow>
+                          </value>
+                          <value name="B">
+                            <shadow type="math_number">
+                              <field name="NUM">1</field>
+                            </shadow>
+                            <block type="variables_get">
+                              <field name="VAR">led_on</field>
+                            </block>
+                          </value>
+                        </block>
+                      </value>
+                    </block>
+                  </next>
+                </block>
+              </statement>
+            </block>
+          </next>
+        </block>
+      </next>
+    </block>
+  </block>
+</category>
