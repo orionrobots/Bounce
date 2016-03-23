@@ -12,7 +12,9 @@ https://www.youtube.com/watch?v=I6fKbf_1KuI
 ---
 * Currently this requires windows + the DotNet runtime. TODO: Simplify requirements, distribute Mac/Linux versions.
 
-Release Downloads: Select the most recent Bounce.zip file from https://github.com/orionrobots/Bounce/releases
+* Release Downloads: Select the most recent Bounce.zip file from https://github.com/orionrobots/Bounce/releases
+* Extract the zipfile.
+* Run it with bin/x86/Debug/MainUi.exe  (TODO: Make a nice installer - reduce this complexity)
 
 To use this with your esp8266/NodeMCU:
 
