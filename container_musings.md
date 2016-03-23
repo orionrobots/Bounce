@@ -21,3 +21,4 @@ This might be the right direction:
 https://developer.chrome.com/apps/serial
 
 Creating a chrome extension/app is cross platform, may be mostly html5/js. Time for an experimental branch.
+https://developer.chrome.com/apps/about_apps - may allow me to still have a standalone output - not requiring Chrome installation for it to work.
