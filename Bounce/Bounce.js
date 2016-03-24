@@ -11,7 +11,7 @@ goog.require('goog.style');
 //goog.require('goog.ui.Component.State');
 //goog.require('goog.ui.Menu');
 //goog.require('goog.ui.MenuItem');
-//goog.require('goog.ui.Toolbar');
+goog.require('goog.ui.Toolbar');
 //goog.require('goog.ui.ToolbarRenderer');
 //goog.require('goog.ui.ToolbarButton');
 //goog.require('goog.ui.ToolbarMenuButton');
@@ -48,6 +48,7 @@ function changed() {
 var data_from_file;
 
 $(function () {
+    scan_serial();
     blocklyDiv = goog.dom.$('blocklyDiv');
     // Load other toolbar xml here
 
@@ -65,6 +66,17 @@ $(function () {
         reader.readAsText(fd);
     });
 });
+
+function scan_serial() {
+    // Scan all the serial devices, output to output window.
+    var onGetDevices = function(ports) {
+        for (var i = 0; i < ports.length; i++) {
+            $('#output').append(ports[i].path+ "/n");
+            //console.log(ports[i].path);
+        }
+    };
+    chrome.serial.getDevices(onGetDevices);
+}
 
 function make_toolbar() {
     var tb = new goog.ui.Toolbar();

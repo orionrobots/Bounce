@@ -1,15 +1,18 @@
 #toolbar {
     height: 20%;
     width: 100%;
-
 }
-#blocklyDiv {
-    width: 50%;
+
+#panes, #panes tr {
     height: 80%;
+    width: 100%;
+}
+
+#blocklyDiv {
+    height: 100%;
 }
 
 #output {
-    width: 50%;
-    height: 80%;
+    height: 100%;
     font-family: Courier, monospace;
 }

@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Blockly Lua</title>
+    <title>Bounce!</title>
     <script src="jquery-1.11.3.js"></script>
     <script src="blockly-nodemcu/blockly_compressed.js"></script>
     <script src="blockly-nodemcu/blocks_compressed.js"></script>
@@ -16,18 +16,18 @@
     <script src="blockly-nodemcu/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
     <script type="text/javascript" src="Bounce.js"></script>
-    <style>
-        body, html {
-            height: 98%;
-        }
-    </style>
 </head>
 <body>
     <!--<input id="test_file" name="test_file" type="file" />
     <button id="load_file">Load the file</button>-->
     <div id="toolbar">Toolbar here</div>
-    <div id="blocklyDiv"></div>
-    <div id="output">Output window here</div>
+    <table id="panes">
+        <tr>
+            <td><div id="blocklyDiv"></div></td>
+            <td><pre id="output">Output window here
+            </pre></td>
+        </tr>
+    </table>
     <xml id="toolbox" style="display: none">
         <category name="Core">
             <category id="catLogic" name="logic" colour="210">
