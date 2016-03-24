@@ -5,8 +5,11 @@
     <meta charset="utf-8" />
     <title>Bounce!</title>
     <script src="jquery-1.11.3.js"></script>
+    <script src="closure-library/closure/goog/base.js"></script>
     <script src="blockly-nodemcu/blockly_uncompressed.js"></script>
+    <script src="app/start.js"></script>
     <script src="blockly-nodemcu/blocks_compressed.js"></script>
+    <link rel="stylesheet" href="closure-library/closure/goog/css/common.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/menu.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/menuitem.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/menuseparator.css">
@@ -15,10 +18,9 @@
     <script src="blockly-nodemcu/lua_compressed.js"></script>
     <script src="blockly-nodemcu/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
-    <script type="text/javascript" src="app/start.js"></script>
 </head>
 <body>
-    <div id="toolbar">Toolbar here</div>
+    <div id="toolbar"></div>
     <table id="panes">
         <tr>
             <td><div id="blocklyDiv"></div></td>

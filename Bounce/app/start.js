@@ -15,13 +15,13 @@ goog.require('goog.style');
 //goog.require('goog.ui.MenuItem');
 goog.require('goog.ui.Toolbar');
 //goog.require('goog.ui.ToolbarRenderer');
-//goog.require('goog.ui.ToolbarButton');
-//goog.require('goog.ui.ToolbarMenuButton');
+goog.require('goog.ui.ToolbarButton');
+goog.require('goog.ui.ToolbarMenuButton');
 
 // Core Bockly.
 goog.require('Blockly');
 // Choose a language.
-goog.require('Blockly.Msg.en');
+// goog.require('Blockly.Msg.en');
 
 goog.require('Blockly.Block');
 goog.require('Blockly.BlockSvg');
@@ -130,7 +130,38 @@ function scan_serial() {
 function make_toolbar() {
     var tb = new goog.ui.Toolbar();
     tb.decorate(goog.dom.$('toolbar'));
-    tb.addChild(new goog.ui.ToolbarButton('Button'), true);
-    tb.getChildAt(0).setTooltip('This is a tooltip for a button');
-    tb.render(goog.dom.getElement('toolBar'));
+        // Save, Save As, Load, Export Lua, Print?
+    var fileMenu = new goog.ui.Menu();
+    var newButton = new goog.ui.MenuItem("New");
+    fileMenu.addItem(newButton);
+    var openButton = new goog.ui.MenuItem("Open");
+    fileMenu.addItem(openButton);
+    var saveButton = new goog.ui.MenuItem("Save");
+    fileMenu.addItem(saveButton);
+    var saveAsButton = new goog.ui.MenuItem("Save As...");
+    saveAsButton.setEnabled(false);
+    fileMenu.addItem(saveAsButton);
+
+    var fileMenuButton = new goog.ui.ToolbarMenuButton('File', fileMenu);
+
+    // File
+    tb.addChild(fileMenuButton, true);
+
+    // Run (make startup, send as file..., upload_file...) - only show if connected
+    var runButton = new goog.ui.ToolbarButton("Run");
+    tb.addChild(runButton, true);
+
+    // STOP (big red stop) - only show if connected
+    var stopButton = new goog.ui.ToolbarButton("Stop");
+    tb.addChild(stopButton, true);
+
+
+    // Connect menu:
+        // Scan for devices
+        // ---
+        // device 1... - connect/disconnect
+
+
+
+    //tb.render(goog.dom.getElement('toolBar'));
 }
