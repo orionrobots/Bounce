@@ -18,6 +18,8 @@ goog.require('goog.ui.Toolbar');
 goog.require('goog.ui.ToolbarButton');
 goog.require('goog.ui.ToolbarMenuButton');
 
+goog.require('bounce.Nodemcu.scan');
+
 // Core Bockly.
 goog.require('Blockly');
 // Choose a language.
@@ -96,13 +98,28 @@ function changed() {
 }
 var data_from_file;
 
+
+var OutputConsole = function (output_element) {
+    this.write = function(data) {
+        output_element.append(output_element, data);
+    };
+
+    this.writeLine = function(line) {
+        this.write(line + '\n')
+    };
+};
+
+var console;
+
 $(function () {
     blocklyDiv = goog.dom.$('blocklyDiv');
     // Load other toolbar xml here
-
     workspace = Blockly.inject(blocklyDiv,
-        { toolbox: goog.dom.$('toolbox') });
+        { toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
     workspace.addChangeListener(changed);
+
+    console = new OutputConsole($('#output'));
+    console.writeLine('Output console initialised');
     make_toolbar();
     $('#load_file').click(function () {
         var reader = new FileReader();
@@ -113,19 +130,8 @@ $(function () {
         };
         reader.readAsText(fd);
     });
-    scan_serial();
 });
 
-function scan_serial() {
-    // Scan all the serial devices, output to output window.
-    var onGetDevices = function(ports) {
-        for (var i = 0; i < ports.length; i++) {
-            $('#output').append(ports[i].path+ "/n");
-            //console.log(ports[i].path);
-        }
-    };
-    chrome.serial.getDevices(onGetDevices);
-}
 
 function make_toolbar() {
     var tb = new goog.ui.Toolbar();
@@ -142,10 +148,8 @@ function make_toolbar() {
     saveAsButton.setEnabled(false);
     fileMenu.addItem(saveAsButton);
 
-    var fileMenuButton = new goog.ui.ToolbarMenuButton('File', fileMenu);
-
     // File
-    tb.addChild(fileMenuButton, true);
+    tb.addChild(new goog.ui.ToolbarMenuButton('File', fileMenu), true);
 
     // Run (make startup, send as file..., upload_file...) - only show if connected
     var runButton = new goog.ui.ToolbarButton("Run");
@@ -155,13 +159,24 @@ function make_toolbar() {
     var stopButton = new goog.ui.ToolbarButton("Stop");
     tb.addChild(stopButton, true);
 
-
     // Connect menu:
+    var connectMenu = new goog.ui.Menu();
         // Scan for devices
+    var scanButton = new goog.ui.MenuItem("Scan");
+    connectMenu.addItem(scanButton);
+    connectMenu.addItem(new goog.ui.MenuSeparator());
         // ---
+
+
         // device 1... - connect/disconnect
+    tb.addChild(new goog.ui.ToolbarMenuButton('Connect', connectMenu), true);
 
-
-
-    //tb.render(goog.dom.getElement('toolBar'));
+    goog.events.listen(scanButton.getContentElement(),
+        goog.events.EventType.CLICK,
+        function(e) {
+            bounce.Nodemcu.scan(console, function(mcu) {
+                var connectItem = new goog.ui.MenuItem(mcu.port);
+                connectMenu.addItem(connectItem);
+            });
+    });
 }
