@@ -6,4 +6,6 @@ closure-library\closure\bin\build\closurebuilder.py ^
     -c compiler-latest/compiler.jar ^
     --output_file=start_compressed.js ^
     --root=app ^
-    --root=closure-library
+    --root=closure-library ^
+    --root=blockly-nodemcu
+

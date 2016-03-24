@@ -32,7 +32,7 @@
  */
 'use strict';
 
-goog.provide('Blockly.Msg.en-default');
+goog.provide('Blockly.Msg.endefault');
 
 goog.require('Blockly.Msg');
 
