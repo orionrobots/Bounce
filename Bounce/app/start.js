@@ -1,8 +1,10 @@
-﻿goog.require('goog.array');
+﻿
+goog.provide('bounce.start');
+
+goog.require('goog.array');
 goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.events.EventType');
-goog.require('goog.ui');
 goog.require('goog.object');
 goog.require('goog.style');
 //goog.require('goog.ui.Button');
@@ -11,6 +13,7 @@ goog.require('goog.style');
 //goog.require('goog.ui.Component.State');
 //goog.require('goog.ui.Menu');
 //goog.require('goog.ui.MenuItem');
+goog.require('goog.ui');
 goog.require('goog.ui.Toolbar');
 //goog.require('goog.ui.ToolbarRenderer');
 //goog.require('goog.ui.ToolbarButton');
@@ -48,14 +51,13 @@ function changed() {
 var data_from_file;
 
 $(function () {
-    scan_serial();
     blocklyDiv = goog.dom.$('blocklyDiv');
     // Load other toolbar xml here
 
     workspace = Blockly.inject(blocklyDiv,
         { toolbox: goog.dom.$('toolbox') });
     workspace.addChangeListener(changed);
-    //make_toolbar();
+    make_toolbar();
     $('#load_file').click(function () {
         var reader = new FileReader();
         var fd = goog.dom.$('test_file').files[0];
@@ -65,6 +67,7 @@ $(function () {
         };
         reader.readAsText(fd);
     });
+    scan_serial();
 });
 
 function scan_serial() {
@@ -81,4 +84,7 @@ function scan_serial() {
 function make_toolbar() {
     var tb = new goog.ui.Toolbar();
     tb.decorate(goog.dom.$('toolbar'));
+    tb.addChild(new goog.ui.ToolbarButton('Button'), true);
+    tb.getChildAt(0).setTooltip('This is a tooltip for a button');
+    tb.render(goog.dom.getElement('toolBar'));
 }

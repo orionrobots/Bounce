@@ -3,57 +3,31 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Blockly Lua</title>
+    <title>Bounce!</title>
     <script src="jquery-1.11.3.js"></script>
-    <script src="blockly-nodemcu/blockly_compressed.js"></script>
+    <script src="blockly-nodemcu/blockly_uncompressed.js"></script>
     <script src="blockly-nodemcu/blocks_compressed.js"></script>
     <link rel="stylesheet" href="closure-library/closure/goog/css/menu.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/menuitem.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/menuseparator.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/toolbar.css">
-    <script src="blockly-nodemcu/generators/lua.js"></script>
-    <script src="blockly-nodemcu/generators/lua/logic.js"></script>
-    <script src="blockly-nodemcu/generators/lua/loops.js"></script>
-    <script src="blockly-nodemcu/generators/lua/math.js"></script>
-    <script src="blockly-nodemcu/generators/lua/text.js"></script>
-    <script src="blockly-nodemcu/generators/lua/lists.js"></script>
-    <script src="blockly-nodemcu/generators/lua/colour.js"></script>
-    <script src="blockly-nodemcu/generators/lua/variables.js"></script>
-    <script src="blockly-nodemcu/generators/lua/procedures.js"></script>
-
-    <script src="blockly-nodemcu/javascript_compressed.js"></script> <!-- TODO: Replace with lua generator -->
+    <link rel="stylesheet" href="bounce.css">
+    <script src="blockly-nodemcu/lua_compressed.js"></script>
     <script src="blockly-nodemcu/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
-    <script>
-        goog.require('goog.array');
-        goog.require('goog.dom');
-        goog.require('goog.events');
-        goog.require('goog.events.EventType');
-        goog.require('goog.ui');
-        goog.require('goog.object');
-        goog.require('goog.style');
-        //goog.require('goog.ui.Button');
-        //goog.require('goog.ui.ButtonSide');
-        //goog.require('goog.ui.Component.EventType');
-        //goog.require('goog.ui.Component.State');
-        //goog.require('goog.ui.Menu');
-        //goog.require('goog.ui.MenuItem');
-        //goog.require('goog.ui.Toolbar');
-        //goog.require('goog.ui.ToolbarRenderer');
-        //goog.require('goog.ui.ToolbarButton');
-        //goog.require('goog.ui.ToolbarMenuButton');
-    </script>
-    <script type="text/javascript" src="Bounce.js"></script>
-    <style>
-        body, html {
-            height: 98%;
-        }
-    </style>
+    <script type="text/javascript" src="app/start.js"></script>
 </head>
 <body>
-    <!--<input id="test_file" name="test_file" type="file" />
-    <button id="load_file">Load the file</button>-->
-    <div id="blocklyDiv" style="width: 100%; height: 100%;"></div>
+    <div id="toolbar">Toolbar here</div>
+    <table id="panes">
+        <tr>
+            <td><div id="blocklyDiv"></div></td>
+            <td>
+                <pre id="output">Output window here
+                </pre>
+            </td>
+        </tr>
+    </table>
     <xml id="toolbox" style="display: none">
         <category name="Core">
             <category id="catLogic" name="logic" colour="210">
@@ -191,7 +165,13 @@
             <category name="text" colour="160">
                 <block type="text"></block>
                 <block type="text_join"></block>
-                <block type="text_rep"></block>
+                <block type="text_rep">
+                    <value name="COUNT">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
                 <block type="text_append">
                     <value name="TEXT">
                         <shadow type="text"></shadow>
@@ -382,6 +362,11 @@
                             <field name="NUM">0</field>
                         </block>
                     </value>
+                    <value name="level">
+                        <block type="logic_boolean">
+                            <field name="BOOL">TRUE</field>
+                        </block>
+                    </value>
                 </block>
             </category>
             <category name="timers" colour="60">
@@ -404,8 +389,14 @@
                 <block type="tmr_wdclr"></block>
                 <block type="tmr_time"></block>
             </category>
-            <category name="lights">
-                <block type="ws2812_writergb"></block>
+            <category name="lights" colour="87">
+                <block type="ws2812_writergb">
+                    <value name="pin">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
             </category>
         </category>
         <category name="Variables" colour="330" custom="VARIABLE"></category>

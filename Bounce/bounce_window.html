@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Bounce!</title>
     <script src="jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="start_compressed.js"></script>
     <script src="blockly-nodemcu/blockly_compressed.js"></script>
     <script src="blockly-nodemcu/blocks_compressed.js"></script>
     <link rel="stylesheet" href="closure-library/closure/goog/css/menu.css">
@@ -15,17 +16,16 @@
     <script src="blockly-nodemcu/lua_compressed.js"></script>
     <script src="blockly-nodemcu/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
-    <script type="text/javascript" src="Bounce.js"></script>
 </head>
 <body>
-    <!--<input id="test_file" name="test_file" type="file" />
-    <button id="load_file">Load the file</button>-->
     <div id="toolbar">Toolbar here</div>
     <table id="panes">
         <tr>
             <td><div id="blocklyDiv"></div></td>
-            <td><pre id="output">Output window here
-            </pre></td>
+            <td>
+                <pre id="output">Output window here
+                </pre>
+            </td>
         </tr>
     </table>
     <xml id="toolbox" style="display: none">
