@@ -1,13 +1,13 @@
 {
   "name": "Bounce!",
   "description": "NodeMCU/Esp8266 Visual Programming Language.",
-  "version": "0.1cb",
+  "version": "0.1.1",
   "manifest_version": 2,
   "app": {
     "background": {
       "scripts": ["background.js"]
     }
   },
-  "permissions": ["serial", "filesystem"],
+  "permissions": ["serial", "fileSystem"],
   "icons": { "16": "bounce-16.png", "128": "bounce-128.png" }
 }

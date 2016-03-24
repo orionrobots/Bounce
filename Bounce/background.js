@@ -1,7 +1,7 @@
 chrome.app.runtime.onLaunched.addListener(function() {
-  chrome.app.window.create('Bounce/window.html', {
+  chrome.app.window.create('bounce_window.html', {
     'outerBounds': {
-      'width': 400,
+      'width': 720,
       'height': 500
     }
   });
