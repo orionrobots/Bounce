@@ -88,14 +88,14 @@ function new_document() {
     Blockly.mainWorkspace.clear();
 }
 
-function changed() {
-    console.log("Workspace changed");
-    if (is_preparing) {
-        is_preparing = false;
-    } else {
-        blocklyLua.notifyDocumentChanged();
-    }
-}
+//function changed() {
+//    console.log("Workspace changed");
+//    if (is_preparing) {
+//        is_preparing = false;
+//    } else {
+//        blocklyLua.notifyDocumentChanged();
+//    }
+//}
 var data_from_file;
 
 
@@ -116,20 +116,21 @@ $(function () {
     // Load other toolbar xml here
     workspace = Blockly.inject(blocklyDiv,
         { toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
-    workspace.addChangeListener(changed);
+    //workspace.addChangeListener(changed);
 
     console = new OutputConsole($('#output'));
     console.writeLine('Output console initialised');
     make_toolbar();
-    $('#load_file').click(function () {
-        var reader = new FileReader();
-        var fd = goog.dom.$('test_file').files[0];
-        reader.onload = function (evt) {
-            new_document();
-            load_document(evt.target.result);
-        };
-        reader.readAsText(fd);
-    });
+
+    //$('#load_file').click(function () {
+    //    var reader = new FileReader();
+    //    var fd = goog.dom.$('test_file').files[0];
+    //    reader.onload = function (evt) {
+    //        new_document();
+    //        load_document(evt.target.result);
+    //    };
+    //    reader.readAsText(fd);
+    //});
 });
 
 
@@ -171,12 +172,16 @@ function make_toolbar() {
         // device 1... - connect/disconnect
     tb.addChild(new goog.ui.ToolbarMenuButton('Connect', connectMenu), true);
 
+    // Callback to add found items to the menu.
+    var found_item = function(mcu) {
+        var connectItem = new goog.ui.MenuItem(mcu.port);
+        connectMenu.addItem(connectItem);
+    };
+
+    // When the scanButton is clicked, scan for mcu's to add.
     goog.events.listen(scanButton.getContentElement(),
         goog.events.EventType.CLICK,
         function(e) {
-            bounce.Nodemcu.scan(console, function(mcu) {
-                var connectItem = new goog.ui.MenuItem(mcu.port);
-                connectMenu.addItem(connectItem);
-            });
+            bounce.Nodemcu.scan(console, found_item);
     });
 }
