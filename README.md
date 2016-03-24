@@ -11,11 +11,23 @@ https://www.youtube.com/watch?v=I6fKbf_1KuI
 
 ![Screenshot of Bounce with Demo Code](/BounceScreenCapture.PNG)
 ---
-* Currently this requires windows + the DotNet runtime. TODO: Simplify requirements, distribute Mac/Linux versions.
 
-* Release Downloads: Select the most recent Bounce.zip file from https://github.com/orionrobots/Bounce/releases
-* Extract the zipfile.
-* Run it with bin/x86/Debug/MainUi.exe  (TODO: Make a nice installer - reduce this complexity)
+This is the Chrome App Branch.
+To run this:
+* Clone it from git.
+* Under the Bounce subdirectory, clone the closure-library from https://github.com/google/closure-library.
+* Download the closure-builder.jar - extract under compiler-latest.
+
+* You can now either use bounce_window_debug.html in a browser when modifying blockly and UI only.
+* To actually use with serial you need the following:
+
+* Run the build.bat/build.sh script
+
+You will need to load this in chrome as a developer extension. Later the intent is to make a self contained app for that.
+
+Launch the app this way: 
+https://developer.chrome.com/apps/first_app#five - pointing it at the Bounce directory.
+
 
 To use this with your esp8266/NodeMCU:
 
