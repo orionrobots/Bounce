@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="closure-library/closure/goog/css/menuitem.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/menuseparator.css">
     <link rel="stylesheet" href="closure-library/closure/goog/css/toolbar.css">
+    <link rel="stylesheet" href="bounce.css">
     <script src="blockly-nodemcu/lua_compressed.js"></script>
     <script src="blockly-nodemcu/msg/messages.js"></script>
     <script src="CustomNodeBlocks.js"></script>
@@ -24,7 +25,9 @@
 <body>
     <!--<input id="test_file" name="test_file" type="file" />
     <button id="load_file">Load the file</button>-->
-    <div id="blocklyDiv" style="width: 100%; height: 100%;"></div>
+    <div id="toolbar">Toolbar here</div>
+    <div id="blocklyDiv"></div>
+    <div id="output">Output window here</div>
     <xml id="toolbox" style="display: none">
         <category name="Core">
             <category id="catLogic" name="logic" colour="210">
