@@ -174,7 +174,9 @@ function make_toolbar() {
 
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
+        console.writeLine('Adding found item...');
         var connectItem = new goog.ui.MenuItem(mcu.port);
+        connectItem.setCheckable(true);
         connectMenu.addItem(connectItem);
     };
 

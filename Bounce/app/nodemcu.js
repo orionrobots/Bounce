@@ -69,6 +69,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
     };
 
     this.disconnect = function(disconnected_calback) {
+        output_console.writeLine("Disconnecting");
         chrome.serial.onReceive.removeListener(_data_received);
         chrome.serial.disconnect(_connection_info.connectionId, disconnected_calback);
     };
@@ -82,8 +83,11 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         chrome.serial.flush(_connection_info.connectionId, function() {});
     };
 
-
     this.validate = function(found_callback) {
+        function _found_wrapper() {
+            found_callback(_node_instance);
+        }
+
         // Validate by attempting a connection
         output_console.writeLine("Attempting connection");
         this.connect(function() {
@@ -98,7 +102,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             _node_instance.on_line_received = function(line) {
                 if(goog.string.contains(line, 'node mcu confirmed')) {
                     output_console.writeLine("Confirmed - NodeMCU found");
-                    _node_instance.disconnect(found_callback);
+                    _node_instance.disconnect(_found_wrapper);
                     timeout.stop();
                 }
             };
