@@ -5,6 +5,22 @@ goog.provide('bounce.Nodemcu.scan');
 goog.require('goog.string');
 goog.require('goog.async.Delay');
 
+
+// Utility bits
+
+var array_buffer_to_string = function(buffer_data) {
+    return String.fromCharCode.apply(null, new Uint8Array(buffer_data));
+};
+
+var string_to_array_buffer = function(string_data) {
+    var buf=new ArrayBuffer(string_data.length);
+    var bufView=new Uint8Array(buf);
+    for (var i=0; i<string_data.length; i++) {
+        bufView[i]=string_data.charCodeAt(i);
+  }
+  return buf;
+};
+
 /**
  * Class to handle the interactions with the NodeMCU device
  *
@@ -15,73 +31,79 @@ goog.require('goog.async.Delay');
  */
 bounce.Nodemcu = function(serial_port_path, output_console) {
     this.port = serial_port_path;
-
-    this.disconnect = function() {
-        hrome.serial.disconnect(this.connection_info.connectionId);
-    };
-
-    this.connect = function (connected) {
-        chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected);
-    };
-
-    this.array_buffer_to_string = function(buffer_data) {
-        var str = '';
-        for (var i=0; i<buffer_data.length; i++) {
-            str += String.fromCharCode(buffer_data[i]);
-        }
-        return str;
-    };
-
-    this.string_to_array_buffer = function(string_data) {
-        var buf=new ArrayBuffer(string_data.length);
-        var bufView=new Uint8Array(buf);
-        for (var i=0; i<string_data.length; i++) {
-            bufView[i]=string_data.charCodeAt(i);
-      }
-      return buf;
-    };
-
-    this.send_data = function(data) {
-        chrome.serial.send(this.connection_info.connectionId, this.string_to_array_buffer(data), function(){});
-        chrome.serial.flush(this.connection_info.connectionId, function() {});
-    };
-
-    var string_received = "";
-
-    this.receive_callback=function(info) {
-        if(info.connectionId == this.connection_info.connectionId && info.data) {
-            var str = this.array_buffer_to_string(info.data);
+    this.on_line_received = null; // Set this to get callbacks for each line?
+    var _connection_info = null; //If connected - the chrome connection info.
+    var _received_str = '';
+    var _node_instance = this;
+    /**
+     * Listener for data - assembling into lines.
+     * @param info
+     * @private
+     */
+    function _data_received(info) {
+        if(info.connectionId == _connection_info.connectionId && info.data) {
+            var str = array_buffer_to_string(info.data);
             output_console.write(str);
             if (str.charAt(str.length-1) === '\n') {
-                this.string_received += str.substring(0, str.length-1);
-                this.on_line_received(this.string_received);
-                this.string_received = '';
+                _received_str += str.substring(0, str.length-1);
+                _node_instance.on_line_received(_received_str);
+                _received_str = '';
             } else {
-                this.string_received += str;
+                _received_str += str;
             }
         }
+    }
+
+    function _setup_data_listener() {
+        chrome.serial.onReceive.addListener(_data_received);
+    }
+
+    this.connect = function (connected_callback) {
+        function connected_inner(connectionInfo) {
+            _connection_info = connectionInfo;
+            _setup_data_listener();
+            connected_callback();
+        }
+        output_console.writeLine("Connecting to device on " + serial_port_path);
+        chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected_inner);
     };
 
-    this.validate = function(found_callback) {
-        var node_instance = this;
-        this.connect(function(connectionInfo) {
-            node_instance.connection_info = connectionInfo;
-            chrome.serial.onReceive.addListener(node_instance.receive_callback);
-            // We need two events here:
-                // - A receive - the node response confirms it - cancel the timeout.
-                // - A timeout - it didn't respond confirming - disconnect the port.
-            var timeout = new goog.async.Delay(function() {
-                node_instance.disconnect();
-            }, 2000);
+    this.disconnect = function(disconnected_calback) {
+        chrome.serial.onReceive.removeListener(_data_received);
+        chrome.serial.disconnect(_connection_info.connectionId, disconnected_calback);
+    };
 
-            this.on_line_received = function(line) {
+    /**
+     *
+     * @param data Data to send to the device. Always flushed for now.
+     */
+    this.send_data = function(data) {
+        chrome.serial.send(_connection_info.connectionId, string_to_array_buffer(data), function(){});
+        chrome.serial.flush(_connection_info.connectionId, function() {});
+    };
+
+
+    this.validate = function(found_callback) {
+        // Validate by attempting a connection
+        output_console.writeLine("Attempting connection");
+        this.connect(function() {
+            output_console.writeLine("Connected");
+            // We need two events here:
+            // - A timeout - it didn't respond confirming - disconnect the port.
+            var timeout = new goog.async.Delay(function() {
+                output_console.writeLine("Timed out - not running NodeMCU");
+                _node_instance.disconnect();
+            }, 2000);
+            // - A receive - the node response confirms it - cancel the timeout.
+            _node_instance.on_line_received = function(line) {
                 if(goog.string.contains(line, 'node mcu confirmed')) {
-                    found_callback(node_instance);
+                    output_console.writeLine("Confirmed - NodeMCU found");
+                    _node_instance.disconnect(found_callback);
                     timeout.stop();
                 }
             };
-            node_instance.send_data("print('node mcu confirmed')\n");
-
+            output_console.writeLine("Sending confirmation test");
+            _node_instance.send_data("print('node mcu confirmed')\n");
         });
     };
 };
@@ -90,7 +112,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
  * Scan for NodeMCU boards connected
  *
  * @param found_callback Called when it's found with the Serial path.
- * @param comsole - output goes here.
+ * @param console - output goes here.
  */
 bounce.Nodemcu.scan = function(console, found_callback) {
     console.writeLine("Starting scan...");
