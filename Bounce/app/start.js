@@ -7,6 +7,7 @@ goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('goog.object');
 goog.require('goog.style');
+goog.require('goog.async.Delay');
 //goog.require('goog.ui.Button');
 //goog.require('goog.ui.ButtonSide');
 //goog.require('goog.ui.Component.EventType');
@@ -152,8 +153,7 @@ function run(mcu) {
                 // Calling send next, but not immediately.
                 // First - so node has time to respond.
                 // Second - to prevent very large stack recursion.
-                last_timer = goog.async.Delay(_send_next, 100);
-                last_timer.start();
+                new goog.async.Delay(_send_next, 100).start();
             });
         }
     }
