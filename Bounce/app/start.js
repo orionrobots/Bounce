@@ -183,7 +183,10 @@ function BounceUI() {
 
     function _add_run_buttons() {
         // Run (make startup, send as file..., upload_file...) - only show if connected
-        runButton = new goog.ui.ToolbarButton("Run");
+        var runButtonDiv = document.createElement('div');
+        runButtonDiv.id= "run_button";
+        runButtonDiv.innerHTML = "Run";
+        runButton = new goog.ui.ToolbarButton(runButtonDiv);
         toolbar.addChild(runButton, true);
 
         // STOP (big red stop) - only show if connected

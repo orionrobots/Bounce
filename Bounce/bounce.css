@@ -12,3 +12,7 @@
     height: 100%;
     font-family: Courier, monospace;
 }
+
+#run_button:before {
+    content:url('glyphicons-174-play.png');
+}
