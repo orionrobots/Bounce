@@ -19,10 +19,33 @@
     <script src="CustomNodeBlocks.js"></script>
 </head>
 <body>
-    <div id="toolbar"></div>
+    <div id="toolbar" class="goog-toolbar">
+        <div id="file_button" class="goog-toolbar-menu-button">
+            File
+            <div id="file_menu" class="goog-menu">
+                <div class="goog-menuitem">New</div>
+                <div class="goog-menuitem">Open</div>
+                <div class="goog-menuitem">Save</div>
+                <div class="goog-menuitem goog-menuitem-disabled">Save As</div>
+            </div>
+        </div>
+        <div id="run_button" class="goog-toolbar-button goog-menuitem-disabled">
+            <img src="glyphicons-174-play.png">Run
+        </div>
+        <div id="stop_button" class="goog-toolbar-button">
+            Stop!
+        </div>
+        <div id="connect_button" class="goog-toolbar-menu-button">
+            Connect
+            <div id="connect_menu" class="goog-menu">
+                <div id="scan_button" class="goog-menuitem">Scan</div>
+                <hr>
+            </div>
+        </div>
+    </div>
     <table id="panes">
         <tr>
-            <td><div id="blocklyDiv"></div></td>
+            <td id="blocklyArea"><div id="blocklyDiv"></div></td>
             <td>
                 <pre id="output">Output window here
                 </pre>

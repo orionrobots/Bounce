@@ -1,18 +1,28 @@
 
-#panes, #panes tr {
+html, body {
+    height: 100%;
+}
+
+#panes {
     height: 80%;
     width: 100%;
 }
 
+#panes tr {
+    height: 100%;
+}
+
+#blocklyArea {
+    height: 99%;
+}
+
 #blocklyDiv {
     height: 100%;
+    width: 100%;
 }
 
 #output {
-    height: 100%;
+    height: 99%;
+    width: 50%;
     font-family: Courier, monospace;
-}
-
-#run_button:before {
-    content:url('glyphicons-174-play.png');
 }
