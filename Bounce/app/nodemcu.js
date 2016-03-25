@@ -62,7 +62,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         function connected_inner(connectionInfo) {
             _connection_info = connectionInfo;
             _setup_data_listener();
-            connected_callback();
+            connected_callback(_node_instance);
         }
         output_console.writeLine("Connecting to device on " + serial_port_path);
         chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected_inner);
@@ -77,15 +77,25 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
     /**
      *
      * @param data Data to send to the device. Always flushed for now.
+     * @param sent_callback Called when data was sent and flushed.
      */
-    this.send_data = function(data) {
-        chrome.serial.send(_connection_info.connectionId, string_to_array_buffer(data), function(){});
-        chrome.serial.flush(_connection_info.connectionId, function() {});
+    this.send_data = function(data, sent_callback) {
+        // Send, flush when done, then perform the callback after this.
+        chrome.serial.send(_connection_info.connectionId, string_to_array_buffer(data), function(){
+            chrome.serial.flush(_connection_info.connectionId, function() {
+                sent_callback && sent_callback();
+            });
+        });
     };
 
     this.validate = function(found_callback) {
         function _found_wrapper() {
             found_callback(_node_instance);
+        }
+
+        function _timed_out() {
+            output_console.writeLine("Timed out - not running NodeMCU");
+            _node_instance.disconnect();
         }
 
         // Validate by attempting a connection
@@ -94,10 +104,8 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             output_console.writeLine("Connected");
             // We need two events here:
             // - A timeout - it didn't respond confirming - disconnect the port.
-            var timeout = new goog.async.Delay(function() {
-                output_console.writeLine("Timed out - not running NodeMCU");
-                _node_instance.disconnect();
-            }, 2000);
+            var timeout = new goog.async.Delay(_timed_out, 2000);
+            timeout.start();
             // - A receive - the node response confirms it - cancel the timeout.
             _node_instance.on_line_received = function(line) {
                 if(goog.string.contains(line, 'node mcu confirmed')) {

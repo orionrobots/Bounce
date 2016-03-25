@@ -69,6 +69,7 @@ goog.require('Blockly.utils');
 
 var workspace;
 var blocklyDiv;
+
 function export_document() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
 
@@ -120,7 +121,8 @@ $(function () {
 
     console = new OutputConsole($('#output'));
     console.writeLine('Output console initialised');
-    make_toolbar();
+    var ui = new BounceUI();
+    ui.make_toolbar();
 
     //$('#load_file').click(function () {
     //    var reader = new FileReader();
@@ -133,57 +135,131 @@ $(function () {
     //});
 });
 
+/**
+ * Send the code directly to the mcu repl.
+ * @param mcu
+ */
+function run(mcu) {
+    var code = Blockly.Lua.workspaceToCode(workspace);
+    // make a work list of lines..
+    var lines = code.split("\n");
+    var current_line = 0;
+    var last_timer;
+    // Send each one, with the sent callback priming the next.
+    function _send_next() {
+        if (current_line < lines.length) {
+            mcu.send_data(lines[current_line++] + "\n", function() {
+                // Calling send next, but not immediately.
+                // First - so node has time to respond.
+                // Second - to prevent very large stack recursion.
+                last_timer = goog.async.Delay(_send_next, 100);
+                last_timer.start();
+            });
+        }
+    }
 
-function make_toolbar() {
-    var tb = new goog.ui.Toolbar();
-    tb.decorate(goog.dom.$('toolbar'));
-        // Save, Save As, Load, Export Lua, Print?
-    var fileMenu = new goog.ui.Menu();
-    var newButton = new goog.ui.MenuItem("New");
-    fileMenu.addItem(newButton);
-    var openButton = new goog.ui.MenuItem("Open");
-    fileMenu.addItem(openButton);
-    var saveButton = new goog.ui.MenuItem("Save");
-    fileMenu.addItem(saveButton);
-    var saveAsButton = new goog.ui.MenuItem("Save As...");
-    saveAsButton.setEnabled(false);
-    fileMenu.addItem(saveAsButton);
+    _send_next();
+}
 
-    // File
-    tb.addChild(new goog.ui.ToolbarMenuButton('File', fileMenu), true);
+function BounceUI() {
+    var toolbar, runButton, stopButton;
+    var currentMcu;
 
-    // Run (make startup, send as file..., upload_file...) - only show if connected
-    var runButton = new goog.ui.ToolbarButton("Run");
-    tb.addChild(runButton, true);
+    // Save, Save As, Load, Export Lua, Print?
+    function _add_file_menu() {
+        var fileMenu = new goog.ui.Menu();
+        var newButton = new goog.ui.MenuItem("New");
+        fileMenu.addItem(newButton);
+        var openButton = new goog.ui.MenuItem("Open");
+        fileMenu.addItem(openButton);
+        var saveButton = new goog.ui.MenuItem("Save");
+        fileMenu.addItem(saveButton);
+        var saveAsButton = new goog.ui.MenuItem("Save As...");
+        saveAsButton.setEnabled(false);
+        fileMenu.addItem(saveAsButton);
 
-    // STOP (big red stop) - only show if connected
-    var stopButton = new goog.ui.ToolbarButton("Stop");
-    tb.addChild(stopButton, true);
+        toolbar.addChild(new goog.ui.ToolbarMenuButton('File', fileMenu), true);
+    }
 
-    // Connect menu:
-    var connectMenu = new goog.ui.Menu();
-        // Scan for devices
-    var scanButton = new goog.ui.MenuItem("Scan");
-    connectMenu.addItem(scanButton);
-    connectMenu.addItem(new goog.ui.MenuSeparator());
-        // ---
+    function _add_run_buttons() {
+        // Run (make startup, send as file..., upload_file...) - only show if connected
+        runButton = new goog.ui.ToolbarButton("Run");
+        toolbar.addChild(runButton, true);
 
+        // STOP (big red stop) - only show if connected
+        stopButton = new goog.ui.ToolbarButton("Stop");
+        toolbar.addChild(stopButton, true);
 
-        // device 1... - connect/disconnect
-    tb.addChild(new goog.ui.ToolbarMenuButton('Connect', connectMenu), true);
+        goog.events.listen(runButton.getContentElement(),
+            goog.events.EventType.CLICK,
+            function(e) {
+                run(currentMcu);
+        });
+    }
 
-    // Callback to add found items to the menu.
-    var found_item = function(mcu) {
-        console.writeLine('Adding found item...');
-        var connectItem = new goog.ui.MenuItem(mcu.port);
-        connectItem.setCheckable(true);
-        connectMenu.addItem(connectItem);
+    /**
+     *
+     * @param connectItem Menu item that was clicked
+     * @param mcu The associated NodeMCU device
+     * @private
+     */
+    function _connect_menu_item_clicked(connectItem, mcu) {
+        mcu.connect(function() {
+            // We've now connected the mcu. Update the UI
+            console.writeLine("Connected");
+            currentMcu = mcu;
+            // Add a tick (Check) to the connection menu item
+            connectItem.setChecked(true);
+            // disconnect any others
+            // Enable the run menu
+            runButton.setEnabled(true);
+            stopButton.setEnabled(true);
+        });
+    }
+
+    function _add_connection_menu() {
+        // Connect menu:
+        var connectMenu = new goog.ui.Menu();
+            // Scan for devices
+        var scanButton = new goog.ui.MenuItem("Scan");
+        connectMenu.addItem(scanButton);
+        connectMenu.addItem(new goog.ui.MenuSeparator());
+            // ---
+
+            // device 1... - connect/disconnect
+        toolbar.addChild(new goog.ui.ToolbarMenuButton('Connect', connectMenu), true);
+
+        // Callback to add found items to the menu.
+        var found_item = function(mcu) {
+            console.writeLine('Adding found item...');
+            var connectItem = new goog.ui.MenuItem(mcu.port);
+            connectItem.setCheckable(true);
+            connectMenu.addItem(connectItem);
+            goog.events.listen(connectItem.getContentElement(),
+                goog.events.EventType.CLICK,
+                function(e) {
+                    _connect_menu_item_clicked(connectItem, mcu);
+                }
+            );
+        };
+
+        // When the scanButton is clicked, scan for mcu's to add.
+        goog.events.listen(scanButton.getContentElement(),
+            goog.events.EventType.CLICK,
+            function(e) {
+                bounce.Nodemcu.scan(console, found_item);
+        });
+    }
+
+    function _add_help_menu() {}
+
+    this.make_toolbar = function () {
+        toolbar = new goog.ui.Toolbar();
+        toolbar.decorate(goog.dom.$('toolbar'));
+
+        _add_file_menu();
+        _add_run_buttons();
+        _add_connection_menu();
+        _add_help_menu();
     };
-
-    // When the scanButton is clicked, scan for mcu's to add.
-    goog.events.listen(scanButton.getContentElement(),
-        goog.events.EventType.CLICK,
-        function(e) {
-            bounce.Nodemcu.scan(console, found_item);
-    });
 }
