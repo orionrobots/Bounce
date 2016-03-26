@@ -113,11 +113,34 @@ var OutputConsole = function (output_element) {
 
 var console;
 
-$(function () {
-    blocklyDiv = goog.dom.$('blocklyDiv');
-    // Load other toolbar xml here
+
+function prepare_blockly_workspace() {
+    var blocklyArea = document.getElementById('blocklyArea');
+    var blocklyDiv = document.getElementById('blocklyDiv');
     workspace = Blockly.inject(blocklyDiv,
-        { toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
+      {toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
+    var onresize = function(e) {
+        // Compute the absolute coordinates and dimensions of blocklyArea.
+        var element = blocklyArea;
+        var x = 0;
+        var y = 0;
+        do {
+          x += element.offsetLeft;
+          y += element.offsetTop;
+          element = element.offsetParent;
+        } while (element);
+        // Position blocklyDiv over blocklyArea.
+        blocklyDiv.style.left = x + 'px';
+        blocklyDiv.style.top = y + 'px';
+        blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+        blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+    };
+    window.addEventListener('resize', onresize, false);
+    onresize();
+}
+
+$(function () {
+    prepare_blockly_workspace();
     //workspace.addChangeListener(changed);
 
     console = new OutputConsole($('#output'));
@@ -159,6 +182,7 @@ function run(mcu) {
 
     _send_next();
 }
+
 
 
 function BounceUI() {

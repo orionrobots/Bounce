@@ -4,7 +4,7 @@ html, body {
 }
 
 #panes {
-    height: 80%;
+    height: -webkit-calc(100% - 45px);
     width: 100%;
 }
 
@@ -14,11 +14,11 @@ html, body {
 
 #blocklyArea {
     height: 99%;
+    width: 50%;
 }
 
 #blocklyDiv {
-    height: 100%;
-    width: 100%;
+    position: absolute;
 }
 
 #output {
@@ -26,3 +26,4 @@ html, body {
     width: 50%;
     font-family: Courier, monospace;
 }
+
