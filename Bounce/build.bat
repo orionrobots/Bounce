@@ -1,5 +1,5 @@
 rem git clone https://github.com/google/closure-library - before trying this.
-
+date /t
 closure-library\closure\bin\build\closurebuilder.py ^
     --input=app\start.js ^
     -o compiled ^
@@ -8,4 +8,4 @@ closure-library\closure\bin\build\closurebuilder.py ^
     --root=app ^
     --root=closure-library ^
     --root=blockly-nodemcu
-
+date /t

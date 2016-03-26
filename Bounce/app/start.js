@@ -69,26 +69,6 @@ goog.require('Blockly.utils');
 
 
 var workspace;
-var blocklyDiv;
-
-function export_document() {
-    var xml = Blockly.Xml.workspaceToDom(workspace);
-
-    var xml_text = Blockly.Xml.domToPrettyText(xml);
-    return xml_text;
-}
-var is_preparing = false;
-
-function load_document(text) {
-    is_preparing = true;
-    var xml = Blockly.Xml.textToDom(text);
-    Blockly.Xml.domToWorkspace(workspace, xml);
-}
-
-function new_document() {
-    is_preparing = true;
-    Blockly.mainWorkspace.clear();
-}
 
 //function changed() {
 //    console.log("Workspace changed");
@@ -115,7 +95,7 @@ var OutputConsole = function (output_element) {
     this.writeLine('Console initialised');
 };
 
-var console;
+var mcu_console;
 
 
 function prepare_blockly_workspace() {
@@ -147,19 +127,11 @@ $(function () {
     prepare_blockly_workspace();
     //workspace.addChangeListener(changed);
 
-    console = new OutputConsole($('#output'));
+    mcu_console = new OutputConsole($('#output'));
     var ui = new BounceUI();
-
-    //$('#load_file').click(function () {
-    //    var reader = new FileReader();
-    //    var fd = goog.dom.$('test_file').files[0];
-    //    reader.onload = function (evt) {
-    //        new_document();
-    //        load_document(evt.target.result);
-    //    };
-    //    reader.readAsText(fd);
-    //});
 });
+
+
 
 /**
  * Send the code directly to the mcu repl.
@@ -186,7 +158,57 @@ function run(mcu) {
     _send_next();
 }
 
+function export_document() {
+    var xml = Blockly.Xml.workspaceToDom(workspace);
 
+    var xml_text = Blockly.Xml.domToPrettyText(xml);
+    return xml_text;
+}
+var is_preparing = false;
+
+function load_document(text) {
+    is_preparing = true;
+    var xml = Blockly.Xml.textToDom(text);
+    Blockly.Xml.domToWorkspace(workspace, xml);
+}
+
+function new_document() {
+    is_preparing = true;
+    Blockly.mainWorkspace.clear();
+}
+
+/**
+ * Open a file from the filesystem. Load into blockly workspace.
+ *
+ * @private
+ */
+function _open_file() {
+    var accepts = [{
+        mimeTypes: ['text/*'],
+        extensions: ['xml', 'node']
+    }];
+    // Show a file open
+    chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
+        if (!theEntry) {
+            mcu_console.writeLine('No file selected.');
+            return;
+        }
+        // On ok
+        // use local storage to retain access to this file
+        //chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
+        // Inject that code.
+        console.log("turning entry into file");
+        theEntry.file(function(file) {
+            console.log("opening file");
+            var reader = new FileReader();
+            reader.onloadend = function(e) {
+                new_document();
+                load_document(e.target.result);
+            };
+            reader.readAsText(file);
+        });
+    });
+}
 
 function BounceUI() {
     var toolbar, runButton, stopButton;
@@ -204,9 +226,14 @@ function BounceUI() {
             run(currentMcu);
     });
 
+    goog.events.listen(goog.dom.getElement("open_button"),
+        goog.events.EventType.CLICK,
+        _open_file
+    );
+
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
-        console.writeLine('Adding found item...');
+        mcu_console.writeLine('Adding found item...');
         var connectItem = new goog.ui.MenuItem(mcu.port);
         connectItem.setCheckable(true);
         connectMenu.addItem(connectItem);
@@ -222,7 +249,7 @@ function BounceUI() {
     goog.events.listen(goog.dom.getElement("scan_button"),
         goog.events.EventType.CLICK,
         function(e) {
-            bounce.Nodemcu.scan(console, found_item);
+            bounce.Nodemcu.scan(mcu_console, found_item);
     });
 
     /**
@@ -234,7 +261,7 @@ function BounceUI() {
     function _connect_menu_item_clicked(connectItem, mcu) {
         mcu.connect(function() {
             // We've now connected the mcu. Update the UI
-            console.writeLine("Connected");
+            mcu_console.writeLine("Connected");
             currentMcu = mcu;
             // Add a tick (Check) to the connection menu item
             connectItem.setChecked(true);
