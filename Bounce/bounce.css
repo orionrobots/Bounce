@@ -23,7 +23,9 @@ html, body {
 
 #output {
     height: 99%;
-    width: 50%;
+    width: 100%;
     font-family: Courier, monospace;
+    overflow-y: scroll;
+
 }
 

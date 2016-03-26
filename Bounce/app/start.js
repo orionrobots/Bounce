@@ -103,12 +103,16 @@ var data_from_file;
 
 var OutputConsole = function (output_element) {
     this.write = function(data) {
-        output_element.append(output_element, data);
+        var safe_data = goog.string.htmlEscape(data);
+        safe_data = goog.string.newLineToBr(safe_data);
+        output_element.append(output_element, safe_data);
     };
 
     this.writeLine = function(line) {
         this.write(line + '\n')
     };
+
+    this.writeLine('Console initialised');
 };
 
 var console;
@@ -144,7 +148,6 @@ $(function () {
     //workspace.addChangeListener(changed);
 
     console = new OutputConsole($('#output'));
-    console.writeLine('Output console initialised');
     var ui = new BounceUI();
 
     //$('#load_file').click(function () {
