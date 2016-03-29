@@ -1,4 +1,8 @@
+@echo off
 rem git clone https://github.com/google/closure-library - before trying this.
+rem This will prepare/minimise start.js. Due to google apps csp -
+rem the closure stuff wont work without it.
+
 date /t
 closure-library\closure\bin\build\closurebuilder.py ^
     --input=app\start.js ^

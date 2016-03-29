@@ -69,16 +69,10 @@ goog.require('Blockly.utils');
 
 
 var workspace;
-
-//function changed() {
-//    console.log("Workspace changed");
-//    if (is_preparing) {
-//        is_preparing = false;
-//    } else {
-//        blocklyLua.notifyDocumentChanged();
-//    }
-//}
-var data_from_file;
+var mcu_console;
+var is_preparing = false;
+var has_changed = false;
+var ui;
 
 
 var OutputConsole = function (output_element) {
@@ -94,8 +88,6 @@ var OutputConsole = function (output_element) {
 
     this.writeLine('Console initialised');
 };
-
-var mcu_console;
 
 
 function prepare_blockly_workspace() {
@@ -125,10 +117,10 @@ function prepare_blockly_workspace() {
 
 $(function () {
     prepare_blockly_workspace();
-    //workspace.addChangeListener(changed);
 
     mcu_console = new OutputConsole($('#output'));
-    var ui = new BounceUI();
+    ui = new BounceUI();
+    workspace.addChangeListener(ui.changed);
 });
 
 
@@ -164,7 +156,7 @@ function export_document() {
     var xml_text = Blockly.Xml.domToPrettyText(xml);
     return xml_text;
 }
-var is_preparing = false;
+
 
 function load_document(text) {
     is_preparing = true;
@@ -210,8 +202,48 @@ function _open_file() {
     });
 }
 
+function _save() {
+    chrome.fileSystem.getWritableEntry(chosenFileEntry, function(writableFileEntry) {
+    writableFileEntry.createWriter(function(writer) {
+        writer.onerror = errorHandler;
+        writer.onwriteend = callback;
+
+        chosenFileEntry.file(function(file) {
+          writer.write(file);
+        });
+        }, errorHandler);
+    });
+}
+
+function _save_as() {
+    var accepts = [{
+        mimeTypes: ['text/*'],
+        extensions: ['xml', 'node']
+    }];
+    chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
+        writableFileEntry.createWriter(function(writer) {
+          writer.onwriteend = function(e) {
+            console.log('write complete');
+          };
+          writer.write(new Blob([export_document()], {type: 'text/plain'}));
+        });
+    });
+}
+
+
+/**
+ * Short cut for button clicks
+ * @param element_name
+ * @param handler
+ * @private
+ */
+function _when_clicked(element_name, handler) {
+    goog.events.listen(goog.dom.getElement(element_name),
+        goog.events.EventType.CLICK, handler);
+}
+
 function BounceUI() {
-    var toolbar, runButton, stopButton;
+    var toolbar, runButton, stopButton, saveButton, saveAsButton;
     var currentMcu;
     var connectMenu;
 
@@ -220,23 +252,21 @@ function BounceUI() {
     connectMenu = new goog.ui.Menu();
     connectMenu.decorate(goog.dom.getElement('connect_menu'));
 
-    goog.events.listen(goog.dom.getElement("run_button"),
-        goog.events.EventType.CLICK,
-        function(e) {
-            run(currentMcu);
+    saveAsButton = goog.dom.getElement("save_as_button");
+
+    _when_clicked("run_button", function(e) {
+        run(currentMcu);
     });
 
-    goog.events.listen(goog.dom.getElement("open_button"),
-        goog.events.EventType.CLICK,
-        _open_file
-    );
-
+    _when_clicked("open_button", _open_file);
+    _when_clicked("saveas_button", _save_as);
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
         mcu_console.writeLine('Adding found item...');
         var connectItem = new goog.ui.MenuItem(mcu.port);
         connectItem.setCheckable(true);
         connectMenu.addItem(connectItem);
+
         goog.events.listen(connectItem.getContentElement(),
             goog.events.EventType.CLICK,
             function(e) {
@@ -246,10 +276,8 @@ function BounceUI() {
     };
 
     // When the scanButton is clicked, scan for mcu's to add.
-    goog.events.listen(goog.dom.getElement("scan_button"),
-        goog.events.EventType.CLICK,
-        function(e) {
-            bounce.Nodemcu.scan(mcu_console, found_item);
+    _when_clicked("scan_button", function(e) {
+        bounce.Nodemcu.scan(mcu_console, found_item);
     });
 
     /**
@@ -270,5 +298,14 @@ function BounceUI() {
             runButton.setEnabled(true);
             stopButton.setEnabled(true);
         });
+    }
+
+    this.changed = function () {
+        console.log("Workspace changed");
+        if (is_preparing) {
+            is_preparing = false;
+        } else {
+            $(saveAsButton).removeClass('goog-menuitem-disabled');
+        }
     }
 }
