@@ -1,0 +1,27 @@
+So:
+
+Download dotnet 2.0 framework SDK (same arch as downloaded node - ) https://go.microsoft.com/fwlink/p/?LinkId=226658 - this may do it...
+
+Before rebuild:
+http://stackoverflow.com/questions/14278417/cannot-install-node-modules-that-require-compilation-on-windows-7-x64-vs2012
+
+npm con
+
+
+install node
+get the electron quick start.
+cd into this.
+
+node install serialport
+node install --save-dev electron-rebuild
+.\node_modules\.bin\electron-rebuild.cmd
+
+https://itp.nyu.edu/physcomp/labs/labs-serial-communication/lab-serial-communication-with-node-js/
+
+
+http://electron.atom.io/docs/v0.37.3/tutorial/quick-start/
+http://electron.atom.io/docs/v0.37.3/tutorial/application-distribution/
+http://electron.atom.io/docs/v0.37.3/tutorial/application-packaging/
+
+http://electron.atom.io/docs/v0.37.3/tutorial/using-native-node-modules/
+

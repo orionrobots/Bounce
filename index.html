@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+	<script src="jquery-1.11.3.js"></script>
+	<script>
+			
+		// Serial ports
+		const serialport = require('serialport');
+		var SerialPort = serialport.SerialPort;
+		
+		$(function() {
+			ser_node = $('#serial');
+			// list serial ports:
+			serialport.list(function (err, ports) {
+				ports.forEach(function(port) {
+					ser_node.append(port.commName + "<br>\n");
+				});
+			});
+		});
+	</script>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+	<div id='serial'></div>
+  </body>
+</html>
