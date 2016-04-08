@@ -39,3 +39,11 @@ To use this with your esp8266/NodeMCU:
 * The drop down above this allows you to select a serial port where a NodeMCU has been detected. Select yours here.
 * Now click the connect button.
 * You can now start code on the NodeMCU with the Run button.
+---
+
+Building - node
+
+https://github.com/atom/electron/blob/master/docs/tutorial/using-native-node-modules.md
+
+With visual studio installed - use the visual studio command line.
+  

@@ -75,6 +75,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
     };
 
     /**
+     * Send data as a single chunk to the micro
      *
      * @param data Data to send to the device. Always flushed for now.
      * @param sent_callback Called when data was sent and flushed.
@@ -87,6 +88,34 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             });
         });
     };
+
+    /**
+     * Send data a line at a time to the micro
+     *
+     * @param data                  Multiline chunk of text to send
+     * @param completed_callback    Call this when done
+     */
+    this.send_multiline_data = function(data, completed_callback) {
+        var lines = data.split("\n");
+        var current_line = 0;
+        var last_timer;
+        // Send each one, with the sent callback priming the next.
+        function _send_next() {
+            if (current_line < lines.length) {
+                _node_instance.send_data(lines[current_line++] + "\n", function() {
+                    // Calling send next, but not immediately.
+                    // First - so node has time to respond.
+                    // Second - to prevent very large stack recursion.
+                    new goog.async.Delay(_send_next, 100).start();
+                });
+            } else {
+                completed_callback();
+            }
+        }
+
+        _send_next();
+    };
+
 
     this.validate = function(found_callback) {
         function _found_wrapper() {

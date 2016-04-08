@@ -1,7 +1,7 @@
 # Roadmap for Bounce
 
-* 0.1.1 Upload to NodeMCU as a file.
-* 0.1.1 As init.lua
+* 0.1.1 Upload to NodeMCU As init.lua
+* 0.1.2 Upload to NodeMCU as a file. Needs DoFile and NodeMCU FileBrowser tool.
 * 0.2. Big red STOP button to stop all timers.
 * 0.3. Linux port. Get basic run from tarball - likely scripted, so no installer.
 * 0.4. Mac/OSX port. May be not a huge leap from linux - but usb driver has been troublesome.

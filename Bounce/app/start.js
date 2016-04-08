@@ -132,23 +132,30 @@ $(function () {
  */
 function run(mcu) {
     var code = Blockly.Lua.workspaceToCode(workspace);
-    // make a work list of lines..
-    var lines = code.split("\n");
-    var current_line = 0;
-    var last_timer;
-    // Send each one, with the sent callback priming the next.
-    function _send_next() {
-        if (current_line < lines.length) {
-            mcu.send_data(lines[current_line++] + "\n", function() {
-                // Calling send next, but not immediately.
-                // First - so node has time to respond.
-                // Second - to prevent very large stack recursion.
-                new goog.async.Delay(_send_next, 100).start();
-            });
-        }
-    }
+    mcu.send_multiline_data(code, function() {});
+}
 
-    _send_next();
+/**
+ * Upload the file as init.lua.
+ *
+ * Later: Implement choosing the filename, and dofile.
+ *
+ * @param mcu
+ */
+function _upload_as_init(mcu) {
+    var filename="init.lua";
+    var code = Blockly.Lua.workspaceToCode(workspace);
+    var code_lines = code.split("\n");
+    var data_to_send=[];
+    mcu.send_as_File(code, filename, function() {
+        mcu_console.writeLine("Completed upload");
+    });
+    // send "open file for writing,name init"
+    // for each line in data to send
+    //   send "write file, line
+    // send close
+    // console log done (lua won't say anything)
+    mcu_console.writeLine("Would send init.lua here");
 }
 
 function export_document() {
@@ -261,6 +268,8 @@ function BounceUI() {
 
     _when_clicked("open_button", _open_file);
     _when_clicked("saveas_button", _save_as);
+
+    _when_clicked("upload_as_init", _upload_as_init);
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
         mcu_console.writeLine('Adding found item...');
