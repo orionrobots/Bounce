@@ -238,6 +238,7 @@ function BounceUI() {
     var toolbar, runButton, stopButton, saveButton, saveAsButton;
     var currentMcu;
     var connectMenu;
+    var _ui = this;
 
     toolbar = new goog.ui.Toolbar();
     toolbar.decorate(goog.dom.getElement('toolbar'));
@@ -285,11 +286,12 @@ function BounceUI() {
             // We've now connected the mcu. Update the UI
             mcu_console.writeLine("Connected");
             currentMcu = mcu;
+            _ui.currentMcu = mcu;
             // Add a tick (Check) to the connection menu item
             connectItem.setChecked(true);
             // disconnect any others
             // Enable the run menu
-            runButton.setEnabled(true);
+            goog.dom.getElement('#run_button').setEnabled(true);
             /* stopButton.setEnabled(true); */
         });
     }

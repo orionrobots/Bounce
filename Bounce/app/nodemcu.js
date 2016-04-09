@@ -31,7 +31,6 @@ var string_to_array_buffer = function(string_data) {
  */
 bounce.Nodemcu = function(serial_port_path, output_console) {
     this.port = serial_port_path;
-    this.on_line_received = null; // Set this to get callbacks for each line?
     var _connection_info = null; //If connected - the chrome connection info.
     var _received_str = '';
     var _node_instance = this;
@@ -114,20 +113,24 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
     this.send_multiline_data = function(data, completed_callback) {
         var lines = data.split("\n");
         var current_line = 0;
-        var last_timer;
         // Send each one, with the sent callback priming the next.
         function _send_next() {
             if (current_line < lines.length) {
-                _node_instance.send_data(lines[current_line++] + "\n", function() {
-                    // Calling send next, but not immediately.
-                    // First - so node has time to respond.
-                    // Second - to prevent very large stack recursion.
-                    new goog.async.Delay(_send_next, 100).start();
-                });
+                _node_instance.send_data(lines[current_line++] + "\n", function() {});
             } else {
+                chrome.serial.onReceive.removeListener(_send_next);
                 completed_callback();
             }
         }
+
+        chrome.serial.onReceive.addListener(function(info) {
+            console.log("Received call. Info data is ", JSON.stringify(info));
+            var data = array_buffer_to_string(info.data);
+            console.log('Data was :', JSON.stringify(data));
+            if(info.connectionId == _connection_info.connectionId && goog.string.endsWith(data, "> ")) {
+                _send_next();
+            }
+        });
 
         _send_next();
     };
