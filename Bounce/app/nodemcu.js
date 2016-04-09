@@ -35,6 +35,22 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
     var _connection_info = null; //If connected - the chrome connection info.
     var _received_str = '';
     var _node_instance = this;
+
+    /**
+     * Register a an event for a line of text received.
+     * Note - stuff like prompts, do not come as a line!
+     *
+     * @param listener
+     */
+    this.addLineEventListener = function(listener) {
+        document.addEventListener('line_received', listener, false);
+    };
+
+    this._fire_line_received_event = function(line) {
+        var event = new CustomEvent('line_received', {'detail': {node: _node_instance, line: line}});
+        document.dispatchEvent(event);
+    };
+
     /**
      * Listener for data - assembling into lines.
      * @param info
@@ -46,7 +62,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             output_console.write(str);
             if (str.charAt(str.length-1) === '\n') {
                 _received_str += str.substring(0, str.length-1);
-                _node_instance.on_line_received(_received_str);
+                _node_instance._fire_line_received_event(_received_str);
                 _received_str = '';
             } else {
                 _received_str += str;
@@ -156,13 +172,13 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             var timeout = new goog.async.Delay(_timed_out, 2000);
             timeout.start();
             // - A receive - the node response confirms it - cancel the timeout.
-            _node_instance.on_line_received = function(line) {
-                if(goog.string.contains(line, 'node mcu confirmed')) {
+            _node_instance.addLineEventListener(function(e) {
+                if(goog.string.contains(e.detail.line, 'node mcu confirmed')) {
                     output_console.writeLine("Confirmed - NodeMCU found");
                     _node_instance.disconnect(_found_wrapper);
                     timeout.stop();
                 }
-            };
+            });
             output_console.writeLine("Sending confirmation test");
             _node_instance.send_data("print('node mcu confirmed')\n");
         });
