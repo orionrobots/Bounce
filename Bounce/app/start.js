@@ -116,14 +116,6 @@ function prepare_blockly_workspace() {
     onresize();
 }
 
-$(function () {
-    prepare_blockly_workspace();
-
-    mcu_console = new OutputConsole($('#output'));
-    ui = new BounceUI();
-    workspace.addChangeListener(ui.changed);
-});
-
 
 
 /**
@@ -311,3 +303,11 @@ function BounceUI() {
         }
     }
 }
+
+$(function () {
+    prepare_blockly_workspace();
+
+    mcu_console = new OutputConsole($('#output'));
+    ui = new BounceUI();
+    workspace.addChangeListener(ui.changed);
+});
