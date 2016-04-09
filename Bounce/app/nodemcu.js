@@ -111,7 +111,12 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
      * @param completed_callback    Call this when done
      */
     this.send_multiline_data = function(data, completed_callback) {
-        var lines = data.split("\n");
+        var lines;
+        if(data instanceof Array) {
+            lines = data;
+        } else {
+            lines = data.split("\n");
+        }
         var current_line = 0;
         // Send each one, with the sent callback priming the next.
         function _send_next() {
@@ -143,17 +148,16 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
      * @param completed_callback    - Function call when all sent.
      */
     this.send_as_file= function(data, filename, completed_callback) {
-        var code_lines = code.split("\n");
+        var input_lines = data.split("\n");
+        var output_lines = [];
         var current_line = 0;
-        var send_line = function() {
-            if(current_line < lines.length) {
-                _node_instance.send_data('file.write("' + lines[current_line++] + '\n")', send_line);
-            } else {
-                _node_instance.send_data('file.close()', completed_callback)
-            }
-        };
-
-        _node_instance.send_data('file.open("' + filename + '", "w"),', send_line);
+        output_lines.push('file.open("' + filename + '", "w")');
+        goog.array.every(input_lines, function(line) {
+            output_lines.push('file.write("' + line + '\\n")');
+            return true;
+        });
+        output_lines.push('file.close()');
+        this.send_multiline_data(output_lines, completed_callback);
     };
 
     this.validate = function(found_callback) {

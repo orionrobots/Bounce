@@ -254,7 +254,7 @@ function BounceUI() {
     _when_clicked("open_button", _open_file);
     _when_clicked("saveas_button", _save_as);
 
-    _when_clicked("upload_as_init", _upload_as_init);
+    _when_clicked("upload_as_init", function() {_upload_as_init(currentMcu);});
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
         mcu_console.writeLine('Adding found item...');
