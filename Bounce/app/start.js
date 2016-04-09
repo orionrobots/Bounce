@@ -290,7 +290,7 @@ function BounceUI() {
             // disconnect any others
             // Enable the run menu
             runButton.setEnabled(true);
-            stopButton.setEnabled(true);
+            /* stopButton.setEnabled(true); */
         });
     }
 
