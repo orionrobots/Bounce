@@ -145,17 +145,9 @@ function run(mcu) {
 function _upload_as_init(mcu) {
     var filename="init.lua";
     var code = Blockly.Lua.workspaceToCode(workspace);
-    var code_lines = code.split("\n");
-    var data_to_send=[];
-    mcu.send_as_File(code, filename, function() {
+    mcu.send_as_file(code, filename, function() {
         mcu_console.writeLine("Completed upload");
     });
-    // send "open file for writing,name init"
-    // for each line in data to send
-    //   send "write file, line
-    // send close
-    // console log done (lua won't say anything)
-    mcu_console.writeLine("Would send init.lua here");
 }
 
 function export_document() {

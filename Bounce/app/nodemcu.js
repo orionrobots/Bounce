@@ -116,6 +116,26 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         _send_next();
     };
 
+    /**
+     * Send a block of code - save it under the given filename on the device.
+     *
+     * @param  data     - Data to send
+     * @param filename  - Filename to store on the device as
+     * @param completed_callback    - Function call when all sent.
+     */
+    this.send_as_file= function(data, filename, completed_callback) {
+        var code_lines = code.split("\n");
+        var current_line = 0;
+        var send_line = function() {
+            if(current_line < lines.length) {
+                _node_instance.send_data('file.write("' + lines[current_line++] + '\n")', send_line);
+            } else {
+                _node_instance.send_data('file.close()', completed_callback)
+            }
+        };
+
+        _node_instance.send_data('file.open("' + filename + '", "w"),', send_line);
+    };
 
     this.validate = function(found_callback) {
         function _found_wrapper() {
