@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-closure-library\closure\bin\build\closurebuilder.py \
+closure-library/closure/bin/build/closurebuilder.py \
     --input=app\start.js \
     -o compiled \
     -c compiler/compiler.jar \
