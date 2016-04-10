@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # Windows - get msysgit, grab https://eternallybored.org/misc/wget/, place wget.exe in it's bin folder.
 
 set -eu -o pipefail
