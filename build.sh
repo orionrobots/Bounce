@@ -1,5 +1,6 @@
 #!/bin/bash
 # Windows - get msysgit, grab https://eternallybored.org/misc/wget/, place wget.exe in it's bin folder.
+# And one of these - http://gnuwin32.sourceforge.net/packages/zip.htm
 
 set -eu -o pipefail
 
@@ -32,3 +33,6 @@ export CLOSURE_DIR=deps/closure-library-20160315
 
 install_deps
 prepare_output_dir
+
+rm bounce.zip || true
+zip -r bounce.zip ${OUTPUT_DIR}
