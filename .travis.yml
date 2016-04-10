@@ -10,16 +10,17 @@ before_install: # We need jre
 #  - sudo apt-get install -y default-jre
   - wget -nc http://dl.google.com/closure-compiler/compiler-latest.zip
 # Closure compiler.jar
-  - unzip compiler-latest.zip
+  - mkdir compiler
+  - unzip compiler-latest.zip -d compiler
 install:
 # Closure library
   - npm install google-closure-library
 script:
   - mkdir output
   # Build start compressed
-  - make_compressed.sh
+  - scripts/make_compressed.sh
   # Assemble files into output folder.
-  - assemble_output.sh
+  - scripts/assemble_output.sh
 after_script:
   - ls -l output
 #after_success:
