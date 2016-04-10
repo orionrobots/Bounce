@@ -1,6 +1,10 @@
 language: node_js
 sudo: false
 
+env:
+  - OUTPUT_DIR=output
+  - CLOSURE_DIR=node_modules/google-closure-library
+
 cache:
   directories:
     - node_modules
@@ -22,7 +26,7 @@ script:
   # Assemble files into output folder.
   - scripts/assemble_output.sh
 after_script:
-  - ls -l output
+  - ls -l ${OUTPUT_DIR}
   - ls -l
   - ls -l node_modules
 #after_success:
