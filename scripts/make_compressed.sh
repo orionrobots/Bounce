@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 ${CLOSURE_DIR}/closure/bin/build/closurebuilder.py \
-    --input=app/start.js \
+    --input=Bounce/app/start.js \
     -o compiled \
     -c compiler/compiler.jar \
     --output_file=${OUTPUT_DIR}/start_compressed.js \
