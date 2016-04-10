@@ -20,6 +20,6 @@ script:
   - make_compressed.sh
   # Assemble files into output folder.
   - assemble_output.sh
-after_success:
+#after_success:
   # Zip up output folder
 
