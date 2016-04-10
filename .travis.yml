@@ -24,6 +24,7 @@ script:
 after_script:
   - ls -l output
   - ls -l
+  - ls -l node_modules
 #after_success:
   # Zip up output folder
 
