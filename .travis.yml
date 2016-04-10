@@ -2,8 +2,7 @@ language: node_js
 sudo: false
 
 env:
-  - OUTPUT_DIR=output
-  - CLOSURE_DIR=node_modules/google-closure-library
+  - OUTPUT_DIR=output CLOSURE_DIR=node_modules/google-closure-library
 
 cache:
   directories:
