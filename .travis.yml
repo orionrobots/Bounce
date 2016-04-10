@@ -1,0 +1,25 @@
+language: node_js
+sudo: false
+
+cache:
+  directories:
+    - node_modules
+
+before_install: # We need jre
+#  - sudo apt-get -qq update
+#  - sudo apt-get install -y default-jre
+  - wget -nc http://dl.google.com/closure-compiler/compiler-latest.zip
+# Closure compiler.jar
+  - unzip compiler-latest.zip
+install:
+# Closure library
+  - npm install google-closure-library
+script:
+  - mkdir output
+  # Build start compressed
+  - make_compressed.sh
+  # Assemble files into output folder.
+  - assemble_output.sh
+after_success:
+  # Zip up output folder
+
