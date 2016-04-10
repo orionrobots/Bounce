@@ -23,6 +23,7 @@ script:
   - scripts/assemble_output.sh
 after_script:
   - ls -l output
+  - ls -l
 #after_success:
   # Zip up output folder
 
