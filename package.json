@@ -1,0 +1,32 @@
+{
+  "name": "Bounce",
+  "version": "0.1.2",
+  "description": "Esp8266/NodeMCU Visual Language",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orionrobots/bounce.git"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/orionrobots/bounce/issues"
+  },
+  "homepage": "https://github.com/orionrobots/bounce#readme.md",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.0",
+    "electron-rebuild": "^1.1.3"
+  },
+  "dependencies": {
+    "serialport": "^2.1.0"
+  }
+}

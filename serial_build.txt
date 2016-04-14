@@ -13,6 +13,9 @@ get the electron quick start.
 cd into this.
 
 node install serialport
+
+# Without the below - it fails to load the dll...
+
 node install --save-dev electron-rebuild
 .\node_modules\.bin\electron-rebuild.cmd
 
@@ -25,3 +28,88 @@ http://electron.atom.io/docs/v0.37.3/tutorial/application-packaging/
 
 http://electron.atom.io/docs/v0.37.3/tutorial/using-native-node-modules/
 
+node install --save-dev electron-rebuild
+#FAils with:
+
+C:\Users\danny\Source\Repos\bounce_electron\node_modules\electron-rebuild\node_modules\nslog>if not defined npm_config_node_gyp (node "C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin\\..\..\node_modules\node-gyp\bin\node-gyp.js" rebuild )  else (node "" rebuild )
+Building the projects in this solution one at a time. To enable parallel build, please add the "/m" switch.
+C:\Users\danny\Source\Repos\bounce_electron\node_modules\electron-rebuild\node_modules
+\nslog\build\nslog.vcxproj(20,3): error MSB4019: The imported project "C:\Program File
+s (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.Cpp.Default.props" was not found. Co
+nfirm that the path in the <Import> declaration is correct, and that the file exists o
+n disk.
+gyp ERR! build error
+gyp ERR! stack Error: `msbuild` failed with exit code: 1
+gyp ERR! stack     at ChildProcess.onExit (C:\Program Files\nodejs\node_modules\npm\node_modules\node-gyp\lib\build.js:276:23)
+gyp ERR! stack     at emitTwo (events.js:87:13)
+gyp ERR! stack     at ChildProcess.emit (events.js:172:7)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:200:12)
+gyp ERR! System Windows_NT 10.0.10586
+gyp ERR! command "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js" "rebuild"
+gyp ERR! cwd C:\Users\danny\Source\Repos\bounce_electron\node_modules\electron-rebuild\node_modules\nslog
+gyp ERR! node -v v4.4.1
+gyp ERR! node-gyp -v v3.3.0
+gyp ERR! not ok
+npm ERR! Windows_NT 10.0.10586
+npm ERR! argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save-dev" "electron-rebuild"
+npm ERR! node v4.4.1
+npm ERR! npm  v2.14.20
+npm ERR! code ELIFECYCLE
+
+npm ERR! nslog@3.0.0 install: `node-gyp rebuild`
+npm ERR! Exit status 1
+npm ERR!
+npm ERR! Failed at the nslog@3.0.0 install script 'node-gyp rebuild'.
+npm ERR! This is most likely a problem with the nslog package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node-gyp rebuild
+npm ERR! You can get information on how to open an issue for this project with:
+npm ERR!     npm bugs nslog
+npm ERR! Or if that isn't available, you can get their info via:
+npm ERR!
+npm ERR!     npm owner ls nslog
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     C:\Users\danny\Source\Repos\bounce_electron\npm-debug.log
+
+This file can help:
+C:\Program Files\nodejs\node_modules\npm\node_modules\node-gyp\README.md
+Lets try setting the MSVS version:
+set GYP_MSVS_VERSION=2015
+
+Get the latest npm - npm install npm -g.
+Check my node version.
+
+Still seeing this issue...
+
+
+Here are my thoughts...
+I can load it in node.. BUt not in electron.
+Electron uses a prebuilt.
+My suspect is the bitness...
+Possibly that I have a 64 bit compiled serialport, and a 32 bit compiled CEF/Electron binary.
+So - first - lets verify this - lets dig into that electron directory.
+FOund an exe- which looks likely....
+
+No - PE dt - which according to Stack overflow is 64 bit....
+So the electron binary is 64 bit. Node.dll too.
+Am I compiling a 32 bit version of the seriolport module?
+How could I tell?
+
+Arg - opening as text shows PE dt - it's all the same bitness. That hypothesis is smashed.
+
+---
+New plan:
+
+* Open this source in visual studio.
+* Add the node files 
+* Create a custom build (node? batch? powershell)
+	* Fetch all the dependancies
+	* Perform the node rebuild.
+	* Export the source tree as a zip.
+	* Make sure it's all 32 bit. 64 bit just limits who I can send it to.
+	
+Ok.
+	
