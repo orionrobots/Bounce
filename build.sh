@@ -36,3 +36,6 @@ prepare_output_dir
 
 rm bounce.zip || true
 zip -r bounce.zip ${OUTPUT_DIR}
+
+#Todo
+#chrome.exe --pack-extension=${OUTPUT_DIR} --pack-extension-key=C:\myext.pem
