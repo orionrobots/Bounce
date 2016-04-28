@@ -207,30 +207,18 @@ function _save() {
     });
 }
 
-function _save_as() {
-    var accepts = [{
-        mimeTypes: ['text/*'],
-        extensions: ['xml', 'node']
-    }];
-    chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
-        writableFileEntry.createWriter(function(writer) {
-          writer.onwriteend = function(e) {
-            console.log('write complete');
-          };
-          writer.write(new Blob([export_document()], {type: 'text/plain'}));
-        });
-    });
-}
-
 
 /**
  * Short cut for button clicks
- * @param element_name
- * @param handler
+ * @param element - Either a dom element, or name of a dom element.
+ * @param handler - function call on click.
  * @private
  */
-function _when_clicked(element_name, handler) {
-    goog.events.listen(goog.dom.getElement(element_name),
+function _when_clicked(element, handler) {
+    if( typeof(element) == "string") {
+        element = goog.dom.getElement(element);
+    }
+    goog.events.listen(element,
         goog.events.EventType.CLICK, handler);
 }
 
@@ -239,21 +227,43 @@ function BounceUI() {
     var currentMcu;
     var connectMenu;
     var _ui = this;
+    var _currentFileEntry;
+
+    function _save() {
+        _currentFileEntry.createWriter(function(writer) {
+            writer.onwriteend = function(e) {
+                console.log('write complete');
+            };
+            writer.write(new Blob([export_document()], {type: 'text/plain'}));
+        })
+    }
+
+    function _save_as() {
+        var accepts = [{
+            mimeTypes: ['text/*'],
+            extensions: ['xml', 'node']
+        }];
+        chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
+            _currentFileEntry = writableFileEntry;
+            _save();
+        });
+    }
 
     toolbar = new goog.ui.Toolbar();
     toolbar.decorate(goog.dom.getElement('toolbar'));
     connectMenu = new goog.ui.Menu();
     connectMenu.decorate(goog.dom.getElement('connect_menu'));
 
-    saveAsButton = goog.dom.getElement("save_as_button");
+    saveAsButton = goog.dom.getElement("saveas_button");
+    saveButton = goog.dom.getElement("save_button");
+    runButton = goog.dom.getElement("run_button");
 
-    _when_clicked("run_button", function(e) {
+    _when_clicked(runButton, function(e) {
         run(currentMcu);
     });
 
     _when_clicked("open_button", _open_file);
-    _when_clicked("saveas_button", _save_as);
-
+    _when_clicked(saveAsButton, _save_as);
     _when_clicked("upload_as_init", function() {_upload_as_init(currentMcu);});
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
@@ -291,7 +301,7 @@ function BounceUI() {
             connectItem.setChecked(true);
             // disconnect any others
             // Enable the run menu
-            goog.dom.getElement('#run_button').setEnabled(true);
+            runButton.setEnabled(true);
             /* stopButton.setEnabled(true); */
         });
     }
@@ -302,6 +312,9 @@ function BounceUI() {
             is_preparing = false;
         } else {
             $(saveAsButton).removeClass('goog-menuitem-disabled');
+            if (_currentFileEntry) {
+                $(saveButton).removeClass('goog-menuitem-disabled');
+            }
         }
     }
 }

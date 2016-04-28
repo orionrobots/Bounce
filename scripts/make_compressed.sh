@@ -8,3 +8,4 @@ ${CLOSURE_DIR}/closure/bin/build/closurebuilder.py \
     --root=Bounce/app \
     --root=${CLOSURE_DIR} \
     --root=Bounce/blockly-nodemcu
+#    --compiler_flags="--compilation_level=WHITESPACE_ONLY" \
