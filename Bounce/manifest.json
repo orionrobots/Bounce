@@ -8,6 +8,6 @@
       "scripts": ["background.js"]
     }
   },
-  "permissions": ["serial", "fileSystem"],
+  "permissions": ["serial", "fileSystem", "fileSystem.write"],
   "icons": { "16": "bounce-16.png", "128": "bounce-128.png" }
 }

@@ -161,52 +161,6 @@ function new_document() {
     Blockly.mainWorkspace.clear();
 }
 
-/**
- * Open a file from the filesystem. Load into blockly workspace.
- *
- * @private
- */
-function _open_file() {
-    var accepts = [{
-        mimeTypes: ['text/*'],
-        extensions: ['xml', 'node']
-    }];
-    // Show a file open
-    chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
-        if (!theEntry) {
-            mcu_console.writeLine('No file selected.');
-            return;
-        }
-        // On ok
-        // use local storage to retain access to this file
-        //chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
-        // Inject that code.
-        console.log("turning entry into file");
-        theEntry.file(function(file) {
-            console.log("opening file");
-            var reader = new FileReader();
-            reader.onloadend = function(e) {
-                new_document();
-                load_document(e.target.result);
-            };
-            reader.readAsText(file);
-        });
-    });
-}
-
-function _save() {
-    chrome.fileSystem.getWritableEntry(chosenFileEntry, function(writableFileEntry) {
-    writableFileEntry.createWriter(function(writer) {
-        writer.onerror = errorHandler;
-        writer.onwriteend = callback;
-
-        chosenFileEntry.file(function(file) {
-          writer.write(file);
-        });
-        }, errorHandler);
-    });
-}
-
 
 /**
  * Short cut for button clicks
@@ -225,9 +179,43 @@ function _when_clicked(element, handler) {
 function BounceUI() {
     var toolbar, runButton, stopButton, saveButton, saveAsButton;
     var currentMcu;
-    var connectMenu;
+    var connectMenu, fileMenu;
     var _ui = this;
     var _currentFileEntry;
+
+    /**
+     * Open a file from the filesystem. Load into blockly workspace.
+     *
+     * @private
+     */
+    function _open_file() {
+        var accepts = [{
+            mimeTypes: ['text/*'],
+            extensions: ['xml', 'node']
+        }];
+        // Show a file open
+        chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
+            if (!theEntry) {
+                mcu_console.writeLine('No file selected.');
+                return;
+            }
+            // On ok
+            // use local storage to retain access to this file
+            //chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
+            // Inject that code.
+            console.log("turning entry into file");
+            theEntry.file(function(file) {
+                console.log("opening file");
+                var reader = new FileReader();
+                reader.onloadend = function(e) {
+                    new_document();
+                    load_document(e.target.result);
+                };
+                reader.readAsText(file);
+            });
+            _currentFileEntry = theEntry;
+        });
+    }
 
     function _save() {
         _currentFileEntry.createWriter(function(writer) {
@@ -254,6 +242,8 @@ function BounceUI() {
     connectMenu = new goog.ui.Menu();
     connectMenu.decorate(goog.dom.getElement('connect_menu'));
 
+    fileMenu = new goog.ui.Menu();
+    fileMenu.decorate(goog.dom.getElement('file_menu'));
     saveAsButton = goog.dom.getElement("saveas_button");
     saveButton = goog.dom.getElement("save_button");
     runButton = goog.dom.getElement("run_button");
@@ -311,9 +301,12 @@ function BounceUI() {
         if (is_preparing) {
             is_preparing = false;
         } else {
-            $(saveAsButton).removeClass('goog-menuitem-disabled');
+            fileMenu.getChild("saveas_button").setEnabled(true);
+            //$(saveAsButton).removeClass('goog-menuitem-disabled');
             if (_currentFileEntry) {
-                $(saveButton).removeClass('goog-menuitem-disabled');
+                fileMenu.getChild("save_button").setEnabled(true);
+                //
+                //$(saveButton).removeClass('goog-menuitem-disabled');
             }
         }
     }
