@@ -182,6 +182,7 @@ function BounceUI() {
     var connectMenu, fileMenu;
     var _ui = this;
     var _currentFileEntry;
+    var _modified = False;
 
     /**
      * Open a file from the filesystem. Load into blockly workspace.
@@ -254,6 +255,7 @@ function BounceUI() {
 
     _when_clicked("open_button", _open_file);
     _when_clicked(saveAsButton, _save_as);
+    _when_clicked(saveButton, _save);
     _when_clicked("upload_as_init", function() {_upload_as_init(currentMcu);});
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
