@@ -1,6 +1,6 @@
 #!/bin/bash
 # Windows - use gow - https://github.com/bmatzelle/gow/releases
-# Build.sh - only needed if:
+# update_libs.sh - only needed if:
 #   * You change the libraries in bounce_base.js
 #   * You wish to update to another version of google closure.
 #   * Changing the compile options
@@ -22,34 +22,36 @@ function install_deps() {
     echo "Dependencies prepared"
 }
 
-function prepare_output_dir() {
-    mkdir -p ${OUTPUT_DIR}
-    ./${SCRIPTS_DIR}/make_compressed.sh
-    ./${SCRIPTS_DIR}/assemble_output.sh
-}
-
 export DEPS_DIR=deps
-export OUTPUT_DIR=output
-export SRC_DIR=Bounce
+export OUTPUT_DIR=Bounce
+export LIB_BASE=bounce_base.js
 export SCRIPTS_DIR=scripts
 export CLOSURE_DIR=deps/closure-library-20160315
-
-# New system - deps go into deps folder
-# Compressed files go into Bounce folder
-#
-
+export CSS_OUTPUT=${OUTPUT_DIR}/goog_combined.css
+export CSS_INPUT="\
+    closure/goog/css/common.css closure/goog/css/menu.css \
+    closure/goog/css/menuitem.css closure/goog/css/menuseparator.css \
+    closure/goog/css/toolbar.css"
 
 # Download and install 3rd party deps
 install_deps
-# Prepare compressed output
-# Minify CSS from 3rd party stuff - put in output.
+# Compressed files go into Bounce folder
+${CLOSURE_DIR}/closure/bin/build/closurebuilder.py \
+    --input=LIB_BASE \
+    -o compiled \
+    -c ${DEPS_DIR}/compiler/compiler.jar \
+    --output_file=${OUTPUT_DIR}/bounce_base_compressed.js \
+    --root=${CLOSURE_DIR}
 
+# Combine CSS from 3rd party stuff - put in output.
+echo >${CSS_OUTPUT}
+for file in ${CSS_INPUT}; do
+    cat ${file} >>${CSS_OUTPUT}
+done
 
+# TODO: Find CSS minifier later here.
 
-prepare_output_dir
+# Copy any image files to media...
+mkdir -p ${OUTPUT_DIR}/editor
+cp ${CLOSURE_DIR}/closure/goog/images/toolbar-bg.png ${OUTPUT_DIR}/editor
 
-rm bounce.zip || true
-zip -r bounce.zip ${OUTPUT_DIR}
-
-#Todo
-#chrome.exe --pack-extension=${OUTPUT_DIR} --pack-extension-key=C:\myext.pem

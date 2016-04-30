@@ -1,11 +1,4 @@
 // NodeMCU Handler
-goog.provide('bounce.Nodemcu');
-goog.provide('bounce.Nodemcu.scan');
-
-goog.require('goog.string');
-goog.require('goog.async.Delay');
-
-
 // Utility bits
 
 var array_buffer_to_string = function(buffer_data) {
