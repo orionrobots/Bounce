@@ -223,7 +223,7 @@ function BounceUI() {
             connectItem.setChecked(true);
             // disconnect any others
             // Enable the run menu
-            runButton.setEnabled(true);
+            toolbar.getChild("run_button").setEnabled(true);
             /* stopButton.setEnabled(true); */
         });
     }
