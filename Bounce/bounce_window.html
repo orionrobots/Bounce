@@ -31,6 +31,7 @@
         </div>
         <!-- TODO: Put into a run dropdown -->
         <div id="upload_as_init" class="goog-toolbar-button goog-toolbar-button-disabled">Upload as init</div>
+        <div id="upload" class="goog-toolbar-button goog-toolbar-button-disabled">Upload</div>
         <div id="stop_button" class="goog-toolbar-button goog-toolbar-button-disabled">
             Stop!
         </div>
@@ -424,5 +425,13 @@
         <category name="Variables" colour="330" custom="VARIABLE"></category>
         <category name="Functions" colour="290" custom="PROCEDURE"></category>
 </xml>
+    <div class="lightbox lightbox-hidden" id="filename_dlg">
+        <div class="lightbox-inner">
+            <h3>Please enter a device filename.</h3><br>
+            <input type="text" id="filename" value="filename.lua" /><br>
+            <button id="ok" class="goog-button">OK</button>
+            <button id="cancel" class="goog-button">Cancel</button>
+        </div>
+    </div>
 </body>
 </html>

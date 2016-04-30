@@ -4,14 +4,26 @@ var is_preparing = false;
 var has_changed = false;
 var ui;
 
-
+/**
+ * Create a console to output data in visible in the UI.
+ * @param output_element A DOM element to use for output.
+ * @constructor
+ */
 var OutputConsole = function (output_element) {
+    /**
+     * Write some data to the output. HTML is escaped.
+     * @param data Data to write.
+     */
     this.write = function(data) {
         var safe_data = goog.string.htmlEscape(data);
         safe_data = goog.string.newLineToBr(safe_data);
         output_element.append(output_element, safe_data);
     };
 
+    /**
+     * Write a line of data.
+     * @param line
+     */
     this.writeLine = function(line) {
         this.write(line + '\n')
     };
@@ -19,6 +31,49 @@ var OutputConsole = function (output_element) {
     this.writeLine('Console initialised');
 };
 
+
+/**
+ *
+ * @constructor Prompt for a filename - use "display(ok_callback, cancel_callback)" to prompt.
+ */
+function AskForFilename() {
+    var main_div = $("#filename_dlg");
+    var ok_button = main_div.find("#ok");
+    var cancel_button = main_div.find("#cancel");
+    var _lb = this;
+
+
+    function _ok_clicked() {
+        _lb.hide();
+        var filename = main_div.find("#filename").val();
+        _lb.ok_call(filename);
+    }
+
+    /**
+     *
+     * @param ok_call - Call this with the filename when this dialog is ok'd.
+     * @param cancel_call - Call this if it's cancelled. May be empty.
+     */
+    this.display = function(ok_call, cancel_call) {
+        $(main_div).removeClass("lightbox-hidden");
+        this.ok_call = ok_call;
+        this.cancel_call= cancel_call;
+        ok_button.click(_ok_clicked);
+        cancel_button.click(function() {
+            _lb.hide();
+            if(cancel_call) {
+                cancel_call();
+            }
+        });
+    };
+
+    /**
+     * Hide the popup.
+     */
+    this.hide = function () {
+        $(main_div).addClass("lightbox-hidden");
+    }
+}
 
 function prepare_blockly_workspace() {
     var blocklyArea = document.getElementById('blocklyArea');
@@ -69,6 +124,16 @@ function _upload_as_init(mcu) {
     var code = Blockly.Lua.workspaceToCode(workspace);
     mcu.send_as_file(code, filename, function() {
         mcu_console.writeLine("Completed upload");
+    });
+}
+
+function _upload(mcu) {
+    var fndlg = new AskForFilename();
+    fndlg.display(function(filename) {
+        var code = Blockly.Lua.workspaceToCode(workspace);
+        mcu.send_as_file(code, filename, function() {
+            mcu_console.writeLine("Completed upload");
+        });
     });
 }
 
@@ -187,6 +252,7 @@ function BounceUI() {
     _when_clicked(saveAsButton, _save_as);
     _when_clicked(saveButton, _save);
     _when_clicked("upload_as_init", function() {_upload_as_init(currentMcu);});
+    _when_clicked("upload", function() {_upload(currentMcu);});
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
         mcu_console.writeLine('Adding found item...');
@@ -224,6 +290,9 @@ function BounceUI() {
             // disconnect any others
             // Enable the run menu
             toolbar.getChild("run_button").setEnabled(true);
+            toolbar.getChild("upload").setEnabled(true);
+            toolbar.getChild("upload_as_init").setEnabled(true);
+
             /* stopButton.setEnabled(true); */
         });
     }
@@ -234,11 +303,8 @@ function BounceUI() {
             is_preparing = false;
         } else {
             fileMenu.getChild("saveas_button").setEnabled(true);
-            //$(saveAsButton).removeClass('goog-menuitem-disabled');
             if (_currentFileEntry) {
                 fileMenu.getChild("save_button").setEnabled(true);
-                //
-                //$(saveButton).removeClass('goog-menuitem-disabled');
             }
         }
     }

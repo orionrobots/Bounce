@@ -26,6 +26,35 @@ html, body {
     width: 100%;
     font-family: Courier, monospace;
     overflow-y: scroll;
-
 }
 
+.lightbox-hidden {
+    display: none;
+}
+
+.lightbox {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: rgba(100,100,100,0.6);
+    z-index: 10;
+}
+
+.lightbox-inner {
+    width: 400px;
+    height: 200px;
+    margin: 100px auto auto;
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 4px 4px 2px #888888;
+    -webkit-border-radius: 3px;
+    background: white;
+}
+
+.lightbox-inner input {
+    border: 1px solid black;
+    -webkit-border-radius: 2px;
+}
