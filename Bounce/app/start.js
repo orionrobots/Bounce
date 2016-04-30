@@ -56,7 +56,6 @@ function AskForFilename() {
     this.display = function(ok_call, cancel_call) {
         $(main_div).removeClass("lightbox-hidden");
         this.ok_call = ok_call;
-        this.cancel_call= cancel_call;
         ok_button.click(_ok_clicked);
         cancel_button.click(function() {
             _lb.hide();
@@ -79,7 +78,7 @@ function prepare_blockly_workspace() {
     var blocklyDiv = document.getElementById('blocklyDiv');
     workspace = Blockly.inject(blocklyDiv,
       {toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
-    var onresize = function(e) {
+    var onresize = function() {
         // Compute the absolute coordinates and dimensions of blocklyArea.
         var element = blocklyArea;
         var x = 0;
@@ -113,8 +112,7 @@ function run(mcu) {
 function export_document() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
 
-    var xml_text = Blockly.Xml.domToPrettyText(xml);
-    return xml_text;
+    return Blockly.Xml.domToPrettyText(xml);
 }
 
 
@@ -130,7 +128,7 @@ function new_document() {
 }
 
 function BounceUI() {
-    var toolbar, runButton, stopButton, saveButton, saveAsButton;
+    var toolbar;
     var currentMcu;
     var connectMenu, fileMenu;
     var _ui = this;
@@ -223,19 +221,13 @@ function BounceUI() {
 
     fileMenu = new goog.ui.Menu();
     fileMenu.decorate(goog.dom.getElement('file_menu'));
-    saveAsButton = goog.dom.getElement("saveas_button");
-    saveButton = goog.dom.getElement("save_button");
-    runButton = goog.dom.getElement("run_button");
 
-    $(runButton).click(function() {
-        run(currentMcu);
-    });
-
+    $("#run_button").click(function() { run(currentMcu); });
     $("#open_button").click(_open_file);
-    $(saveAsButton).click(_save_as);
-    $(saveButton).click(_save);
-    $("#upload_as_init").click(function() {_upload_as_init(currentMcu);});
-    $("#upload").click(function() {_upload(currentMcu);});
+    $("#saveas_button").click(_save_as);
+    $("#save_button").click(_save);
+    $("#upload_as_init").click(function() { _upload_as_init(currentMcu); });
+    $("#upload").click(function() { _upload(currentMcu); });
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
         mcu_console.writeLine('Adding found item...');
@@ -243,16 +235,13 @@ function BounceUI() {
         connectItem.setCheckable(true);
         connectMenu.addItem(connectItem);
 
-        goog.events.listen(connectItem.getContentElement(),
-            goog.events.EventType.CLICK,
-            function(e) {
-                _connect_menu_item_clicked(connectItem, mcu);
-            }
-        );
+        $(connectItem.getContentElement()).click(function() {
+            _connect_menu_item_clicked(connectItem, mcu);
+        });
     };
 
     // When the scanButton is clicked, scan for mcu's to add.
-    $("#scan_button").click(function(e) {
+    $("#scan_button").click(function() {
         bounce.Nodemcu.scan(mcu_console, found_item);
     });
 
@@ -284,6 +273,7 @@ function BounceUI() {
         console.log("Workspace changed");
         if (is_preparing) {
             is_preparing = false;
+            _modified = true;
         } else {
             fileMenu.getChild("saveas_button").setEnabled(true);
             if (_currentFileEntry) {
