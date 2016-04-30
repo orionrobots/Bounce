@@ -1,7 +1,6 @@
 ﻿var workspace;
 var mcu_console;
 var is_preparing = false;
-var has_changed = false;
 var ui;
 
 /**
@@ -102,7 +101,6 @@ function prepare_blockly_workspace() {
 }
 
 
-
 /**
  * Send the code directly to the mcu repl.
  * @param mcu
@@ -110,31 +108,6 @@ function prepare_blockly_workspace() {
 function run(mcu) {
     var code = Blockly.Lua.workspaceToCode(workspace);
     mcu.send_multiline_data(code, function() {});
-}
-
-/**
- * Upload the file as init.lua.
- *
- * Later: Implement choosing the filename, and dofile.
- *
- * @param mcu
- */
-function _upload_as_init(mcu) {
-    var filename="init.lua";
-    var code = Blockly.Lua.workspaceToCode(workspace);
-    mcu.send_as_file(code, filename, function() {
-        mcu_console.writeLine("Completed upload");
-    });
-}
-
-function _upload(mcu) {
-    var fndlg = new AskForFilename();
-    fndlg.display(function(filename) {
-        var code = Blockly.Lua.workspaceToCode(workspace);
-        mcu.send_as_file(code, filename, function() {
-            mcu_console.writeLine("Completed upload");
-        });
-    });
 }
 
 function export_document() {
@@ -156,21 +129,6 @@ function new_document() {
     Blockly.mainWorkspace.clear();
 }
 
-
-/**
- * Short cut for button clicks
- * @param element - Either a dom element, or name of a dom element.
- * @param handler - function call on click.
- * @private
- */
-function _when_clicked(element, handler) {
-    if( typeof(element) == "string") {
-        element = goog.dom.getElement(element);
-    }
-    goog.events.listen(element,
-        goog.events.EventType.CLICK, handler);
-}
-
 function BounceUI() {
     var toolbar, runButton, stopButton, saveButton, saveAsButton;
     var currentMcu;
@@ -178,6 +136,31 @@ function BounceUI() {
     var _ui = this;
     var _currentFileEntry;
     var _modified = false;
+
+    /**
+     * Upload the file as init.lua.
+     *
+     * Later: Implement choosing the filename, and dofile.
+     *
+     * @param mcu
+     */
+    function _upload_as_init(mcu) {
+        var filename="init.lua";
+        var code = Blockly.Lua.workspaceToCode(workspace);
+        mcu.send_as_file(code, filename, function() {
+            mcu_console.writeLine("Completed upload");
+        });
+    }
+
+    function _upload(mcu) {
+        var fndlg = new AskForFilename();
+        fndlg.display(function(filename) {
+            var code = Blockly.Lua.workspaceToCode(workspace);
+            mcu.send_as_file(code, filename, function() {
+                mcu_console.writeLine("Completed upload");
+            });
+        });
+    }
 
     /**
      * Open a file from the filesystem. Load into blockly workspace.
@@ -244,15 +227,15 @@ function BounceUI() {
     saveButton = goog.dom.getElement("save_button");
     runButton = goog.dom.getElement("run_button");
 
-    _when_clicked(runButton, function(e) {
+    $(runButton).click(function() {
         run(currentMcu);
     });
 
-    _when_clicked("open_button", _open_file);
-    _when_clicked(saveAsButton, _save_as);
-    _when_clicked(saveButton, _save);
-    _when_clicked("upload_as_init", function() {_upload_as_init(currentMcu);});
-    _when_clicked("upload", function() {_upload(currentMcu);});
+    $("#open_button").click(_open_file);
+    $(saveAsButton).click(_save_as);
+    $(saveButton).click(_save);
+    $("#upload_as_init").click(function() {_upload_as_init(currentMcu);});
+    $("#upload").click(function() {_upload(currentMcu);});
     // Callback to add found items to the menu.
     var found_item = function(mcu) {
         mcu_console.writeLine('Adding found item...');
@@ -269,7 +252,7 @@ function BounceUI() {
     };
 
     // When the scanButton is clicked, scan for mcu's to add.
-    _when_clicked("scan_button", function(e) {
+    $("#scan_button").click(function(e) {
         bounce.Nodemcu.scan(mcu_console, found_item);
     });
 

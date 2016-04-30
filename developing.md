@@ -6,6 +6,12 @@ You will need to load this in chrome as a developer extension.
 Launch the app this way: 
 https://developer.chrome.com/apps/first_app#five - pointing it at the Bounce directory.
 ---
+UI modifications
+
+Use jquery where possible - it is often simpler than the closure equivalent.
+Closure is what blockly is based upon - but can lead to very heavyweight code compared to the jquery alternative.
+
+---
 Changing libraries
 
 If you need to change the goog dependancies, or blockly version this is a bit trickier. 
