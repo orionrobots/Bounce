@@ -112,7 +112,7 @@ function BounceUI() {
     var connectMenu, fileMenu;
     var _ui = this;
     var _currentFileEntry;
-    var _modified = False;
+    var _modified = false;
 
     /**
      * Open a file from the filesystem. Load into blockly workspace.

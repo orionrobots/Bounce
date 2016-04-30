@@ -6,6 +6,7 @@
 #   * Changing the compile options
 
 set -eu -o pipefail
+set -x
 
 function install_deps() {
     echo "Retrieving dependencies"
@@ -24,8 +25,7 @@ function install_deps() {
 
 export DEPS_DIR=deps
 export OUTPUT_DIR=Bounce
-export LIB_BASE=bounce_base.js
-export SCRIPTS_DIR=scripts
+export LIB_BASE=lib/bounce_base.js
 export CLOSURE_DIR=deps/closure-library-20160315
 export CSS_OUTPUT=${OUTPUT_DIR}/goog_combined.css
 export CSS_INPUT="\
@@ -35,23 +35,34 @@ export CSS_INPUT="\
 
 # Download and install 3rd party deps
 install_deps
-# Compressed files go into Bounce folder
-${CLOSURE_DIR}/closure/bin/build/closurebuilder.py \
-    --input=LIB_BASE \
-    -o compiled \
-    -c ${DEPS_DIR}/compiler/compiler.jar \
-    --output_file=${OUTPUT_DIR}/bounce_base_compressed.js \
-    --root=${CLOSURE_DIR}
 
+echo "Combining CSS..."
 # Combine CSS from 3rd party stuff - put in output.
 echo >${CSS_OUTPUT}
 for file in ${CSS_INPUT}; do
-    cat ${file} >>${CSS_OUTPUT}
+    cat ${CLOSURE_DIR}/${file} >>${CSS_OUTPUT}
 done
 
 # TODO: Find CSS minifier later here.
+
+echo "CSS Complete."
+echo "Copying image files..."
 
 # Copy any image files to media...
 mkdir -p ${OUTPUT_DIR}/editor
 cp ${CLOSURE_DIR}/closure/goog/images/toolbar-bg.png ${OUTPUT_DIR}/editor
 
+
+echo "Building..."
+# Compressed files go into Bounce folder
+${CLOSURE_DIR}/closure/bin/build/closurebuilder.py \
+    --input=${LIB_BASE} \
+    -o compiled \
+    -c ${DEPS_DIR}/compiler/compiler.jar \
+    --output_file=${OUTPUT_DIR}/bounce_base_compressed.js \
+    --root=${CLOSURE_DIR} \
+    --root=Bounce/blockly-nodemcu \
+    --root=lib
+
+echo "Building output complete"
+echo "Done."
