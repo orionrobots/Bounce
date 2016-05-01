@@ -14,6 +14,7 @@
     <script type="text/javascript" src="app/start.js"></script> <!-- Main ui here -->
     <link rel="stylesheet" href="goog_combined.css">
     <link rel="stylesheet" href="bounce.css">
+    <link rel="stylesheet" href="font-awesome-4.6.1/css/font-awesome.min.css">
 </head>
 <body>
     <div id="toolbar" class="goog-toolbar">
@@ -27,13 +28,13 @@
             </div>
         </div>
         <div id="run_button" class="goog-toolbar-button goog-toolbar-button-disabled">
-            <img src="glyphicons-174-play.png">Go!
+            <i class="fa fa-play" aria-hidden="true"></i> Go!
+        </div>
+        <div id="stop_button" class="goog-toolbar-button goog-toolbar-button-disabled">
+            <i class="fa fa-stop" aria-hidden="true"></i> Stop!
         </div>
         <!-- TODO: Put into a run dropdown -->
-        <div id="upload_as_init" class="goog-toolbar-button goog-toolbar-button-disabled">Upload as start code</div>
-        <div id="stop_button" class="goog-toolbar-button goog-toolbar-button-disabled">
-            Stop!
-        </div>
+        <div id="upload_as_init" class="goog-toolbar-button goog-toolbar-button-disabled">Set as start code</div>
         <div id="files_on_chip" class="goog-toolbar-button">Files On Chip...</div>
         <div id="connect_button" class="goog-toolbar-menu-button">
             Connect

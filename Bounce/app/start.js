@@ -109,6 +109,10 @@ function run(mcu) {
     mcu.send_multiline_data(code, function() {});
 }
 
+function stop(mcu) {
+    mcu.send_multiline_data(["for i=0, 6 do", "tmr.stop(i)", "end"], function() {});
+}
+
 function export_document() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
 
@@ -222,7 +226,8 @@ function BounceUI() {
     fileMenu = new goog.ui.Menu();
     fileMenu.decorate(goog.dom.getElement('file_menu'));
 
-    $("#run_button").click(function() { run(currentMcu); });
+    $("#run_button").click(function() { run(currentMcu); })
+    $("#stop_button").click(function() { stop(currentMcu); })
     $("#open_button").click(_open_file);
     $("#saveas_button").click(_save_as);
     $("#save_button").click(_save);
@@ -262,6 +267,7 @@ function BounceUI() {
             // disconnect any others
             // Enable the run menu
             toolbar.getChild("run_button").setEnabled(true);
+            toolbar.getChild("stop_button").setEnabled(true);
             toolbar.getChild("upload").setEnabled(true);
             toolbar.getChild("upload_as_init").setEnabled(true);
 

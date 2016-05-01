@@ -104,3 +104,11 @@ html, body {
     border: 0;
     padding-left: 10px;
 }
+
+.fa-stop {
+    color: red;
+}
+
+.fa-play {
+    color: green;
+}
