@@ -408,7 +408,13 @@
                     </value>
 
                 </block>
-                <block type="tmr_stop"></block>
+                <block type="tmr_stop">
+                    <value name="timer">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>
                 <block type="tmr_wdclr"></block>
                 <block type="tmr_time"></block>
             </category>
