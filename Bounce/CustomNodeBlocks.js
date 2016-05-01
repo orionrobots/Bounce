@@ -1,4 +1,9 @@
-﻿Blockly.Lua['pin_mode'] = function (block) {
+﻿// Block colors
+var block_color_io=20;
+var block_color_timer = 60;
+var block_color_leds = 87;
+
+Blockly.Lua['pin_mode'] = function (block) {
     var pin = Blockly.Lua.valueToCode(block, 'pin',
        Blockly.Lua.ORDER_ATOMIC) || 0;
     var mode = block.getFieldValue('MODE');
@@ -15,7 +20,7 @@ Blockly.Blocks['pin_mode'] = {
             .appendField(new Blockly.FieldDropdown([["input", "gpio.INPUT"], ["output", "gpio.OUTPUT"]]), "MODE");
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setColour(20);
+        this.setColour(block_color_io);
         this.setTooltip('Set the mode - input/output for a pin.');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -41,7 +46,7 @@ Blockly.Blocks['pin_write'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setColour(20);
+        this.setColour(block_color_io);
         this.setTooltip('Write to a pin');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -63,7 +68,7 @@ Blockly.Blocks['pin_read'] = {
             .appendField("read");
         this.setInputsInline(true);
         this.setOutput(true);
-        this.setColour(20);
+        this.setColour(block_color_io);
         this.setTooltip('');
         this.setHelpUrl('http://www.example.com/');
     }
@@ -80,7 +85,7 @@ Blockly.Blocks['analog_read'] = {
         this.appendDummyInput()
             .appendField('Read analog');
         this.setOutput(true);
-        this.setColour(20);
+        this.setColour(block_color_io);
     }
 };
 
@@ -109,7 +114,7 @@ Blockly.Blocks['tmr_alarm'] = {
             .appendField("millis do");
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setColour(60);
+        this.setColour(block_color_timer);
         this.setTooltip('');
     }
 };
@@ -128,7 +133,7 @@ Blockly.Blocks['tmr_stop'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('');
-        this.setColour(60);
+        this.setColour(block_color_timer);
     }
 };
 
@@ -182,7 +187,52 @@ Blockly.Blocks['ws2812_writergb'] ={
             .setCheck("Number")
             .appendField("pin");
         this.setInputsInline(false);
-        this.setColour(87);
+        this.setColour(block_color_leds);
         this.setTooltip('');
+    }
+};
+
+Blockly.Lua['dht_temp'] = function(block) {
+    // Read DHT temperature
+    var pin = Blockly.Lua.valueToCode(block, 'pin',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    // To get one value, we have to construct in brackets, then deref.
+    var code= '({dht.read(' + pin + ')})[2]';
+    return [code, Blockly.Lua.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Blocks['dht_temp'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Read dht temperature on");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.setOutput(true);
+        this.setColour(block_color_io);
+        this.setTooltip("Read the temperature from a dht sensor");
+    }
+};
+
+
+Blockly.Lua['dht_humidity'] = function(block) {
+    // Read DHT temperature
+    var pin = Blockly.Lua.valueToCode(block, 'pin',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    // To get one value, we have to construct in brackets, then deref.
+    var code= '({dht.read(' + pin + ')})[3]';
+    return [code, Blockly.Lua.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Blocks['dht_humidity'] = {
+    init: function() {
+        this.appendDummyInput()
+            .appendField("Get dht humidity on");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.setOutput(true);
+        this.setColour(block_color_io);
+        this.setTooltip("Read the humidity from a dht sensor");
     }
 };
