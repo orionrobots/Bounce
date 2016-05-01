@@ -289,4 +289,9 @@ $(function () {
     mcu_console = new OutputConsole($('#output'));
     ui = new BounceUI();
     workspace.addChangeListener(ui.changed);
+
+    var files_on_chip_toolbar = new goog.ui.Toolbar();
+    files_on_chip_toolbar.decorate(goog.dom.getElement('files_on_chip_toolbar'));
+
 });
+

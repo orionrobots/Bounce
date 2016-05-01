@@ -12,7 +12,7 @@
     <script src="CustomNodeBlocks.js"></script> <!-- Add new blocks here -->
     <script src="app/nodemcu.js"></script> <!-- Serial port interactions here -->
     <script type="text/javascript" src="app/start.js"></script> <!-- Main ui here -->
-    <link rel="stylesheet" href="goog_combined.css"> <!-- TODO: Minify the goog css -->
+    <link rel="stylesheet" href="goog_combined.css">
     <link rel="stylesheet" href="bounce.css">
 </head>
 <body>
@@ -30,11 +30,11 @@
             <img src="glyphicons-174-play.png">Go!
         </div>
         <!-- TODO: Put into a run dropdown -->
-        <div id="upload_as_init" class="goog-toolbar-button goog-toolbar-button-disabled">Upload as init</div>
-        <div id="upload" class="goog-toolbar-button goog-toolbar-button-disabled">Upload</div>
+        <div id="upload_as_init" class="goog-toolbar-button goog-toolbar-button-disabled">Upload as start code</div>
         <div id="stop_button" class="goog-toolbar-button goog-toolbar-button-disabled">
             Stop!
         </div>
+        <div id="files_on_chip" class="goog-toolbar-button">Files On Chip...</div>
         <div id="connect_button" class="goog-toolbar-menu-button">
             Connect
             <div id="connect_menu" class="goog-menu">
@@ -433,5 +433,28 @@
             <button id="cancel" class="goog-button">Cancel</button>
         </div>
     </div>
+    <div class="lightbox lightbox-hidden" id="files_on_chip_dlg">
+        <div class="lightbox-inner">
+            <a class="toolbar_close" id="close_dlg"></a>
+            <h3>Files On Chip</h3>
+            <div class='panels'>
+                <div id="file_panel" class='panel-left'>
+                    <select name="files" id="file_on_chip_sel" multiple="">
+                        <option value="init.lua">init.lua</option>
+                        <option value="test.html">test.html</option>
+                    </select>
+                </div>
+                <div id="button_panel" class='panel-right'>
+                    <button id="upload_as_init_dlg">Upload as start code</button><br />
+                    <button id="upload_as">Upload as...</button><br />
+                    <button id="upload_other">Upload other...</button><br />
+                    <button id="download_file">Download...</button><br />
+                    <button id="delete_file">Delete File</button><br />
+                    <button id="do_file">Do this code!</button><br />
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
