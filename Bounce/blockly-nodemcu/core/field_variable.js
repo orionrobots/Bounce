@@ -21,6 +21,10 @@
 /**
  * @fileoverview Variable input field.
  * @author fraser@google.com (Neil Fraser)
+ *
+ * Updates - by Danny Staple
+ *  - Use the goog.ui.Prompt
+ *  If this is updated, merge this in - chrome apps will not display window.prompt calls.
  */
 'use strict';
 
@@ -30,6 +34,7 @@ goog.require('Blockly.FieldDropdown');
 goog.require('Blockly.Msg');
 goog.require('Blockly.Variables');
 goog.require('goog.string');
+goog.require('goog.ui.Prompt');
 
 
 /**
@@ -49,11 +54,27 @@ Blockly.FieldVariable = function(varname, opt_changeHandler) {
 };
 goog.inherits(Blockly.FieldVariable, Blockly.FieldDropdown);
 
+
+Blockly.FieldVariable.prototype._validate_varname = function(newVar) {
+  // Merge runs of whitespace.  Strip leading and trailing whitespace.
+  // Beyond this, all names are legal.
+  if (newVar) {
+    newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
+    if (newVar == Blockly.Msg.RENAME_VARIABLE ||
+        newVar == Blockly.Msg.NEW_VARIABLE) {
+      // Ok, not ALL names are legal...
+      newVar = null;
+    }
+  }
+  return newVar;
+};
+
 /**
  * Sets a new change handler for angle field.
  * @param {Function} handler New change handler, or null.
  */
 Blockly.FieldVariable.prototype.setChangeHandler = function(handler) {
+  var thisField = this;
   var wrappedHandler;
   if (handler) {
     // Wrap the user's change handler together with the variable rename handler.
@@ -70,6 +91,7 @@ Blockly.FieldVariable.prototype.setChangeHandler = function(handler) {
           v2 = v1;
         }
       }
+      v2 = thisField._validate_varname(v2);
       return v2 === value ? undefined : v2;
     };
   } else {
@@ -153,45 +175,39 @@ Blockly.FieldVariable.dropdownCreate = function() {
  * Special case the 'New variable...' and 'Rename variable...' options.
  * In both of these special cases, prompt the user for a new name.
  * @param {string} text The selected dropdown menu option.
- * @return {null|undefined|string} An acceptable new variable name, or null if
- *     change is to be either aborted (cancel button) or has been already
- *     handled (rename), or undefined if an existing variable was chosen.
+ * No return value
  * @this {!Blockly.FieldVariable}
  */
 Blockly.FieldVariable.dropdownChange = function(text) {
-  function promptName(promptText, defaultText) {
-    Blockly.hideChaff();
-    var newVar = window.prompt(promptText, defaultText);
-    // Merge runs of whitespace.  Strip leading and trailing whitespace.
-    // Beyond this, all names are legal.
-    if (newVar) {
-      newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
-      if (newVar == Blockly.Msg.RENAME_VARIABLE ||
-          newVar == Blockly.Msg.NEW_VARIABLE) {
-        // Ok, not ALL names are legal...
-        newVar = null;
-      }
-    }
-    return newVar;
-  }
   var workspace = this.sourceBlock_.workspace;
+  var thisField = this;
+  var oldVar = null;
+  var prompt = null;
+
+  var common_callback = function(value) {
+    value = thisField._validate_varname(value);
+    /* do processing of the value here */
+    if(value == null) {
+
+    } else {
+      if(oldVar == null) {
+        oldVar = value;
+      }
+      // We have the real value
+      Blockly.Variables.renameVariable(oldVar, value, workspace);
+      thisField.setValue(value);
+    }
+  };
+
+
   if (text == Blockly.Msg.RENAME_VARIABLE) {
-    var oldVar = this.getText();
-    text = promptName(Blockly.Msg.RENAME_VARIABLE_TITLE.replace('%1', oldVar),
-                      oldVar);
-    if (text) {
-      Blockly.Variables.renameVariable(oldVar, text, workspace);
-    }
-    return null;
+    oldVar = this.getText();
+    prompt = new goog.ui.Prompt(Blockly.Msg.RENAME_VARIABLE_TITLE.replace('%1', oldVar), "", common_callback);
+    prompt.setDefaultValue(oldVar);
+    prompt.setVisible(true);
   } else if (text == Blockly.Msg.NEW_VARIABLE) {
-    text = promptName(Blockly.Msg.NEW_VARIABLE_TITLE, '');
-    // Since variables are case-insensitive, ensure that if the new variable
-    // matches with an existing variable, the new case prevails throughout.
-    if (text) {
-      Blockly.Variables.renameVariable(text, text, workspace);
-      return text;
-    }
-    return null;
+    prompt = new goog.ui.Prompt(Blockly.Msg.NEW_VARIABLE_TITLE, "", common_callback);
+    prompt.setDefaultValue('');
+    prompt.setVisible(true);
   }
-  return undefined;
 };
