@@ -270,8 +270,6 @@ function BounceUI() {
             toolbar.getChild("stop_button").setEnabled(true);
             toolbar.getChild("upload").setEnabled(true);
             toolbar.getChild("upload_as_init").setEnabled(true);
-
-            /* stopButton.setEnabled(true); */
         });
     }
 
