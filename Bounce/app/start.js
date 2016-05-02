@@ -123,6 +123,7 @@ function export_document() {
 function load_document(text) {
     is_preparing = true;
     var xml = Blockly.Xml.textToDom(text);
+    Blockly.mainWorkspace.clear();
     Blockly.Xml.domToWorkspace(workspace, xml);
 }
 
@@ -287,11 +288,26 @@ function BounceUI() {
     }
 }
 
+BounceUI.prototype.setup_examples = function() {
+    var examples_menu = new goog.ui.Menu();
+    examples_menu.decorate(goog.dom.getElement("examples_menu"));
+    $("#examples_menu").find(".example").click(function(event) {
+        /* Load appropriate example */
+        var filename = event.target.parentElement.getAttribute("data-value");
+        $.get("Examples/" + filename, function(data){
+            load_document(data);
+        });
+    });
+};
+
+
+
 $(function () {
     prepare_blockly_workspace();
 
     mcu_console = new OutputConsole($('#output'));
     ui = new BounceUI();
+    ui.setup_examples();
     workspace.addChangeListener(ui.changed);
 });
 
