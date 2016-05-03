@@ -133,27 +133,10 @@ function new_document() {
 }
 
 function BounceUI() {
-    var toolbar;
-    var currentMcu;
-    var connectMenu, fileMenu;
+    var fileMenu;
     var _ui = this;
     var _currentFileEntry;
     var _modified = false;
-
-    /**
-     * Upload the file as init.lua.
-     *
-     * Later: Implement choosing the filename, and dofile.
-     *
-     * @param mcu
-     */
-    function _upload_as_init(mcu) {
-        var filename="init.lua";
-        var code = Blockly.Lua.workspaceToCode(workspace);
-        mcu.send_as_file(code, filename, function() {
-            mcu_console.writeLine("Completed upload");
-        });
-    }
 
     function _upload(mcu) {
         var fndlg = new AskForFilename();
@@ -219,60 +202,24 @@ function BounceUI() {
         });
     }
 
-    toolbar = new goog.ui.Toolbar();
-    toolbar.decorate(goog.dom.getElement('toolbar'));
-    connectMenu = new goog.ui.Menu();
-    connectMenu.decorate(goog.dom.getElement('connect_menu'));
+    this.toolbar = new goog.ui.Toolbar();
+    this.toolbar.decorate(goog.dom.getElement('toolbar'));
+    this.connectMenu = new goog.ui.Menu();
+    this.connectMenu.decorate(goog.dom.getElement('connect_menu'));
 
     fileMenu = new goog.ui.Menu();
     fileMenu.decorate(goog.dom.getElement('file_menu'));
 
-    $("#run_button").click(function() { run(currentMcu); })
-    $("#stop_button").click(function() { stop(currentMcu); })
+    $("#run_button").click(function() { run(_ui.currentMcu); });
+    $("#stop_button").click(function() { stop(_ui.currentMcu); });
     $("#open_button").click(_open_file);
     $("#saveas_button").click(_save_as);
     $("#save_button").click(_save);
-    $("#upload_as_init").click(function() { _upload_as_init(currentMcu); });
-    $("#upload").click(function() { _upload(currentMcu); });
-    // Callback to add found items to the menu.
-    var found_item = function(mcu) {
-        mcu_console.writeLine('Adding found item...');
-        var connectItem = new goog.ui.MenuItem(mcu.port);
-        connectItem.setCheckable(true);
-        connectMenu.addItem(connectItem);
-
-        $(connectItem.getContentElement()).click(function() {
-            _connect_menu_item_clicked(connectItem, mcu);
-        });
-    };
+    $("#upload_as_init").click(function() { _ui._upload_as_init(); });
+    $("#upload").click(function() { _upload(_ui.currentMcu); });
 
     // When the scanButton is clicked, scan for mcu's to add.
-    $("#scan_button").click(function() {
-        bounce.Nodemcu.scan(mcu_console, found_item);
-    });
-
-    /**
-     *
-     * @param connectItem Menu item that was clicked
-     * @param mcu The associated NodeMCU device
-     * @private
-     */
-    function _connect_menu_item_clicked(connectItem, mcu) {
-        mcu.connect(function() {
-            // We've now connected the mcu. Update the UI
-            mcu_console.writeLine("Connected");
-            currentMcu = mcu;
-            _ui.currentMcu = mcu;
-            // Add a tick (Check) to the connection menu item
-            connectItem.setChecked(true);
-            // disconnect any others
-            // Enable the run menu
-            toolbar.getChild("run_button").setEnabled(true);
-            toolbar.getChild("stop_button").setEnabled(true);
-            toolbar.getChild("upload").setEnabled(true);
-            toolbar.getChild("upload_as_init").setEnabled(true);
-        });
-    }
+    $("#scan_button").click(function() {_ui.start_scan()});
 
     this.changed = function () {
         console.log("Workspace changed");
@@ -288,6 +235,61 @@ function BounceUI() {
     }
 }
 
+/**
+ * Upload the file as init.lua.
+ *
+ */
+BounceUI.prototype._upload_as_init = function() {
+    var filename="init.lua";
+    var code = Blockly.Lua.workspaceToCode(workspace);
+    this.currentMcu.send_as_file(code, filename, function() {
+        mcu_console.writeLine("Completed upload");
+    });
+};
+
+/**
+ * Start the serial port scan
+ */
+BounceUI.prototype.start_scan = function() {
+    var _ui = this;
+    bounce.Nodemcu.scan(mcu_console, function(mcu) {
+        mcu_console.writeLine('Adding found item...');
+        var connectItem = new goog.ui.MenuItem(mcu.port);
+        //connectItem.setCheckable(true);
+        _ui.connectMenu.addItem(connectItem);
+
+        $(connectItem.getContentElement()).click(function() {
+            _ui.connect_menu_item_clicked_(connectItem, mcu);
+        });
+    });
+};
+
+/**
+ *
+ * @param connectItem Menu item that was clicked
+ * @param mcu The associated NodeMCU device
+ * @private
+ */
+BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
+    var _ui = this;
+    mcu.connect(function() {
+        // We've now connected the mcu. Update the UI
+        mcu_console.writeLine("Connected");
+        _ui.currentMcu = mcu;
+        // Add a tick (Check) to the connection menu item
+        //connectItem.setChecked(true);
+        // disconnect any others
+        // Enable the run menu
+        _ui.toolbar.getChild("run_button").setEnabled(true);
+        _ui.toolbar.getChild("stop_button").setEnabled(true);
+        //_ui.toolbar.getChild("upload").setEnabled(true);
+        _ui.toolbar.getChild("upload_as_init").setEnabled(true);
+    });
+};
+
+/**
+ * Prepare menu of examples
+ */
 BounceUI.prototype.setup_examples = function() {
     var examples_menu = new goog.ui.Menu();
     examples_menu.decorate(goog.dom.getElement("examples_menu"));
