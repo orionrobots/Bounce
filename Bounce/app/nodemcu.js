@@ -76,10 +76,10 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected_inner);
     };
 
-    this.disconnect = function(disconnected_calback) {
+    this.disconnect = function(disconnected_callback) {
         output_console.writeLine("Disconnecting");
         chrome.serial.onReceive.removeListener(_data_received);
-        chrome.serial.disconnect(_connection_info.connectionId, disconnected_calback);
+        chrome.serial.disconnect(_connection_info.connectionId, function() {disconnected_callback && disconnected_callback()});
     };
 
     /**
