@@ -170,7 +170,7 @@ Blockly.Lua['ws2812_writergb'] = function (block) {
        Blockly.Lua.ORDER_ATOMIC) || 0;
     var data = Blockly.Lua.valueToCode(block, 'data',
         Blockly.Lua.ORDER_ATOMIC) || '\'\'';
-    var code = 'ws2812.writergb(' + pin + ", " + text + ')';
+    var code = 'ws2812.writergb(' + pin + ", " + data + ')';
     return [code, Blockly.Lua.ORDER_FUNCTION_CALL];
 };
 
@@ -186,6 +186,8 @@ Blockly.Blocks['ws2812_writergb'] ={
         this.appendValueInput("pin")
             .setCheck("Number")
             .appendField("pin");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
         this.setInputsInline(false);
         this.setColour(block_color_leds);
         this.setTooltip('');
