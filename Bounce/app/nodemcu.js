@@ -1,9 +1,6 @@
 // NodeMCU Handler
 // Utility bits
 
-var array_buffer_to_string = function(buffer_data) {
-    return String.fromCharCode.apply(null, new Uint8Array(buffer_data));
-};
 
 var string_to_array_buffer = function(string_data) {
     var buf=new ArrayBuffer(string_data.length);
@@ -27,6 +24,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
     var _connection_info = null; //If connected - the chrome connection info.
     var _received_str = '';
     var _node_instance = this;
+    this._output_console = output_console;
 
     /**
      * Register a an event for a line of text received.
@@ -50,14 +48,16 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
      */
     function _data_received(info) {
         if(info.connectionId == _connection_info.connectionId && info.data) {
-            var str = array_buffer_to_string(info.data);
+            var str = bounce.Nodemcu._decoder.decode(info.data);
             output_console.write(str);
-            if (str.charAt(str.length-1) === '\n') {
-                _received_str += str.substring(0, str.length-1);
-                _node_instance._fire_line_received_event(_received_str);
-                _received_str = '';
-            } else {
-                _received_str += str;
+            // Append str to received str
+            _received_str += str;
+            if(_received_str.indexOf('\n') > 0) {
+                var parts = _received_str.split("\n");
+                for(var n=0; n<parts.length-1; n++) {
+                    _node_instance._fire_line_received_event(parts[n]);
+                }
+                _received_str = parts[n];
             }
         }
     }
@@ -90,9 +90,12 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
      */
     this.send_data = function(data, sent_callback) {
         // Send, flush when done, then perform the callback after this.
-        chrome.serial.send(_connection_info.connectionId, string_to_array_buffer(data), function(){
-            chrome.serial.flush(_connection_info.connectionId, function() {
-                sent_callback && sent_callback();
+        chrome.serial.send(_connection_info.connectionId,
+            //bounce.Nodemcu._encoder.encode(data),
+            string_to_array_buffer(data),
+            function(){
+                chrome.serial.flush(_connection_info.connectionId, function() {
+                    sent_callback && sent_callback();
             });
         });
     };
@@ -111,39 +114,84 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             lines = data.split("\n");
         }
         var current_line = 0;
+        var send_next;
+
+        var multiline_listener = function(info) {
+            console.log("Received call. Info data is ", JSON.stringify(info));
+            var data = bounce.Nodemcu._decoder.decode(info.data);
+            console.log('Data was :', JSON.stringify(data));
+            if(info.connectionId == _connection_info.connectionId && goog.string.endsWith(data, "> ")) {
+                send_next();
+            }
+        };
+
         // Send each one, with the sent callback priming the next.
-        function _send_next() {
+        send_next = function() {
             if (current_line < lines.length) {
                 _node_instance.send_data(lines[current_line++] + "\n", function() {});
             } else {
-                chrome.serial.onReceive.removeListener(_send_next);
+                chrome.serial.onReceive.removeListener(multiline_listener);
                 completed_callback();
             }
-        }
+        };
 
-        chrome.serial.onReceive.addListener(function(info) {
-            console.log("Received call. Info data is ", JSON.stringify(info));
-            var data = array_buffer_to_string(info.data);
-            console.log('Data was :', JSON.stringify(data));
-            if(info.connectionId == _connection_info.connectionId && goog.string.endsWith(data, "> ")) {
-                _send_next();
+        chrome.serial.onReceive.addListener(multiline_listener);
+
+        send_next();
+    };
+};
+
+bounce.Nodemcu._decoder = new TextDecoder('utf8');
+bounce.Nodemcu._encoder = new TextEncoder('utf8');
+
+/**
+ * USed by scan to validate this is a node.
+ *
+ * @param found_callback
+ */
+bounce.Nodemcu.prototype.validate = function(found_callback) {
+    var _node_instance = this;
+
+    function _found_wrapper() {
+        found_callback(_node_instance);
+    }
+
+    function _timed_out() {
+        _node_instance._output_console.writeLine("Timed out - not running NodeMCU");
+        _node_instance.disconnect();
+    }
+
+    // Validate by attempting a connection
+    this._output_console.writeLine("Attempting connection");
+    this.connect(function() {
+        _node_instance._output_console.writeLine("Connected");
+        // We need two events here:
+        // - A timeout - it didn't respond confirming - disconnect the port.
+        var timeout = new goog.async.Delay(_timed_out, 2000);
+        timeout.start();
+        // - A receive - the node response confirms it - cancel the timeout.
+        _node_instance.addLineEventListener(function(e) {
+            if(goog.string.contains(e.detail.line, 'node mcu confirmed')) {
+                _node_instance._output_console.writeLine("Confirmed - NodeMCU found");
+                _node_instance.disconnect(_found_wrapper);
+                timeout.stop();
             }
         });
+        _node_instance._output_console.writeLine("Sending confirmation test");
+        _node_instance.send_data("print('node mcu confirmed')\n");
+    });
+};
 
-        _send_next();
-    };
-
-    /**
-     * Send a block of code - save it under the given filename on the device.
-     *
-     * @param  data     - Data to send
-     * @param filename  - Filename to store on the device as
-     * @param completed_callback    - Function call when all sent.
-     */
-    this.send_as_file= function(data, filename, completed_callback) {
+/**
+ * Send a block of code - save it under the given filename on the device.
+ *
+ * @param  data     - Data to send
+ * @param filename  - Filename to store on the device as
+ * @param completed_callback    - Function call when all sent.
+ */
+bounce.Nodemcu.prototype.send_as_file= function(data, filename, completed_callback) {
         var input_lines = data.split("\n");
         var output_lines = [];
-        var current_line = 0;
         output_lines.push('file.open("' + filename + '", "w")');
         goog.array.every(input_lines, function(line) {
             output_lines.push('file.write("' + line + '\\n")');
@@ -152,38 +200,6 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         output_lines.push('file.close()');
         this.send_multiline_data(output_lines, completed_callback);
     };
-
-    this.validate = function(found_callback) {
-        function _found_wrapper() {
-            found_callback(_node_instance);
-        }
-
-        function _timed_out() {
-            output_console.writeLine("Timed out - not running NodeMCU");
-            _node_instance.disconnect();
-        }
-
-        // Validate by attempting a connection
-        output_console.writeLine("Attempting connection");
-        this.connect(function() {
-            output_console.writeLine("Connected");
-            // We need two events here:
-            // - A timeout - it didn't respond confirming - disconnect the port.
-            var timeout = new goog.async.Delay(_timed_out, 2000);
-            timeout.start();
-            // - A receive - the node response confirms it - cancel the timeout.
-            _node_instance.addLineEventListener(function(e) {
-                if(goog.string.contains(e.detail.line, 'node mcu confirmed')) {
-                    output_console.writeLine("Confirmed - NodeMCU found");
-                    _node_instance.disconnect(_found_wrapper);
-                    timeout.stop();
-                }
-            });
-            output_console.writeLine("Sending confirmation test");
-            _node_instance.send_data("print('node mcu confirmed')\n");
-        });
-    };
-};
 
 /**
  * Scan for NodeMCU boards connected
