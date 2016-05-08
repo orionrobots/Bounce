@@ -127,16 +127,12 @@ function load_document(text) {
     Blockly.Xml.domToWorkspace(workspace, xml);
 }
 
-function new_document() {
-    is_preparing = true;
-    Blockly.mainWorkspace.clear();
-}
 
 function BounceUI() {
     var fileMenu;
     var _ui = this;
-    var _currentFileEntry;
-    var _modified = false;
+    this._currentFileEntry=null;
+    this._modified = false;
 
     function _upload(mcu) {
         var fndlg = new AskForFilename();
@@ -173,17 +169,16 @@ function BounceUI() {
                 console.log("opening file");
                 var reader = new FileReader();
                 reader.onloadend = function(e) {
-                    new_document();
                     load_document(e.target.result);
                 };
                 reader.readAsText(file);
             });
-            _currentFileEntry = theEntry;
+            _ui._currentFileEntry = theEntry;
         });
     }
 
     function _save() {
-        _currentFileEntry.createWriter(function(writer) {
+        _ui._currentFileEntry.createWriter(function(writer) {
             writer.onwriteend = function(e) {
                 console.log('write complete');
             };
@@ -197,7 +192,7 @@ function BounceUI() {
             extensions: ['xml', 'node']
         }];
         chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
-            _currentFileEntry = writableFileEntry;
+            _ui._currentFileEntry = writableFileEntry;
             _save();
         });
     }
@@ -207,11 +202,12 @@ function BounceUI() {
     this.connectMenu = new goog.ui.Menu();
     this.connectMenu.decorate(goog.dom.getElement('connect_menu'));
 
-    fileMenu = new goog.ui.Menu();
-    fileMenu.decorate(goog.dom.getElement('file_menu'));
+    this.fileMenu = new goog.ui.Menu();
+    this.fileMenu.decorate(goog.dom.getElement('file_menu'));
 
     $("#run_button").click(function() { run(_ui.currentMcu); });
     $("#stop_button").click(function() { stop(_ui.currentMcu); });
+    $("#new_button").click(function() { _ui.new_document(); });
     $("#open_button").click(_open_file);
     $("#saveas_button").click(_save_as);
     $("#save_button").click(_save);
@@ -220,20 +216,28 @@ function BounceUI() {
 
     // When the scanButton is clicked, scan for mcu's to add.
     $("#scan_button").click(function() {_ui.start_scan()});
+}
 
-    this.changed = function () {
-        console.log("Workspace changed");
-        if (is_preparing) {
-            is_preparing = false;
-            _modified = true;
-        } else {
-            fileMenu.getChild("saveas_button").setEnabled(true);
-            if (_currentFileEntry) {
-                fileMenu.getChild("save_button").setEnabled(true);
-            }
+BounceUI.prototype.new_document = function() {
+    /* todo - request confirmation */
+    is_preparing = true;
+    Blockly.mainWorkspace.clear();
+    this._currentFileEntry = null;
+    this._modified = false;
+};
+
+BounceUI.prototype.changed = function () {
+    console.log("Workspace changed");
+    if (is_preparing) {
+        is_preparing = false;
+        this._modified = true;
+    } else {
+        this.fileMenu.getChild("saveas_button").setEnabled(true);
+        if (this._currentFileEntry) {
+            this.fileMenu.getChild("save_button").setEnabled(true);
         }
     }
-}
+};
 
 /**
  * Upload the file as init.lua.
@@ -310,6 +314,6 @@ $(function () {
     mcu_console = new OutputConsole($('#output'));
     ui = new BounceUI();
     ui.setup_examples();
-    workspace.addChangeListener(ui.changed);
+    workspace.addChangeListener(function() {ui.changed()});
 });
 
