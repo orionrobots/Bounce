@@ -4,7 +4,8 @@
 * 0.1.2 Upload to NodeMCU as a file. Needs DoFile and NodeMCU FileBrowser tool. - done
 * 0.2. Big red STOP button to stop all timers. - done
 * 0.2.1 - Add h11 temp sensor blocks - done
-* - Examples menu
+* - Examples menu - done, ws2812 fixed, serial fixes, new button fixed.
+* 0.2.3
 * - Blocks - analog read, timers
 * - Finish file browsing tool
 * 0.3. Show Lua Code
