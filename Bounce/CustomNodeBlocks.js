@@ -165,13 +165,14 @@ Blockly.Blocks['text_rep'] = {
 };
 
 Blockly.Lua['ws2812_writergb'] = function (block) {
-    // Ws2812 write rgb
+    // Ws2812 write rgb list
+    // Decode a list(table) of RGB not a string.
     var pin = Blockly.Lua.valueToCode(block, 'pin',
        Blockly.Lua.ORDER_ATOMIC) || 0;
     var data = Blockly.Lua.valueToCode(block, 'data',
         Blockly.Lua.ORDER_ATOMIC) || '\'\'';
-    var code = 'ws2812.writergb(' + pin + ", " + data + ')';
-    return [code, Blockly.Lua.ORDER_FUNCTION_CALL];
+    var code = 'ws2812.writergb(' + pin + ", table.concat(" + data + ', \'\'))';
+    return code;
 };
 
 Blockly.Blocks['ws2812_writergb'] ={
@@ -179,8 +180,8 @@ Blockly.Blocks['ws2812_writergb'] ={
         this.appendDummyInput()
             .appendField("ws2812 output");
         this.appendValueInput("data")
-            .setCheck("String")
-            .appendField("data string");
+            .setCheck("Array")
+            .appendField("colour list");
         this.appendDummyInput()
             .appendField("on ");
         this.appendValueInput("pin")
@@ -236,5 +237,79 @@ Blockly.Blocks['dht_humidity'] = {
         this.setOutput(true);
         this.setColour(block_color_io);
         this.setTooltip("Read the humidity from a dht sensor");
+    }
+};
+
+
+/* Redefine colours for use with rgb devices like the ws2812. */
+var repack_colour_=function(colour) {
+    var r = parseInt(colour.substring(2, 3), 16);
+    var g = parseInt(colour.substring(4, 5), 16);
+    var b = parseInt(colour.substring(6, 7), 16);
+    return r + "," + g + "," + b;
+};
+
+Blockly.Lua['colour_picker'] = function(block) {
+  // Colour picker.
+  var code = 'string.char(' + repack_colour_(block.getFieldValue('COLOUR')) + ')';
+  return [code, Blockly.Lua.ORDER_ATOMIC];
+};
+
+Blockly.Lua['colour_random'] = function(block) {
+  // Generate a random colour.
+  var code = 'string.char(math.random(0, 2^24 - 1))';
+  return [code, Blockly.Lua.ORDER_HIGH];
+};
+
+Blockly.Lua['colour_rgb'] = function(block) {
+  // Compose a colour from RGB components.
+  var r = Blockly.Lua.valueToCode(block, 'RED',
+                                     Blockly.Lua.ORDER_NONE) || 0;
+  var g = Blockly.Lua.valueToCode(block, 'GREEN',
+                                     Blockly.Lua.ORDER_NONE) || 0;
+  var b = Blockly.Lua.valueToCode(block, 'BLUE',
+                                     Blockly.Lua.ORDER_NONE) || 0;
+  var code = 'string.char(' + r + ', ' + g + ', ' + b + ')';
+  return [code, Blockly.Lua.ORDER_HIGH];
+};
+
+Blockly.Lua['colour_blend'] = function(block) {
+  // Blend two colours together.
+  var functionName = Blockly.Lua.provideFunction_(
+      'colour_blend',
+      ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ +
+          '(colour1, colour2, ratio)',
+       '  local r1 = string.byte(colour1, 0)',
+       '  local r2 = string.byte(colour2, 0)',
+       '  local g1 = string.byte(colour1, 1)',
+       '  local g2 = string.byte(colour2, 1)',
+       '  local b1 = string.byte(colour1, 2)',
+       '  local b2 = string.byte(colour2, 2)',
+       '  local ratio = math.min(1, math.max(0, ratio))',
+       '  local r = math.floor(r1 * (1 - ratio) + r2 * ratio + .5)',
+       '  local g = math.floor(g1 * (1 - ratio) + g2 * ratio + .5)',
+       '  local b = math.floor(b1 * (1 - ratio) + b2 * ratio + .5)',
+       '  return string.char(r, g, b)',
+       'end']);
+  var colour1 = Blockly.Lua.valueToCode(block, 'COLOUR1',
+      Blockly.Lua.ORDER_NONE) || 'string.char(0, 0, 0)';
+  var colour2 = Blockly.Lua.valueToCode(block, 'COLOUR2',
+      Blockly.Lua.ORDER_NONE) || 'string.char(0, 0, 0)';
+  var ratio = Blockly.Lua.valueToCode(block, 'RATIO',
+      Blockly.Lua.ORDER_NONE) || 0;
+  var code = functionName + '(' + colour1 + ', ' + colour2 + ', ' + ratio + ')';
+  return [code, Blockly.Lua.ORDER_HIGH];
+};
+
+/* Fixes (to be pushed back into lua/lists.js - update_libs.sh needs to accomodate this properly) */
+Blockly.Lua['lists_split'] = function(block) {
+    var mode = block.getFieldValue('MODE');
+    var input = Blockly.Lua.valueToCode(block, 'INPUT');
+    if(mode == 'JOIN') {
+        var code = "table.concat(" + input + ")";
+        return [code, Blockly.Lua.ORDER_HIGH];
+    } else {
+        //
+        throw "Woops - not yet implemented";
     }
 };
