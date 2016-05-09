@@ -127,75 +127,85 @@ function load_document(text) {
     Blockly.Xml.domToWorkspace(workspace, xml);
 }
 
-
+/**
+ * Bounce Ui - The controller mapping the html window buttons to functions.
+ * @constructor
+ */
 function BounceUI() {
     var fileMenu;
     var _ui = this;
     this._currentFileEntry=null;
     this._modified = false;
+}
 
-    function _upload(mcu) {
-        var fndlg = new AskForFilename();
-        fndlg.display(function(filename) {
-            var code = Blockly.Lua.workspaceToCode(workspace);
-            mcu.send_as_file(code, filename, function() {
-                mcu_console.writeLine("Completed upload");
-            });
+BounceUI.prototype._upload = function(mcu) {
+    var fndlg = new AskForFilename();
+    fndlg.display(function(filename) {
+        var code = Blockly.Lua.workspaceToCode(workspace);
+        mcu.send_as_file(code, filename, function() {
+            mcu_console.writeLine("Completed upload");
         });
-    }
+    });
+};
 
-    /**
-     * Open a file from the filesystem. Load into blockly workspace.
-     *
-     * @private
-     */
-    function _open_file() {
-        var accepts = [{
-            mimeTypes: ['text/*'],
-            extensions: ['xml', 'node']
-        }];
-        // Show a file open
-        chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
-            if (!theEntry) {
-                mcu_console.writeLine('No file selected.');
-                return;
-            }
-            // On ok
-            // use local storage to retain access to this file
-            //chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
-            // Inject that code.
-            console.log("turning entry into file");
-            theEntry.file(function(file) {
-                console.log("opening file");
-                var reader = new FileReader();
-                reader.onloadend = function(e) {
-                    load_document(e.target.result);
-                };
-                reader.readAsText(file);
-            });
-            _ui._currentFileEntry = theEntry;
-        });
-    }
+BounceUI.prototype._save = function() {
+    this._currentFileEntry.createWriter(function(writer) {
+        writer.onwriteend = function(e) {
+            console.log('write complete');
+        };
+        writer.write(new Blob([export_document()], {type: 'text/plain'}));
+    })
+};
 
-    function _save() {
-        _ui._currentFileEntry.createWriter(function(writer) {
-            writer.onwriteend = function(e) {
-                console.log('write complete');
+/**
+ * Open a file from the filesystem. Load into blockly workspace.
+ *
+ * @private
+ */
+BounceUI.prototype._open_file = function() {
+    var _ui = this;
+    var accepts = [{
+        mimeTypes: ['text/*'],
+        extensions: ['xml', 'node']
+    }];
+    // Show a file open
+    chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
+        if (!theEntry) {
+            mcu_console.writeLine('No file selected.');
+            return;
+        }
+        // On ok
+        // use local storage to retain access to this file
+        //chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
+        // Inject that code.
+        console.log("turning entry into file");
+        theEntry.file(function(file) {
+            console.log("opening file");
+            var reader = new FileReader();
+            reader.onloadend = function(e) {
+                load_document(e.target.result);
             };
-            writer.write(new Blob([export_document()], {type: 'text/plain'}));
-        })
-    }
-
-    function _save_as() {
-        var accepts = [{
-            mimeTypes: ['text/*'],
-            extensions: ['xml', 'node']
-        }];
-        chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
-            _ui._currentFileEntry = writableFileEntry;
-            _save();
+            reader.readAsText(file);
         });
-    }
+        _ui._currentFileEntry = theEntry;
+    });
+};
+
+BounceUI.prototype._save_as = function() {
+    var _ui = this;
+
+    var accepts = [{
+        mimeTypes: ['text/*'],
+        extensions: ['xml', 'node']
+    }];
+    chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
+        _ui._currentFileEntry = writableFileEntry;
+        _save();
+    });
+};
+
+BounceUI.prototype.setup_menu = function() {
+    var _ui = this;
 
     this.toolbar = new goog.ui.Toolbar();
     this.toolbar.decorate(goog.dom.getElement('toolbar'));
@@ -208,15 +218,17 @@ function BounceUI() {
     $("#run_button").click(function() { run(_ui.currentMcu); });
     $("#stop_button").click(function() { stop(_ui.currentMcu); });
     $("#new_button").click(function() { _ui.new_document(); });
-    $("#open_button").click(_open_file);
-    $("#saveas_button").click(_save_as);
-    $("#save_button").click(_save);
+    $("#open_button").click(function() { _ui._open_file(); });
+    $("#saveas_button").click(function() { _ui._save_as(); });
+    $("#save_button").click(function() { _ui._save(); });
     $("#upload_as_init").click(function() { _ui._upload_as_init(); });
-    $("#upload").click(function() { _upload(_ui.currentMcu); });
+    $("#upload").click(function() { _ui._upload(_ui.currentMcu); });
 
     // When the scanButton is clicked, scan for mcu's to add.
     $("#scan_button").click(function() {_ui.start_scan()});
-}
+
+    this.setup_examples();
+};
 
 BounceUI.prototype.new_document = function() {
     /* todo - request confirmation */
@@ -313,7 +325,7 @@ $(function () {
 
     mcu_console = new OutputConsole($('#output'));
     ui = new BounceUI();
-    ui.setup_examples();
+    ui.setup_menu();
     workspace.addChangeListener(function() {ui.changed()});
 });
 
