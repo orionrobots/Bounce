@@ -73,7 +73,11 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             connected_callback(_node_instance);
         }
         output_console.writeLine("Connecting to device on " + serial_port_path);
-        chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected_inner);
+        try {
+            chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected_inner);
+        } catch(e) {
+            throw new bounce.Nodemcu.ConnectionFailed(this, e);
+        }
     };
 
     this.disconnect = function(disconnected_callback) {
@@ -130,6 +134,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
             if (current_line < lines.length) {
                 _node_instance.send_data(lines[current_line++] + "\n", function() {});
             } else {
+                console.log("Last line sent. Removing listener....");
                 chrome.serial.onReceive.removeListener(multiline_listener);
                 completed_callback();
             }
@@ -143,6 +148,18 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
 
 bounce.Nodemcu._decoder = new TextDecoder('utf8');
 bounce.Nodemcu._encoder = new TextEncoder('utf8');
+
+/**
+ * Exception to raise when the connection failed
+ * @param mcu - the chip we failed to connect to.
+ * @param original - the original exception
+ * @constructor
+ */
+bounce.Nodemcu.ConnectionFailed = function(mcu, original) {
+    this.mcu = mcu;
+    this.original = original;
+};
+
 
 /**
  * USed by scan to validate this is a node.

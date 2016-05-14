@@ -138,6 +138,13 @@ function BounceUI() {
     this._modified = false;
 }
 
+/**
+ * Button handler to upload the current code with a filename.
+ * It will (todo) ask the user for a filename.
+ *
+ * @param mcu
+ * @private
+ */
 BounceUI.prototype._upload = function(mcu) {
     var fndlg = new AskForFilename();
     fndlg.display(function(filename) {
@@ -148,6 +155,11 @@ BounceUI.prototype._upload = function(mcu) {
     });
 };
 
+/**
+ * Save the NodeMcu blockly code
+ *
+ * @private
+ */
 BounceUI.prototype._save = function() {
     this._currentFileEntry.createWriter(function(writer) {
         writer.onwriteend = function(e) {
@@ -191,6 +203,11 @@ BounceUI.prototype._open_file = function() {
     });
 };
 
+/**
+ * Save the blockly workspace to a file.
+ *
+ * @private
+ */
 BounceUI.prototype._save_as = function() {
     var _ui = this;
 
@@ -204,6 +221,9 @@ BounceUI.prototype._save_as = function() {
     });
 };
 
+/**
+ * Prepare the ui and menu
+ */
 BounceUI.prototype.setup_menu = function() {
     var _ui = this;
 
@@ -288,19 +308,29 @@ BounceUI.prototype.start_scan = function() {
  */
 BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
     var _ui = this;
-    mcu.connect(function() {
-        // We've now connected the mcu. Update the UI
-        mcu_console.writeLine("Connected");
-        _ui.currentMcu = mcu;
-        // Add a tick (Check) to the connection menu item
-        //connectItem.setChecked(true);
-        // disconnect any others
-        // Enable the run menu
-        _ui.toolbar.getChild("run_button").setEnabled(true);
-        _ui.toolbar.getChild("stop_button").setEnabled(true);
-        //_ui.toolbar.getChild("upload").setEnabled(true);
-        _ui.toolbar.getChild("upload_as_init").setEnabled(true);
-    });
+    // if(this.currentMcu == mcu) {
+    //     mcu_console.writeLine("Already connected to this mcu - disconnecting");
+    //     mcu.disconnect();
+    //     return;
+    // }
+    try {
+        mcu.connect(function () {
+            // We've now connected the mcu. Update the UI
+            mcu_console.writeLine("Connected");
+            _ui.currentMcu = mcu;
+            // Add a tick (Check) to the connection menu item
+            //connectItem.setChecked(true);
+            // disconnect any others
+            // Enable the run menu
+            _ui.toolbar.getChild("run_button").setEnabled(true);
+            _ui.toolbar.getChild("stop_button").setEnabled(true);
+            //_ui.toolbar.getChild("upload").setEnabled(true);
+            _ui.toolbar.getChild("upload_as_init").setEnabled(true);
+        });
+    } catch(e) {
+        mcu_console.writeLine("Unable to connect to that chip");
+        throw(e);
+    }
 };
 
 /**
