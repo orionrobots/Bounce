@@ -313,30 +313,24 @@ Blockly.Lua['lists_split'] = function(block) {
         throw "Woops - not yet implemented";
     }
 };
-//
-// Blockly.Block['lights_led_grid'] ={
-//     init: function () {
-//         this.appendDummyInput()
-//             .appendField("led grid");
-//         var grid_width = 8; // TODO: Configurable
-//         var grid_height = 8;
-//         for(var row=0; row<grid_height; row++) {
-//             for(var column=0; column<grid_width; column++) {
-//                 this.appendValueInput('d' + row + '' + )
-//             }
-//         }
-//         this.appendValueInput("data")
-//             .setCheck("Array")
-//             .appendField("colour list");
-//         this.appendDummyInput()
-//             .appendField("on ");
-//         this.appendValueInput("pin")
-//             .setCheck("Number")
-//             .appendField("pin");
-//         this.setPreviousStatement(true);
-//         this.setNextStatement(true);
-//         this.setInputsInline(false);
-//         this.setColour(block_color_leds);
-//         this.setTooltip('');
-//     }
-// };
+
+Blockly.Blocks['lights_led_grid'] ={
+    init: function () {
+        this.appendDummyInput()
+            .appendField("led grid:");
+        var grid_width = 8; // TODO: Configurable
+        var grid_height = 8;
+        for(var row=0; row<grid_height; row++) {
+            var line = this.appendDummyInput().appendField(row + " ");
+            for(var column=0; column<grid_width; column++) {
+                line = line.appendField(new Blockly.FieldColour('#660000'), 'd' + row + '_' + column );
+            }
+        }
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(block_color_leds);
+        this.setTooltip('Make a grid of colours for lights.');
+    }
+};
+
+Blockly.Lua['lights_led_grid'] = function(block) {};
