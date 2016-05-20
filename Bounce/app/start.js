@@ -217,7 +217,7 @@ BounceUI.prototype._save_as = function() {
     }];
     chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
         _ui._currentFileEntry = writableFileEntry;
-        _save();
+        _ui._save();
     });
 };
 
