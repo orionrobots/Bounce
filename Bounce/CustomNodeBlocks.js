@@ -323,14 +323,30 @@ Blockly.Blocks['lights_led_grid'] ={
         for(var row=0; row<grid_height; row++) {
             var line = this.appendDummyInput().appendField(row + " ");
             for(var column=0; column<grid_width; column++) {
+                // TODO: Option, variables or colours.
                 line = line.appendField(new Blockly.FieldColour('#660000'), 'd' + row + '_' + column );
             }
         }
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
+        this.setOutput(true);
         this.setColour(block_color_leds);
         this.setTooltip('Make a grid of colours for lights.');
     }
 };
 
-Blockly.Lua['lights_led_grid'] = function(block) {};
+Blockly.Lua['lights_led_grid'] = function(block) {
+    var code = '{string.char(';
+    var grid_width = 8; // TODO: Configurable
+    var grid_height = 8;
+
+    var next_comma = "\n  ";
+    for(var row=0; row<grid_height; row++) {
+        var prefix="d" + row + "_";
+        for(var column=0; column<grid_width; column++) {
+            code += next_comma + repack_colour_(block.getFieldValue(prefix + column));
+            next_comma = ", ";
+        }
+        next_comma = ",\n  ";
+    }
+    code += ')}';
+    return [code, Blockly.Lua.ORDER_ATOMIC]
+};
