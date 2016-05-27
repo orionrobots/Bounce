@@ -16,7 +16,7 @@ var OutputConsole = function (output_element) {
     this.write = function(data) {
         var safe_data = goog.string.htmlEscape(data);
         safe_data = goog.string.newLineToBr(safe_data);
-        output_element.append(output_element, safe_data);
+        output_element.append(safe_data);
     };
 
     /**
