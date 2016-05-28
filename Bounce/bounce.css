@@ -21,12 +21,6 @@ html, body {
     position: absolute;
 }
 
-#output {
-    height: 99%;
-    width: 100%;
-    font-family: Courier, monospace;
-    overflow-y: scroll;
-}
 
 .lightbox-hidden {
     display: none;
@@ -167,29 +161,77 @@ code {
 }
 
 .goog-tabpane {
-  padding-left: 1px;
-  position: relative;
+    padding-left: 1px;
+    position: relative;
+    height: 100%;
+}
+
+.goog-tabpane-tabs:before, .goog-tabpane-tabs:after {
+    display: table;
+    content: " ";
+}
+
+.goog-tabpane-tabs:after {
+    clear: both;
 }
 
 .goog-tabpane-tabs {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 1ex;
-  position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid darkgray;
 }
 
 .goog-tabpane-left .goog-tabpane-tabs {
   float: left;
 }
 
-.goog-tabpane-right .goog-tabpane-tabs {
-  float: right;
+.goog-tabpane-tab, .goog-tabpane-tab-selected {
+    display: block;
+    padding: 5px 3ex;
+    border: none;
+    margin: 0;
+    margin-bottom: -6px;
 }
 
-.goog-tabpane-tab, .goog-tabpane-tab-selected {
-  display: block;
-  padding: 0 3ex;
-  border: 1px solid;
-  margin: 0;
+.goog-tabpane-tab-selected {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.goog-tabpane-top .goog-tabpane-tab,
+.goog-tabpane-top .goog-tabpane-tab-selected,
+.goog-tabpane-bottom .goog-tabpane-tab,
+.goog-tabpane-bottom .goog-tabpane-tab-selected {
+  float: left;
+}
+
+*:focus {
+    outline: none;
+}
+
+.goog-tabpane-top .goog-tabpane-tab {
+  margin-top: 3px;
+}
+
+
+.goog-tabpane-cont {
+    height: 100%;
+}
+
+#output {
+    margin: 1em 0 1em;
+    width: auto;
+    font-family: Courier, monospace;
+    overflow-y: scroll;
+}
+
+code {
+    height: 100%;
+    overflow-y: scroll;
 }
