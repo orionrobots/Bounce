@@ -8,15 +8,6 @@ describe("BounceUi", function() {
     it("Should allow a GeneratedCode window to be connected");
 });
 
-var GeneratedCode = function (element) {
-    this.element = element;
-};
-GeneratedCode.prototype.set_code = function(code) {
-    this.element.text(code);
-    // console.log(this.element.innerHTML);
-    hljs.highlightBlock(this.element.get(0));
-};
-
 describe("GeneratedCode", function() {
     var element;
     var gen_code;
@@ -43,16 +34,35 @@ describe("GeneratedCode", function() {
         gen_code.set_code(default_code);
         expect(hljs.highlightBlock).toHaveBeenCalledWith(element.get(0));
     });
+    //
+    // it("Should set change handler on a blockly workspace", function() {
+    //     var workspace = {addChangeListener: function() {}};
+    //     spyOn(workspace, "addChangeListener");
+    //
+    //     gen_code.set_workspace(workspace);
+    //     expect(workspace.addChangeListener).toHaveBeenCalledWith(gen_code.changed);
+    // });
 
-    it("Should set change handler on a blockly workspace");
+    it("Should set code from workspace on change", function() {
+        var workspace = {addChangeListener: function() {}};
+        var set_fn = null;
+        spyOn(workspace, "addChangeListener").and.callFake(function(fn) {
+            set_fn = fn;
+        });
+        spyOn(Blockly.Lua, "workspaceToCode").and.returnValue(default_code);
+
+        spyOn(element, "text");
+        gen_code.set_workspace(workspace);
+        set_fn();
+        expect(Blockly.Lua.workspaceToCode).toHaveBeenCalledWith(workspace);
+        expect(element.text).toHaveBeenCalledWith(default_code);
+
+    });
 
     it("Should be scrollable vertically for long code");
     it("Should wrap in horizontal");
-    it("Should not be editable", function() {
-        // gen_code.set_code(default_code);
-    });
+    it("Should not be editable");
     it("Should be selectable for copy to clipboard");
-    it("Should syntax highlight");
 });
 
 describe("OutputConsole", function() {

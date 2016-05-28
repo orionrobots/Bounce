@@ -348,6 +348,22 @@ BounceUI.prototype.setup_examples = function() {
     });
 };
 
+BounceUI.prototype.connect_code = function() {
+    var code_element = $('#code');
+    this.gc = new GeneratedCode(code_element);
+    this.gc.set_workspace(workspace);
+};
+
+/**
+ * Prepare the tabs
+ */
+BounceUI.prototype.setup_tabs = function() {
+    var right_tabs = new goog.ui.TabPane(document.getElementById('right_tabs'));
+    right_tabs.addPage(new goog.ui.TabPane.TabPage(
+        document.getElementById('output'), "Output"));
+    right_tabs.addPage(new goog.ui.TabPane.TabPage(
+        document.getElementById('code_page'), 'Code'));
+};
 
 
 $(function () {
@@ -356,6 +372,8 @@ $(function () {
     mcu_console = new OutputConsole($('#output'));
     ui = new BounceUI();
     ui.setup_menu();
+    ui.setup_tabs();
+    ui.connect_code();
     workspace.addChangeListener(function() {ui.changed()});
 });
 

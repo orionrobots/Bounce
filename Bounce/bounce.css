@@ -158,3 +158,38 @@ html, body {
 .modal-dialog-buttons button {
     margin: 5px;
 }
+
+code {
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: auto;
+    font-size: 12pt;
+}
+
+.goog-tabpane {
+  padding-left: 1px;
+  position: relative;
+}
+
+.goog-tabpane-tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 1ex;
+  position: relative;
+}
+
+.goog-tabpane-left .goog-tabpane-tabs {
+  float: left;
+}
+
+.goog-tabpane-right .goog-tabpane-tabs {
+  float: right;
+}
+
+.goog-tabpane-tab, .goog-tabpane-tab-selected {
+  display: block;
+  padding: 0 3ex;
+  border: 1px solid;
+  margin: 0;
+}

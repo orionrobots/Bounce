@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="highlight/styles/default.css">
     <script src="CustomNodeBlocks.js"></script> <!-- Add new blocks here -->
     <script src="app/nodemcu.js"></script> <!-- Serial port interactions here -->
+    <script src="app/GeneratedCode.js"></script>
     <script type="text/javascript" src="app/start.js"></script> <!-- Main ui here -->
     <link rel="stylesheet" href="goog_combined.css">
     <link rel="stylesheet" href="bounce.css">
@@ -62,7 +63,10 @@
         <tr>
             <td id="blocklyArea"><div id="blocklyDiv"></div></td>
             <td>
+                <div id="right_tabs"></div>
                 <div id="output"></div>
+                <!-- no it's not iso8859-1 (or win1252) -->
+                <div id="code_page"><pre><code id="code" class="lua">-- no code yet</code></pre></div>
             </td>
         </tr>
     </table>
