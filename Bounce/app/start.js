@@ -27,7 +27,7 @@ var OutputConsole = function (output_element) {
         this.write(line + '\n')
     };
 
-    this.writeLine('Console initialised');
+    this.writeLine('Console initialised.');
 };
 
 
