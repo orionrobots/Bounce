@@ -119,13 +119,16 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         }
         var current_line = 0;
         var send_next;
+        var last_data = '';
 
         var multiline_listener = function(info) {
             console.log("Received call. Info data is ", JSON.stringify(info));
             var data = bounce.Nodemcu._decoder.decode(info.data);
             console.log('Data was :', JSON.stringify(data));
-            if(info.connectionId == _connection_info.connectionId && goog.string.endsWith(data, "> ")) {
+            if(info.connectionId == _connection_info.connectionId && goog.string.endsWith(last_data + data, "> ")) {
                 send_next();
+            } else {
+                last_data = data;
             }
         };
 
