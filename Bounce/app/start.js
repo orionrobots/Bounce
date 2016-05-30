@@ -177,8 +177,8 @@ BounceUI.prototype._save = function() {
 BounceUI.prototype._open_file = function() {
     var _ui = this;
     var accepts = [{
-        mimeTypes: ['text/*'],
-        extensions: ['xml', 'node']
+        description: "Bounce code",
+        extensions: ['bounce', 'node']
     }];
     // Show a file open
     chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
@@ -212,12 +212,36 @@ BounceUI.prototype._save_as = function() {
     var _ui = this;
 
     var accepts = [{
-        mimeTypes: ['text/*'],
-        extensions: ['xml', 'node']
+        extensions: ['bounce', 'node'],
+        description: "Bounce code"
     }];
     chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
         _ui._currentFileEntry = writableFileEntry;
         _ui._save();
+    });
+};
+
+/**
+ * Export the lua code
+ */
+BounceUI.prototype._export = function() {
+    var _ui = this;
+    var accepts = [{
+        extensions: ['lua'],
+        description: 'Lua File'
+    }, {
+        extensions: ['txt'],
+        description: 'Plain text'
+    }];
+    chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
+        writableFileEntry.createWriter(function(writer) {
+            writer.onwriteend = function(e) {
+                console.log('write complete');
+            };
+            writer.write(
+                new Blob([
+                    Blockly.Lua.workspaceToCode(workspace)], {type: 'text/plain'}));
+        })
     });
 };
 
@@ -241,6 +265,7 @@ BounceUI.prototype.setup_menu = function() {
     $("#open_button").click(function() { _ui._open_file(); });
     $("#saveas_button").click(function() { _ui._save_as(); });
     $("#save_button").click(function() { _ui._save(); });
+    $("#export_button").click(function() { _ui._export(); });
     $("#upload_as_init").click(function() { _ui._upload_as_init(); });
     $("#upload").click(function() { _ui._upload(_ui.currentMcu); });
 

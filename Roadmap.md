@@ -4,17 +4,18 @@
 * 0.1.2 Upload to NodeMCU as a file. Needs DoFile and NodeMCU FileBrowser tool. - done
 * 0.2. Big red STOP button to stop all timers. - done
 * 0.2.1 - Add h11 temp sensor blocks - done
-* - Examples menu - done, ws2812 fixed, serial fixes, new button fixed.
+* - Examples menu - done, ws2812 fixed, serial fixes, new button fixed. -done
 * 0.2.3
-* - Blocks - analog read, timers
+* - Blocks - analog read - done, 
+* 0.3. Show Lua Code - done
 * - Finish file browsing tool
-* 0.3. Show Lua Code
+* - blocks  timers
 * 0.7. Export Lua code to file
 * 1.0 Polish, bug fixes, CI to build/release, all visible blocks work.  
 
 # Blocks To add
 
-1. Fully test/bugfix ws2812 block - may need a better name.
+1. Fully test/bugfix ws2812 block - may need a better name. - done
 2. Test analog read block.
 3. Esp12e motor board block.
 4. Generic PWM output block.
