@@ -150,7 +150,7 @@ Blockly.Lua['text_rep'] = function (block) {
 Blockly.Blocks['text_rep'] = {
     init: function () {
         this.appendValueInput("TEXT")
-            .setCheck("String")
+            .setCheck(["String", "Colour"])
             .appendField("repeat text");
         this.appendValueInput("COUNT")
             .setCheck("Number")
@@ -171,7 +171,7 @@ Blockly.Lua['ws2812_writergb'] = function (block) {
        Blockly.Lua.ORDER_ATOMIC) || 0;
     var data = Blockly.Lua.valueToCode(block, 'data',
         Blockly.Lua.ORDER_ATOMIC) || '\'\'';
-    var code = 'ws2812.writergb(' + pin + ", table.concat(" + data + ', \'\'))\n';
+    var code = 'ws2812.writergb(' + pin + ", " + data + '))\n';
     return code;
 };
 
@@ -180,7 +180,7 @@ Blockly.Blocks['ws2812_writergb'] ={
         this.appendDummyInput()
             .appendField("ws2812 output");
         this.appendValueInput("data")
-            .setCheck("Array")
+            .setCheck("String")
             .appendField("colour list");
         this.appendDummyInput()
             .appendField("on ");
@@ -242,6 +242,7 @@ Blockly.Blocks['dht_humidity'] = {
 
 
 /* Redefine colours for use with rgb devices like the ws2812. */
+/* Keep colours as chars */
 var repack_colour_=function(colour) {
     var r = parseInt(colour.substring(2, 3), 16);
     var g = parseInt(colour.substring(4, 5), 16);
@@ -257,7 +258,16 @@ Blockly.Lua['colour_picker'] = function(block) {
 
 Blockly.Lua['colour_random'] = function(block) {
   // Generate a random colour.
-  var code = 'string.char(math.random(0, 2^5 - 1), math.random(0, 2^5 - 1), math.random(0, 2^5 - 1))';
+  var functionName = Blockly.Lua.provideFunction_(
+      'colour_random',
+    ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ + '()',
+      '  local r= math.random(0, 2^5 - 1)',
+      '  local g= math.random(0, 2^5 - 1)',
+      '  local b= math.random(0, 2^5 - 1)',
+      '  return string.char(r, g, b)',
+      'end']);
+
+  var code = functionName + '()';
   return [code, Blockly.Lua.ORDER_HIGH];
 };
 
@@ -301,7 +311,7 @@ Blockly.Lua['colour_blend'] = function(block) {
   return [code, Blockly.Lua.ORDER_HIGH];
 };
 
-/* Fixes (to be pushed back into lua/lists.js - update_libs.sh needs to accomodate this properly) */
+/* Fixes (to be pushed back into lua/lists.js - update_libs.sh needs to accommodate this properly) */
 Blockly.Lua['lists_split'] = function(block) {
     var mode = block.getFieldValue('MODE');
     var input = Blockly.Lua.valueToCode(block, 'INPUT');
@@ -314,6 +324,42 @@ Blockly.Lua['lists_split'] = function(block) {
     }
 };
 
+Blockly.Blocks['lists_combine'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("combine");
+    this.appendValueInput("first")
+        .setCheck("Array");
+    this.appendValueInput("second")
+        .setCheck("Array");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(65);
+  }
+};
+
+/* Combine two lists into one list */
+Blockly.Lua['lists_combine'] = function(block) {
+    var first = Blockly.Lua.valueToCode(block, 'first');
+    var second = Blockly.Lua.valueToCode(block, 'second');
+
+    var functionName = Blockly.Lua.provideFunction_(
+      'lists_combine',
+      ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ +
+        '(first, second)',
+        '  local new_list = {}',
+        '  for item=1,#first do',
+        '    table.insert(new_list, first[item])',
+        '  end',
+        '  for item=1, #second do',
+        '    table.insert(new_list, second[item])',
+        '  end',
+        '  return new_list',
+        'end']);
+    var code = functionName + '(' + first + ',\n ' + second + ')';
+    return [code, Blockly.Lua.ORDER_HIGH];
+};
+
 Blockly.Blocks['lights_led_grid'] ={
     init: function () {
         this.appendDummyInput()
@@ -324,7 +370,7 @@ Blockly.Blocks['lights_led_grid'] ={
             var line = this.appendDummyInput().appendField(row + " ");
             for(var column=0; column<grid_width; column++) {
                 // TODO: Option, variables or colours.
-                line = line.appendField(new Blockly.FieldColour('#660000'), 'd' + row + '_' + column );
+                line = line.appendField(new Blockly.FieldColour('#000000'), 'd' + row + '_' + column );
             }
         }
         this.setOutput(true);
@@ -334,7 +380,7 @@ Blockly.Blocks['lights_led_grid'] ={
 };
 
 Blockly.Lua['lights_led_grid'] = function(block) {
-    var code = '{string.char(';
+    var code = 'string.char(';
     var grid_width = 8; // TODO: Configurable
     var grid_height = 8;
 
@@ -347,6 +393,6 @@ Blockly.Lua['lights_led_grid'] = function(block) {
         }
         next_comma = ",\n  ";
     }
-    code += ')}';
+    code += ')';
     return [code, Blockly.Lua.ORDER_ATOMIC]
 };
