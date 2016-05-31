@@ -241,6 +241,9 @@ code {
     height: 100%;
 }
 
+#code_page, #code_page pre {
+    height: 100%;
+}
 code {
     height: 100%;
     overflow-x: scroll;
