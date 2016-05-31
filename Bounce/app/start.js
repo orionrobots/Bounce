@@ -383,7 +383,7 @@ BounceUI.prototype.connect_code = function() {
  * Prepare the tabs
  */
 BounceUI.prototype.setup_tabs = function() {
-    var right_tabs = new goog.ui.TabPane(document.getElementById('right_tabs'));
+    var right_tabs = new goog.ui.TabPane(document.getElementById('rightTabs'));
     right_tabs.addPage(new goog.ui.TabPane.TabPage(
         document.getElementById('output'), "Output"));
     right_tabs.addPage(new goog.ui.TabPane.TabPage(

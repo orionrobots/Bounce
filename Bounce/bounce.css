@@ -8,13 +8,21 @@ html, body {
     width: 100%;
 }
 
-#panes tr {
-    height: 100%;
-}
+/*#panes tr {*/
+    /*height: 100%;*/
+/*}*/
 
 #blocklyArea {
     height: 99%;
     width: 50%;
+    float: left;
+}
+
+#rightHand {
+    width: 50%;
+    height: 99%;
+    padding: 0;
+    float: right;
 }
 
 #blocklyDiv {
@@ -75,29 +83,29 @@ html, body {
     padding: 12px 3px;
 }
 
-.panels {
-    width: 100%;
-    height: 100%;
-    margin: auto;
-}
+/*.panels {*/
+    /*width: 100%;*/
+    /*!*height: 100%;*!*/
+    /*margin: auto;*/
+/*}*/
 
-.panel-left {
-    width: 50%;
-    height: 200px;
-    border: 0;
-    float: left;
-}
+/*.panel-left {*/
+    /*width: 50%;*/
+    /*height: 200px;*/
+    /*border: 0;*/
+    /*float: left;*/
+/*}*/
 
-.panel-left select {
-    width: 95%;
-    height: 100%;
-}
+/*.panel-left select {*/
+    /*width: 95%;*/
+    /*height: 100%;*/
+/*}*/
 
-.panel-right {
-    height: 200px;
-    border: 0;
-    padding-left: 10px;
-}
+/*.panel-right {*/
+    /*height: 200px;*/
+    /*border: 0;*/
+    /*padding-left: 10px;*/
+/*}*/
 
 .fa-stop {
     color: red;
@@ -221,7 +229,8 @@ code {
 
 
 .goog-tabpane-cont {
-    height: 100%;
+    /* 37 - measurement of the bar */
+    height: -webkit-calc(100% - 37px);
 }
 
 #output {
@@ -229,9 +238,11 @@ code {
     width: auto;
     font-family: Courier, monospace;
     overflow-y: scroll;
+    height: 100%;
 }
 
 code {
     height: 100%;
+    overflow-x: scroll;
     overflow-y: scroll;
 }
