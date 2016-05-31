@@ -171,7 +171,7 @@ Blockly.Lua['ws2812_writergb'] = function (block) {
        Blockly.Lua.ORDER_ATOMIC) || 0;
     var data = Blockly.Lua.valueToCode(block, 'data',
         Blockly.Lua.ORDER_ATOMIC) || '\'\'';
-    var code = 'ws2812.writergb(' + pin + ", " + data + '))\n';
+    var code = 'ws2812.writergb(' + pin + ", " + data + ')\n';
     return code;
 };
 
