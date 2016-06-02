@@ -271,6 +271,7 @@ BounceUI.prototype.setup_menu = function() {
 
     // When the scanButton is clicked, scan for mcu's to add.
     $("#scan_button").click(function() {_ui.start_scan()});
+    $("#close_button").click(function(){ window.close(); });
 
     this.setup_examples();
 };

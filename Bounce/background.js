@@ -3,6 +3,8 @@ chrome.app.runtime.onLaunched.addListener(function() {
     'outerBounds': {
       'width': 720,
       'height': 500
-    }
+    },
+    'state': 'maximized',
+    'frame':  'none'
   });
 });

@@ -1,6 +1,7 @@
 
 html, body {
     height: 100%;
+    margin: 0;
 }
 
 #panes {
@@ -248,4 +249,20 @@ code {
     height: 100%;
     overflow-x: scroll;
     overflow-y: scroll;
+}
+
+.title div {
+    display: inline-block;
+    margin-top: 2px;
+}
+
+#close_button {
+    display: block;
+    float: right;
+    border: none;
+}
+
+#close_button:hover {
+    background-color: red;
+    color: white;
 }
