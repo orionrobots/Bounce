@@ -314,7 +314,7 @@ BounceUI.prototype._upload_as_init = function() {
  */
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
-    bounce.Nodemcu.scan(mcu_console, function(mcu) {
+    bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), function(mcu) {
         mcu_console.writeLine('Adding found item...');
         var connectItem = new goog.ui.MenuItem(mcu.port);
         //connectItem.setCheckable(true);
@@ -380,6 +380,11 @@ BounceUI.prototype.connect_code = function() {
     this.gc.set_workspace(workspace);
 };
 
+BounceUI.prototype.connect_config = function() {
+    var config_element = $('#config');
+    this.config = new BounceConfig(config_element.get(0));
+};
+
 /**
  * Prepare the tabs
  */
@@ -388,7 +393,11 @@ BounceUI.prototype.setup_tabs = function() {
     right_tabs.addPage(new goog.ui.TabPane.TabPage(
         document.getElementById('output'), "Output"));
     right_tabs.addPage(new goog.ui.TabPane.TabPage(
-        document.getElementById('code_page'), 'Code'));
+        document.getElementById('code_page'), "Code"));
+    this.connect_code();
+    right_tabs.addPage(new goog.ui.TabPane.TabPage(
+        document.getElementById('config'), "Options"));
+    this.connect_config();
 };
 
 
@@ -399,7 +408,6 @@ $(function () {
     ui = new BounceUI();
     ui.setup_menu();
     ui.setup_tabs();
-    ui.connect_code();
     workspace.addChangeListener(function() {ui.changed()});
 });
 

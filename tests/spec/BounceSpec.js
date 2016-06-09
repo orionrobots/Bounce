@@ -8,6 +8,24 @@ describe("BounceUi", function() {
     it("Should allow a GeneratedCode window to be connected");
 });
 
+describe("Config", function() {
+    var element;
+
+    beforeEach(function() {
+        element = $(new HTMLDivElement());
+    });
+
+    it("Should have construct with a passed div", function() {
+        var config = new BounceConfig(element);
+    });
+    it("Should have a baud rate control", function() {
+        var baudControl = $(new HTMLSelectElement());
+        spyOn(element, "find").and.returnValue([baudControl]);
+        var config = new BounceConfig(element);
+    });
+    it("Should have a function to get the current baud rate setting");
+});
+
 describe("GeneratedCode", function() {
     var element;
     var gen_code;

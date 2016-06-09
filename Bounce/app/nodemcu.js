@@ -14,12 +14,13 @@ var string_to_array_buffer = function(string_data) {
 /**
  * Class to handle the interactions with the NodeMCU device
  *
+ * @param baud_rate Baud rate to establish connection with.
  * @param output_console to write output to
  * @param serial_port_path The serial port to make this with.
  *
  * @constructor
  */
-bounce.Nodemcu = function(serial_port_path, output_console) {
+bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
     this.port = serial_port_path;
     var _connection_info = null; //If connected - the chrome connection info.
     var _received_str = '';
@@ -74,7 +75,7 @@ bounce.Nodemcu = function(serial_port_path, output_console) {
         }
         output_console.writeLine("Connecting to device on " + serial_port_path);
         try {
-            chrome.serial.connect(serial_port_path, {bitrate: 9600}, connected_inner);
+            chrome.serial.connect(serial_port_path, {bitrate: baud_rate}, connected_inner);
         } catch(e) {
             throw new bounce.Nodemcu.ConnectionFailed(this, e);
         }
@@ -224,15 +225,16 @@ bounce.Nodemcu.prototype.send_as_file= function(data, filename, completed_callba
 /**
  * Scan for NodeMCU boards connected
  *
+ * @param baud_rate number - the baud rate to scan with.
  * @param found_callback Called when it's found with the Serial path.
  * @param console - output goes here.
  */
-bounce.Nodemcu.scan = function(console, found_callback) {
-    console.writeLine("Starting scan...");
+bounce.Nodemcu.scan = function(console, baud_rate, found_callback) {
+    console.writeLine("Starting scan at " + baud_rate + "...");
     var onGetDevices = function(ports) {
         for (var i = 0; i < ports.length; i++) {
             console.writeLine('Found serial port ' + ports[i].path + '. Testing...');
-            var mcu = new bounce.Nodemcu(ports[i].path, console);
+            var mcu = new bounce.Nodemcu(ports[i].path, baud_rate, console);
             mcu.validate(found_callback);
         }
     };

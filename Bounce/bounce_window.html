@@ -14,6 +14,7 @@
     <script src="CustomNodeBlocks.js"></script> <!-- Add new blocks here -->
     <script src="app/nodemcu.js"></script> <!-- Serial port interactions here -->
     <script src="app/GeneratedCode.js"></script>
+    <script src="app/BounceConfig.js"></script>
     <script type="text/javascript" src="app/start.js"></script> <!-- Main ui here -->
     <link rel="stylesheet" href="goog_combined.css">
     <link rel="stylesheet" href="bounce.css">
@@ -69,6 +70,14 @@
             <div id="output"></div>
             <!-- no it's not iso8859-1 (or win1252) -->
             <div id="code_page"><pre><code id="code" class="lua">-- no code yet</code></pre></div>
+            <div id="config">
+                <label for="baud_rate">Baud Rate</label>
+                <select id="baud_rate">
+                    <option>9600</option>
+                    <option>57600</option>
+                    <option>115200</option>
+                </select>
+            </div>
         </div>
     </div>
     <xml id="toolbox" style="display: none">
