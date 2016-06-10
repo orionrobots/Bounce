@@ -6,6 +6,10 @@ You will need to load this in chrome as a developer extension.
 Launch the app this way: 
 https://developer.chrome.com/apps/first_app#five - pointing it at the Bounce directory.
 ---
+Where you can, please stick to https://google.github.io/styleguide/javascriptguide.xml.
+
+Test using the Jasmine test specs - yes there are gaps.
+---
 UI modifications
 
 Use jquery where possible - it is often simpler than the closure equivalent.
