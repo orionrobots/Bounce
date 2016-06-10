@@ -240,6 +240,10 @@ code {
     font-family: Courier, monospace;
     overflow-y: scroll;
     height: 100%;
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: auto;
+
 }
 
 #code_page, #code_page pre {
