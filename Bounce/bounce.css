@@ -251,6 +251,10 @@ code {
     overflow-y: scroll;
 }
 
+.title {
+    -webkit-app-region: drag;
+}
+
 .title div {
     display: inline-block;
     margin-top: 2px;
