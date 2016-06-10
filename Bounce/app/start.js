@@ -3,33 +3,6 @@ var mcu_console;
 var is_preparing = false;
 var ui;
 
-/**
- * Create a console to output data in visible in the UI.
- * @param output_element A DOM element to use for output.
- * @constructor
- */
-var OutputConsole = function (output_element) {
-    /**
-     * Write some data to the output. HTML is escaped.
-     * @param data Data to write.
-     */
-    this.write = function(data) {
-        var safe_data = goog.string.htmlEscape(data);
-        safe_data = goog.string.newLineToBr(safe_data);
-        output_element.append(safe_data);
-    };
-
-    /**
-     * Write a line of data.
-     * @param line
-     */
-    this.writeLine = function(line) {
-        this.write(line + '\n')
-    };
-
-    this.writeLine('Console initialised.');
-};
-
 
 /**
  *
@@ -344,6 +317,7 @@ BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
             // We've now connected the mcu. Update the UI
             mcu_console.writeLine("Connected");
             _ui.currentMcu = mcu;
+            mcu_console.lineTyped(mcu.send_data);
             // Add a tick (Check) to the connection menu item
             //connectItem.setChecked(true);
             // disconnect any others
@@ -386,7 +360,7 @@ BounceUI.prototype.connect_code = function() {
 BounceUI.prototype.setup_tabs = function() {
     var right_tabs = new goog.ui.TabPane(document.getElementById('rightTabs'));
     right_tabs.addPage(new goog.ui.TabPane.TabPage(
-        document.getElementById('output'), "Output"));
+        document.getElementById('console'), "Output"));
     right_tabs.addPage(new goog.ui.TabPane.TabPage(
         document.getElementById('code_page'), "Code"));
     this.connect_code();
@@ -400,6 +374,7 @@ $(function () {
     prepare_blockly_workspace();
 
     mcu_console = new OutputConsole($('#output'));
+    mcu_console.setupInput($('#consoleInput'));
     ui = new BounceUI();
     ui.setup_menu();
     ui.setup_tabs();

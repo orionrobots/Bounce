@@ -121,9 +121,12 @@ describe("OutputConsole", function() {
     var element;
 
     beforeEach(function() {
+        setFixtures('<div id="console"></div>');
+        setFixtures('<div id="console_input"></div>');
         element = $("#console");
         spyOn(element, "append").and.stub();
         console = new OutputConsole(element);
+        console.setupInput($('#console_input'));
     });
 
     it("should write data to a div", function() {
@@ -150,5 +153,16 @@ describe("OutputConsole", function() {
     it("Should escape html and keep the characters literal", function() {
         console.write("if a < b then");
         expect(element.append).toHaveBeenCalledWith("if a &lt; b then");
+    });
+
+    it("Should send input box to connected code on enter", function() {
+        var callback = jasmine.createSpy("dummy");
+        console.lineTyped(callback);
+        $('#console_input').val("A test line");
+        var e = jQuery.Event("keypress");
+        e.which = 13;
+        $('#console_input').trigger(e);
+        expect(callback).toHaveBeenCalledWith('A test line\n');
+        expect($('#console_input').val()).toEqual('');
     });
 });

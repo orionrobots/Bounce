@@ -234,6 +234,19 @@ code {
     height: -webkit-calc(100% - 37px);
 }
 
+#console {
+    height: -webkit-calc(100% - 1em);
+}
+
+#consoleInput {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 1em;
+    float: bottom;
+}
+
 #output {
     margin: 1em 0 1em;
     width: auto;
@@ -243,7 +256,6 @@ code {
     user-select: text;
     -webkit-user-select: text;
     cursor: auto;
-
 }
 
 #code_page, #code_page pre {
