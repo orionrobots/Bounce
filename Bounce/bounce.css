@@ -261,6 +261,7 @@ code {
 }
 
 #close_button {
+    -webkit-app-region: no-drag;
     display: block;
     float: right;
     border: none;

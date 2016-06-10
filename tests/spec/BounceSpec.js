@@ -8,22 +8,55 @@ describe("BounceUi", function() {
     it("Should allow a GeneratedCode window to be connected");
 });
 
+var chrome = {
+    storage: {
+        sync: {
+            get: function(){},
+            set: function(){}
+        }
+    }
+};
+
 describe("Config", function() {
     var element;
-
+    var getSpy;
+    var setSpy;
     beforeEach(function() {
-        element = $(new HTMLDivElement());
-    });
+        setFixtures('<select id="baud_rate">' +
+                    '<option value="9600" selected="true">9600</option>' +
+                    '<option value="57600">57600</option>' +
+                    '<option value="115200">115200</option>' +
+                    '</select>'
+        );
 
-    it("Should have construct with a passed div", function() {
-        var config = new BounceConfig(element);
+        getSpy = spyOn(chrome.storage.sync, "get").and.stub().and.returnValue({});
+        setSpy = spyOn(chrome.storage.sync, "set").and.stub();
     });
-    it("Should have a baud rate control", function() {
-        var baudControl = $(new HTMLSelectElement());
-        spyOn(element, "find").and.returnValue([baudControl]);
+    it("Should default to 9600", function() {
+        getSpy.and.callFake(function(param, fn) {
+            expect(param).toEqual('baud_rate');
+            fn({});
+        });
         var config = new BounceConfig(element);
+        expect(config.getBaudRate()).toEqual(9600);
+        expect($('#baud_rate').val()).toEqual('9600');
     });
-    it("Should have a function to get the current baud rate setting");
+    it("Should store setting in chrome user settings when modified", function() {
+        var config = new BounceConfig(element);
+        /* simulate a change to the control */
+        $('#baud_rate').val(115200);
+        $('#baud_rate').trigger("change");
+        expect(setSpy).toHaveBeenCalledWith({'baud_rate': 115200});
+    });
+    it("Should retrieve setting from chrome user settings", function() {
+        getSpy.and.callFake(function(param, fn) {
+            expect(param).toEqual('baud_rate');
+            fn({'baud_rate':57600});
+        });
+        var config = new BounceConfig(element);
+        expect(config.getBaudRate()).toEqual(57600);
+        expect($('#baud_rate').val()).toEqual('57600');
+    });
 });
 
 describe("GeneratedCode", function() {
@@ -37,19 +70,19 @@ describe("GeneratedCode", function() {
 
     it("Should decorate a div", function() {
         expect(gen_code).not.toBeNull();
-        gen_code.set_code(default_code);
+        gen_code.setCode(default_code);
     });
 
     it("Should hold code generated", function() {
         var code = 'print("hello world")\n';
         spyOn(element, "text").and.stub();
-        gen_code.set_code(code);
+        gen_code.setCode(code);
         expect(element.text).toHaveBeenCalledWith('print("hello world")\n');
     });
 
     it("Should highlight the code when set", function() {
         spyOn(hljs, "highlightBlock").and.stub();
-        gen_code.set_code(default_code);
+        gen_code.setCode(default_code);
         expect(hljs.highlightBlock).toHaveBeenCalledWith(element.get(0));
     });
     //
@@ -57,7 +90,7 @@ describe("GeneratedCode", function() {
     //     var workspace = {addChangeListener: function() {}};
     //     spyOn(workspace, "addChangeListener");
     //
-    //     gen_code.set_workspace(workspace);
+    //     gen_code.setWorkspace(workspace);
     //     expect(workspace.addChangeListener).toHaveBeenCalledWith(gen_code.changed);
     // });
 
@@ -70,7 +103,7 @@ describe("GeneratedCode", function() {
         spyOn(Blockly.Lua, "workspaceToCode").and.returnValue(default_code);
 
         spyOn(element, "text");
-        gen_code.set_workspace(workspace);
+        gen_code.setWorkspace(workspace);
         set_fn();
         expect(Blockly.Lua.workspaceToCode).toHaveBeenCalledWith(workspace);
         expect(element.text).toHaveBeenCalledWith(default_code);

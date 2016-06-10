@@ -8,7 +8,7 @@
 var GeneratedCode = function (element) {
     this.element = element;
 };
-GeneratedCode.prototype.set_code = function(code) {
+GeneratedCode.prototype.setCode = function(code) {
     this.element.text(code);
     // console.log(this.element.innerHTML);
     hljs.highlightBlock(this.element.get(0));
@@ -16,10 +16,10 @@ GeneratedCode.prototype.set_code = function(code) {
 
 GeneratedCode.prototype.changed = function(e) {
     console.log(this);
-    this.set_code(Blockly.Lua.workspaceToCode(this.workspace));
+    this.setCode(Blockly.Lua.workspaceToCode(this.workspace));
 };
 
-GeneratedCode.prototype.set_workspace = function (workspace) {
+GeneratedCode.prototype.setWorkspace = function (workspace) {
     this.workspace = workspace;
     var gc=this;
     workspace.addChangeListener(function() {gc.changed()});

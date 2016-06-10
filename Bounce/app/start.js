@@ -377,12 +377,7 @@ BounceUI.prototype.setup_examples = function() {
 BounceUI.prototype.connect_code = function() {
     var code_element = $('#code');
     this.gc = new GeneratedCode(code_element);
-    this.gc.set_workspace(workspace);
-};
-
-BounceUI.prototype.connect_config = function() {
-    var config_element = $('#config');
-    this.config = new BounceConfig(config_element.get(0));
+    this.gc.setWorkspace(workspace);
 };
 
 /**
@@ -397,7 +392,7 @@ BounceUI.prototype.setup_tabs = function() {
     this.connect_code();
     right_tabs.addPage(new goog.ui.TabPane.TabPage(
         document.getElementById('config'), "Options"));
-    this.connect_config();
+    this.config = new BounceConfig();
 };
 
 
