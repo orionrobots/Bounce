@@ -229,6 +229,10 @@ BounceUI.prototype.setup_menu = function() {
     this.connectMenu = new goog.ui.Menu();
     this.connectMenu.decorate(goog.dom.getElement('connect_menu'));
 
+    // var testItem = new goog.ui.MenuItem('test');
+    // testItem.setId("test");
+    // this.connectMenu.addChild(testItem, true);
+
     this.fileMenu = new goog.ui.Menu();
     this.fileMenu.decorate(goog.dom.getElement('file_menu'));
 
@@ -288,10 +292,15 @@ BounceUI.prototype._upload_as_init = function() {
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
     bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), function(mcu) {
-        mcu_console.writeLine('Adding found item...');
+        if($("#" + mcu.port).length > 0) {
+            mcu_console.writeLine("Port already added");
+            return;
+        }
+
+        mcu_console.writeLine('Adding found item... ' + mcu.port);
         var connectItem = new goog.ui.MenuItem(mcu.port);
-        //connectItem.setCheckable(true);
-        _ui.connectMenu.addItem(connectItem);
+        connectItem.setId(mcu.port);
+        _ui.connectMenu.addChild(connectItem, true);
 
         $(connectItem.getContentElement()).click(function() {
             _ui.connect_menu_item_clicked_(connectItem, mcu);
