@@ -6,7 +6,7 @@ You will need to load this in chrome as a developer extension.
 Launch the app this way: 
 https://developer.chrome.com/apps/first_app#five - pointing it at the Bounce directory.
 ---
-Where you can, please stick to https://google.github.io/styleguide/javascriptguide.xml.
+Where you can, please stick to https://google.github.io/styleguide/javascriptguide.xml and https://google.github.io/styleguide/htmlcssguide.xml.
 
 Test using the Jasmine test specs - yes there are gaps.
 ---
