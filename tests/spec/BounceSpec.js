@@ -22,35 +22,64 @@ describe("Config", function() {
     var getSpy;
     var setSpy;
     beforeEach(function() {
-        setFixtures('<select id="baud_rate">' +
-                    '<option value="9600" selected="true">9600</option>' +
-                    '<option value="57600">57600</option>' +
-                    '<option value="115200">115200</option>' +
-                    '</select>'
-        );
-
         getSpy = spyOn(chrome.storage.sync, "get").and.stub().and.returnValue({});
         setSpy = spyOn(chrome.storage.sync, "set").and.stub();
     });
-    it("Should default to 9600", function() {
+
+    it("Should default baud rate to 9600", function() {
         getSpy.and.callFake(function(param, fn) {
-            expect(param).toEqual('baud_rate');
+            expect(param).toContain('baud_rate');
             fn({});
         });
         var config = new BounceConfig(element);
         expect(config.getBaudRate()).toEqual(9600);
         expect($('#baud_rate').val()).toEqual('9600');
     });
-    it("Should store setting in chrome user settings when modified", function() {
+
+    it("Should default timeout rate to 2 seconds", function() {
+        getSpy.and.callFake(function(param, fn) {
+            expect(param).toContain('serial_timeout');
+            fn({});
+        });
         var config = new BounceConfig(element);
+        expect(config.getSerialTimeout()).toEqual(2);
+        expect($('#serial_timeout').val()).toEqual('2');
+    });
+
+    it("Should store baud setting in chrome user settings when modified", function(done) {
+        /* Make this async */
+        setSpy.and.callFake(function() {
+            expect(setSpy).toHaveBeenCalledWith({'baud_rate': 115200});
+            done();
+        });
+
+        var config = new BounceConfig(element);
+
+        expect($('#baud_rate')).toHandle("change");
         /* simulate a change to the control */
         $('#baud_rate').val(115200);
         $('#baud_rate').trigger("change");
-        expect(setSpy).toHaveBeenCalledWith({'baud_rate': 115200});
     });
+
+
+    it("Should store timeout setting in chrome user settings when modified", function(done) {
+        /* Make this async */
+        setSpy.and.callFake(function() {
+            expect(setSpy).toHaveBeenCalledWith({'serial_timeout': 10});
+            done();
+        });
+
+        var config = new BounceConfig(element);
+
+        expect($('#serial_timeout')).toHandle("change");
+        /* simulate a change to the control */
+        $('#serial_timeout').val(10);
+        $('#serial_timeout').trigger("change");
+    });
+
     it("Should retrieve setting from chrome user settings", function() {
         getSpy.and.callFake(function(param, fn) {
-            expect(param).toEqual('baud_rate');
+            expect(param).toContain('baud_rate');
             fn({'baud_rate':57600});
         });
         var config = new BounceConfig(element);
@@ -144,7 +173,7 @@ describe("OutputConsole", function() {
     it("should have a writeline function", function() {
         console.writeLine("A whole line");
         expect(element.append).toHaveBeenCalledWith("A whole line<br>");
-    }); 
+    });
 
     it("Should output an initialisation message", function() {
         expect(element.append).toHaveBeenCalledWith("Console initialised.<br>");
