@@ -223,6 +223,13 @@ bounce.Nodemcu.prototype.send_as_file= function(data, filename, completed_callba
     };
 
 /**
+ * Stop all timers.
+ */
+bounce.Nodemcu.prototype.stop = function() {
+    this.send_multiline_data(["for i=0, 6 do", "tmr.stop(i)", "end"], function() {});
+};
+
+/**
  * Scan for NodeMCU boards connected
  *
  * @param baud_rate number - the baud rate to scan with.

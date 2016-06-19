@@ -82,10 +82,6 @@ function run(mcu) {
     mcu.send_multiline_data(code, function() {});
 }
 
-function stop(mcu) {
-    mcu.send_multiline_data(["for i=0, 6 do", "tmr.stop(i)", "end"], function() {});
-}
-
 function export_document() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
 
@@ -237,7 +233,7 @@ BounceUI.prototype.setup_menu = function() {
     this.fileMenu.decorate(goog.dom.getElement('file_menu'));
 
     $("#run_button").click(function() { run(_ui.currentMcu); });
-    $("#stop_button").click(function() { stop(_ui.currentMcu); });
+    $("#stop_button").click(function() { _ui.currentMcu.stop(); });
     $("#new_button").click(function() { _ui.new_document(); });
     $("#open_button").click(function() { _ui._open_file(); });
     $("#saveas_button").click(function() { _ui._save_as(); });
