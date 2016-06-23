@@ -1,12 +1,22 @@
 /**
  * Create a console to output data in visible in the UI.
- * @param output_element A DOM element to use for output.
  * @constructor
  */
-var OutputConsole = function (output_element) {
-    this.output_element = output_element;
+var OutputConsole = function () {
+    this.outputElement = null;
+    this.lineTypedHandler = null;
+};
+
+/**
+ *
+ * @param outputElement A DOM element to write the output to.
+ * @param inputElement A DOM element to read the input from.
+ */
+OutputConsole.prototype.setup = function(outputElement, inputElement) {
+    this.outputElement = outputElement;
     this.lineTypedHandler = null;
     this.writeLine('Console initialised.');
+    this.setupInput(inputElement);
 };
 
 /**
@@ -16,7 +26,7 @@ var OutputConsole = function (output_element) {
 OutputConsole.prototype.write = function(data) {
     var safe_data = goog.string.htmlEscape(data);
     safe_data = goog.string.newLineToBr(safe_data);
-    this.output_element.append(safe_data);
+    this.outputElement.append(safe_data);
 };
 
 /**

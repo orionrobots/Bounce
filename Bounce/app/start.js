@@ -1,8 +1,5 @@
-﻿var workspace;
-var mcu_console;
-var is_preparing = false;
+﻿var mcu_console;
 var ui;
-
 
 /**
  *
@@ -46,55 +43,55 @@ function AskForFilename() {
     }
 }
 
-function prepare_blockly_workspace() {
-    var blocklyArea = document.getElementById('blocklyArea');
-    var blocklyDiv = document.getElementById('blocklyDiv');
-    workspace = Blockly.inject(blocklyDiv,
+BlocklyManager = function() {
+    this.workspace = null;
+    this.blocklyDiv = null;
+    this.blocklyArea = null;
+};
+
+BlocklyManager.prototype.setup = function() {
+    var _bm = this;
+    this.blocklyArea = document.getElementById('blocklyArea');
+    this.blocklyDiv = document.getElementById('blocklyDiv');
+    this.workspace = Blockly.inject(this.blocklyDiv,
       {toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
-    var onresize = function() {
-        // Compute the absolute coordinates and dimensions of blocklyArea.
-        var element = blocklyArea;
-        var x = 0;
-        var y = 0;
-        do {
-          x += element.offsetLeft;
-          y += element.offsetTop;
-          element = element.offsetParent;
-        } while (element);
-        // Position blocklyDiv over blocklyArea.
-        blocklyDiv.style.left = x + 'px';
-        blocklyDiv.style.top = y + 'px';
-        blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-        blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-        Blockly.svgResize(workspace);
-    };
-    window.addEventListener('resize', onresize, false);
-    onresize();
-}
+    window.addEventListener('resize', function() {_bm.resizeHandler()}, false);
+    this.resizeHandler();
+};
 
+BlocklyManager.prototype.resizeHandler = function() {
+    // Compute the absolute coordinates and dimensions of blocklyArea.
+    var element = this.blocklyArea;
+    var x = 0;
+    var y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+    // Position blocklyDiv over blocklyArea.
+    this.blocklyDiv.style.left = x + 'px';
+    this.blocklyDiv.style.top = y + 'px';
+    this.blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    this.blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+    Blockly.svgResize(this.workspace);
+};
 
-/**
- * Send the code directly to the mcu repl.
- * @param mcu
- */
-function run(mcu) {
-    var code = Blockly.Lua.workspaceToCode(workspace);
-    mcu.send_multiline_data(code, function() {});
-}
+BlocklyManager.prototype.getCode = function() {
+    return Blockly.Lua.workspaceToCode(this.workspace);
+};
 
-function export_document() {
-    var xml = Blockly.Xml.workspaceToDom(workspace);
-
+BlocklyManager.prototype.getDocument = function() {
+    var xml = Blockly.Xml.workspaceToDom(this.workspace);
     return Blockly.Xml.domToPrettyText(xml);
-}
+};
 
-
-function load_document(text) {
-    is_preparing = true;
-    var xml = Blockly.Xml.textToDom(text);
+BlocklyManager.prototype.loadDocument = function(document) {
+    var xml = Blockly.Xml.textToDom(document);
     Blockly.mainWorkspace.clear();
-    Blockly.Xml.domToWorkspace(workspace, xml);
-}
+    Blockly.Xml.domToWorkspace(this.workspace, xml);
+};
+
 
 /**
  * Bounce Ui - The controller mapping the html window buttons to functions.
@@ -105,7 +102,13 @@ function BounceUI() {
     var _ui = this;
     this._currentFileEntry=null;
     this._modified = false;
+    this._is_preparing = false;
 }
+
+BounceUI.prototype.connectBlockly = function(blocklyManager) {
+    this.blocklyManager = blocklyManager;
+    blocklyManager.workspace.addChangeListener(function() {ui.changed()});
+};
 
 /**
  * Button handler to upload the current code with a filename.
@@ -115,13 +118,22 @@ function BounceUI() {
  * @private
  */
 BounceUI.prototype._upload = function(mcu) {
+    var _ui = this;
     var fndlg = new AskForFilename();
     fndlg.display(function(filename) {
-        var code = Blockly.Lua.workspaceToCode(workspace);
-        mcu.send_as_file(code, filename, function() {
+        mcu.send_as_file(_ui.blocklyManager.getCode(), filename, function() {
             mcu_console.writeLine("Completed upload");
         });
     });
+};
+
+
+/**
+ * Send the code directly to the mcu repl.
+ */
+BounceUI.prototype.run = function(mcu) {
+    var code = this.blocklyManager.getCode();
+    this.currentMcu.send_multiline_data(code, function() {});
 };
 
 /**
@@ -130,11 +142,12 @@ BounceUI.prototype._upload = function(mcu) {
  * @private
  */
 BounceUI.prototype._save = function() {
+    var _ui = this;
     this._currentFileEntry.createWriter(function(writer) {
         writer.onwriteend = function(e) {
             console.log('write complete');
         };
-        writer.write(new Blob([export_document()], {type: 'text/plain'}));
+        writer.write(new Blob([_ui.blocklyManager.getDocument()], {type: 'text/plain'}));
     })
 };
 
@@ -164,7 +177,8 @@ BounceUI.prototype._open_file = function() {
             console.log("opening file");
             var reader = new FileReader();
             reader.onloadend = function(e) {
-                load_document(e.target.result);
+                _ui.is_preparing = true;
+                _ui.blocklyManager.loadDocument(e.target.result);
             };
             reader.readAsText(file);
         });
@@ -208,8 +222,7 @@ BounceUI.prototype._export = function() {
                 console.log('write complete');
             };
             writer.write(
-                new Blob([
-                    Blockly.Lua.workspaceToCode(workspace)], {type: 'text/plain'}));
+                new Blob([_ui.blocklyManager.getDocument()], {type: 'text/plain'}));
         })
     });
 };
@@ -232,7 +245,7 @@ BounceUI.prototype.setup_menu = function() {
     this.fileMenu = new goog.ui.Menu();
     this.fileMenu.decorate(goog.dom.getElement('file_menu'));
 
-    $("#run_button").click(function() { run(_ui.currentMcu); });
+    $("#run_button").click(function() { _ui.run(); });
     $("#stop_button").click(function() { _ui.currentMcu.stop(); });
     $("#new_button").click(function() { _ui.new_document(); });
     $("#open_button").click(function() { _ui._open_file(); });
@@ -251,7 +264,7 @@ BounceUI.prototype.setup_menu = function() {
 
 BounceUI.prototype.new_document = function() {
     /* todo - request confirmation */
-    is_preparing = true;
+    this._is_preparing = true;
     Blockly.mainWorkspace.clear();
     this._currentFileEntry = null;
     this._modified = false;
@@ -259,8 +272,8 @@ BounceUI.prototype.new_document = function() {
 
 BounceUI.prototype.changed = function () {
     console.log("Workspace changed");
-    if (is_preparing) {
-        is_preparing = false;
+    if (this._is_preparing) {
+        this._is_preparing = false;
         this._modified = true;
     } else {
         this.fileMenu.getChild("saveas_button").setEnabled(true);
@@ -276,7 +289,7 @@ BounceUI.prototype.changed = function () {
  */
 BounceUI.prototype._upload_as_init = function() {
     var filename="init.lua";
-    var code = Blockly.Lua.workspaceToCode(workspace);
+    var code = this.blocklyManager.getCode();
     this.currentMcu.send_as_file(code, filename, function() {
         mcu_console.writeLine("Completed upload");
     });
@@ -342,13 +355,14 @@ BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
  * Prepare menu of examples
  */
 BounceUI.prototype.setup_examples = function() {
+    var _ui = this;
     var examples_menu = new goog.ui.Menu();
     examples_menu.decorate(goog.dom.getElement("examples_menu"));
     $("#examples_menu").find(".example").click(function(event) {
         /* Load appropriate example */
         var filename = event.target.parentElement.getAttribute("data-value");
         $.get("Examples/" + filename, function(data){
-            load_document(data);
+            _ui.blocklyManager.loadDocument(data);
         });
     });
 };
@@ -356,7 +370,7 @@ BounceUI.prototype.setup_examples = function() {
 BounceUI.prototype.connect_code = function() {
     var code_element = $('#code');
     this.gc = new GeneratedCode(code_element);
-    this.gc.setWorkspace(workspace);
+    this.gc.setWorkspace(this.blocklyManager.workspace);
 };
 
 /**
@@ -374,15 +388,39 @@ BounceUI.prototype.setup_tabs = function() {
     this.config = new BounceConfig();
 };
 
+/**
+ * The App - it has logic. And ties the other elements together
+ * @constructor
+ */
+BounceApp = function() {
+    /* Just name the members here. Setup will construct and connect them */
+    this.generated_code = null; /* Generated code */
+    this.ui = null; /* UI - which has menu's and buttons */
+    this.output_console = null; /* The output console */
+    this.blockly_manager = null; /* This has a blockly workspace and manages it */
+    this.node_mcu = null; /* This will have a value when connected */
+    this.config = null; /* This has the apps configuration */
+};
+
+
+/**
+ * Construct and connect the components of the app.
+ */
+BounceApp.prototype.setup = function() {
+    this.output_console = new OutputConsole();
+    this.output_console.setup($('#output'), $('#consoleInput'));
+
+};
 
 $(function () {
-    prepare_blockly_workspace();
+    var blocklyManager = new BlocklyManager();
+    blocklyManager.setup();
 
-    mcu_console = new OutputConsole($('#output'));
-    mcu_console.setupInput($('#consoleInput'));
+    mcu_console = new OutputConsole();
+    mcu_console.setup($('#output'), $('#consoleInput'));
     ui = new BounceUI();
+    ui.connectBlockly(blocklyManager);
     ui.setup_menu();
     ui.setup_tabs();
-    workspace.addChangeListener(function() {ui.changed()});
 });
 

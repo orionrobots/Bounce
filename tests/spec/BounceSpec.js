@@ -6,6 +6,98 @@ describe("BounceUi", function() {
     });
 
     it("Should allow a GeneratedCode window to be connected");
+    it("Should set up a menu");
+    it("Should setup the config");
+    it("Should trigger scan with settings");
+    it("Should trigger a connect");
+    
+});
+
+describe("BounceApp", function() {
+    var app; /* App class - created in before */
+    var oc_spy; /* Spy for output console class */
+    var blockly_spy; /* Spy for blockly manager */
+    beforeEach(function() {
+        oc_spy = jasmine.createSpyObj("OutputConsole", ['setup','write', 'writeLine']);
+        spyOn(window, "OutputConsole").and.returnValue(oc_spy);
+        
+        app = new BounceApp();
+    });
+
+    it("Should construct an output console", function() {
+        app.setup();
+        expect(window.OutputConsole).toHaveBeenCalled();
+        expect(app.output_console).toEqual(oc_spy);
+    });
+
+    it("Should setup the output console", function() {
+        /* The output console should be setup with the required elements */
+        app.setup();
+        expect(oc_spy.setup).toHaveBeenCalled();
+    });
+    
+    it("Should construct a blockly manager");
+    it("Should setup the blockly manager");
+    it("Should construct a config");
+    it("Should setup the config");
+    it("Should construct a code generator");
+    it("Should setup the code generator connecting it to blockly manager");
+    it("Should construct a Bounce ui");
+    it("Should setup the UI");
+});
+
+describe("BlocklyManager", function() {
+    var manager;
+    beforeEach(function() {
+        setFixtures('<div id="blocklyArea"><div id="blocklyDiv"></div></div>');
+        spyOn(Blockly, "svgResize").and.stub();
+        spyOn(Blockly, "inject").and.returnValue("workspace_sentinel");
+        manager = new BlocklyManager();
+        Blockly.mainWorkspace = jasmine.createSpyObj("mainWorkspace", ['clear']);
+    });
+    
+    it("Should setup a resize listener", function() {
+        spyOn(manager, "resizeHandler").and.callThrough();
+        manager.setup();
+        expect(manager.resizeHandler).toHaveBeenCalled();
+        expect(Blockly.svgResize).toHaveBeenCalled();
+    });
+
+    it("Should inject the blockly workspace", function() {
+        manager.setup();
+        expect(Blockly.inject).toHaveBeenCalled();
+    });
+
+    it("Should allow me to get the code", function() {
+        manager.setup();
+        spyOn(Blockly.Lua, "workspaceToCode").and.returnValue("print('hello world!')\n");
+        expect(manager.getCode()).toEqual("print('hello world!')\n");
+        expect(Blockly.Lua.workspaceToCode).toHaveBeenCalledWith("workspace_sentinel");
+    });
+
+    it("Should allow me to get XML text for it", function() {
+        manager.setup();
+        spyOn(Blockly.Xml, "workspaceToDom").and.returnValue("sentinel");
+        spyOn(Blockly.Xml, "domToPrettyText").and.returnValue("<blah>some xml</blah>");
+        expect(manager.getDocument()).toEqual("<blah>some xml</blah>");
+        expect(Blockly.Xml.workspaceToDom).toHaveBeenCalledWith("workspace_sentinel");
+        expect(Blockly.Xml.domToPrettyText).toHaveBeenCalledWith("sentinel");
+    });
+    
+    it("Should load a document", function() {
+        manager.setup();
+        spyOn(Blockly.Xml, "textToDom");
+
+        spyOn(Blockly.Xml, "domToWorkspace");
+        var document = "<blah>test doc</blah>";
+        manager.loadDocument(document);
+        expect(Blockly.mainWorkspace.clear).toHaveBeenCalled();
+        expect(Blockly.Xml.textToDom).toHaveBeenCalledWith(document);
+    });
+    //
+    // it("Should allow connection to mcu");
+    // it("Should run code on mcu");
+    // it("Should write as a file to mcu");
 });
 
 var chrome = {
@@ -154,8 +246,8 @@ describe("OutputConsole", function() {
         setFixtures('<div id="console_input"></div>');
         element = $("#console");
         spyOn(element, "append").and.stub();
-        console = new OutputConsole(element);
-        console.setupInput($('#console_input'));
+        console = new OutputConsole();
+        console.setup(element, $('#console_input'));
     });
 
     it("should write data to a div", function() {
