@@ -43,7 +43,7 @@ function AskForFilename() {
     }
 }
 
-BlocklyManager = function() {
+var BlocklyManager = function() {
     this.workspace = null;
     this.blocklyDiv = null;
     this.blocklyArea = null;
@@ -300,7 +300,7 @@ BounceUI.prototype._upload_as_init = function() {
  */
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
-    bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), function(mcu) {
+    bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
         if($("#" + mcu.port).length > 0) {
             mcu_console.writeLine("Port already added");
             return;

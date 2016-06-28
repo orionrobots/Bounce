@@ -168,9 +168,10 @@ bounce.Nodemcu.ConnectionFailed = function(mcu, original) {
 /**
  * USed by scan to validate this is a node.
  *
- * @param found_callback
+ * @param found_callback - Function to call when found
+ * @param timeout_millis - Time to wait before giving up/disconnecting.
  */
-bounce.Nodemcu.prototype.validate = function(found_callback) {
+bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
     var _node_instance = this;
 
     function _found_wrapper() {
@@ -188,11 +189,12 @@ bounce.Nodemcu.prototype.validate = function(found_callback) {
         _node_instance._output_console.writeLine("Connected");
         // We need two events here:
         // - A timeout - it didn't respond confirming - disconnect the port.
-        var timeout = new goog.async.Delay(_timed_out, 2000);
+        var timeout = new goog.async.Delay(_timed_out, timeout_millis);
         timeout.start();
         // - A receive - the node response confirms it - cancel the timeout.
         _node_instance.addLineEventListener(function(e) {
-            if(goog.string.contains(e.detail.line, 'node mcu confirmed')) {
+            if(goog.string.contains(e.detail.line, 'node mcu confirmed')||
+                goog.string.contains(e.detail.line, 'powered by Lua')) {
                 _node_instance._output_console.writeLine("Confirmed - NodeMCU found");
                 _node_instance.disconnect(_found_wrapper);
                 timeout.stop();
@@ -232,17 +234,18 @@ bounce.Nodemcu.prototype.stop = function() {
 /**
  * Scan for NodeMCU boards connected
  *
- * @param baud_rate number - the baud rate to scan with.
- * @param found_callback Called when it's found with the Serial path.
  * @param console - output goes here.
+ * @param baud_rate number - the baud rate to scan with.
+ * @param timeout - how long to wait in seconds for a serial response to the sent text.
+ * @param found_callback Called when it's found with the Serial path.
  */
-bounce.Nodemcu.scan = function(console, baud_rate, found_callback) {
+bounce.Nodemcu.scan = function(console, baud_rate, timeout, found_callback) {
     console.writeLine("Starting scan at " + baud_rate + "...");
     var onGetDevices = function(ports) {
         for (var i = 0; i < ports.length; i++) {
             console.writeLine('Found serial port ' + ports[i].path + '. Testing...');
             var mcu = new bounce.Nodemcu(ports[i].path, baud_rate, console);
-            mcu.validate(found_callback);
+            mcu.validate(found_callback, timeout * 1000);
         }
     };
 
