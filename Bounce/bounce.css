@@ -276,11 +276,19 @@ code {
     margin-top: 2px;
 }
 
-#close_button {
+#window_controls {
     -webkit-app-region: no-drag;
     display: block;
     float: right;
+}
+
+#window_controls button {
+    display: inline-block;
     border: none;
+}
+
+#window_controls button:hover {
+    background-color: darkgray;
 }
 
 #close_button:hover {

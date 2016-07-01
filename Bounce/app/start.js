@@ -257,10 +257,23 @@ BounceUI.prototype.setup_menu = function() {
 
     // When the scanButton is clicked, scan for mcu's to add.
     $("#scan_button").click(function() {_ui.start_scan()});
+
     $("#close_button").click(function(){ window.close(); });
+    $('#minimize_button').click(function() { chrome.app.window.current().minimize(); });
+    $('#maxrestore_button').click(function() {_ui.maxrestore();});
 
     this.setup_examples();
 };
+
+
+BounceUI.prototype.maxrestore = function() {
+    if(chrome.app.window.current().isMaximized()) {
+      chrome.app.window.current().restore();
+    } else {
+      chrome.app.window.current().maximize();
+    }
+};
+
 
 BounceUI.prototype.new_document = function() {
     /* todo - request confirmation */
