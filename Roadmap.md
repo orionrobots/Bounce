@@ -27,5 +27,8 @@
 1. Discovery of esp8266 devices without NodeMCU software - with help on flashing it.
 2. Ability to flash a recent NodeMCU firmware on it.
 3. Plans for Wifi/Networking abilities.
+  * Uploading code via WiFi 
+  * Set up wifi event handlers - probably sticking to a simple http + named trigger, perhaps JSON. 
+  * Send a variable (set of variables) via JSON and HTTP to a URL.
 4. Possible low power modes.
 5. Package somehow with drivers for windows.
