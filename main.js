@@ -2,7 +2,7 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
 
-// var SerialPort = require("serialport");
+var SerialPort = require("serialport");
 
 let win;
 

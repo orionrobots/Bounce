@@ -23,3 +23,17 @@ so it can be automated as much as possible.
 * Get linux travis and osx travis working.
 * Use this to reboot bounce.
 
+
+## Setup:
+
+First install node.js. Then microsoft npm build tools (https://github.com/Microsoft/nodejs-guidelines/blob/master/windows-environment.md#prerequisites)
+In windows - launch powershell as admin. Type the following:
+
+    npm install -g windows-build-tools
+
+Now from the app root do these things:
+
+    npm install --save-dev electron-rebuild
+    npm install && npm start
+
+The app should start
