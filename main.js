@@ -2,10 +2,13 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
 
-var SerialPort = require("serialport");
+const SerialPort = require("serialport");
 
 let win;
 
+var port = new SerialPort.SerialPort("COM4", {
+  parser: SerialPort.parsers.readline('>')
+});
 
 function createWindow () {
   // Create the browser window.
@@ -28,6 +31,26 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
+
+  port.on('data', function (data) {
+      console.log('Data: ' + data + '>');
+      if(data.indexOf("Experiment ready") > -1 || data.indexOf('is now OFF') > -1) {
+          // console.log("Sending LED on...\n");
+          port.write("LED ON\n", function(err) {
+              // console.log("LED should be on\n");
+          });
+      }
+      // if(data.indexOf('LED is now ON') > -1) {
+      //     // console.log("Sending LED off...\n");
+      //     port.write("LED OFF\n", function(err) {
+      //         // console.log("LED should be OFF\n");
+      //     });
+      // }
+  });
+
+  port.on('error', function(err) {
+    console.log('Error: ', err.message);
+  });  
 }
 
 // This method will be called when Electron has finished
@@ -51,32 +74,3 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-// var port = new SerialPort("COM4", {
-//   parser: SerialPort.parsers.readline('>')
-// });
-
-// // port.on("open", function() {
-    
-// // })
-
-// // open errors will be emitted as an error event 
-// port.on('error', function(err) {
-//   console.log('Error: ', err.message);
-// });
-
-// port.on('data', function (data) {
-//     console.log('Data: ' + data + '>');
-//     if(data.indexOf("Experiment ready") > -1 || data.indexOf('is now OFF') > -1) {
-//         // console.log("Sending LED on...\n");
-//         port.write("LED ON\n", function(err) {
-//             // console.log("LED should be on\n");
-//         });
-//     }
-//     // if(data.indexOf('LED is now ON') > -1) {
-//     //     // console.log("Sending LED off...\n");
-//     //     port.write("LED OFF\n", function(err) {
-//     //         // console.log("LED should be OFF\n");
-//     //     });
-//     // }
-// });

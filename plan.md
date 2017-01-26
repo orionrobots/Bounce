@@ -13,7 +13,7 @@ Install Node + NPM on my windowss box.
     - Use an arduino with simple known 9600 code first - we can get more elaborate later. - this just works. Done.
 * Start following this: http://electron.atom.io/docs/tutorial/quick-start/ - done
 * Get a simple app to run.- done
-* Try getting node serialport up to scratch like above again INSIDE an electron app.
+* Try getting node serialport up to scratch like above again INSIDE an electron app. - done
 * Get this to work on a VM runing linux.
 * Get this to work on Carol's mac.
 * Keep the results documented and source controlled.
@@ -31,7 +31,7 @@ In windows - launch powershell as admin. Type the following:
 
     npm install -g windows-build-tools
 
-Now from the app root do these things:
+Now from the app root do these things (https://github.com/EmergingTechnologyAdvisors/node-serialport#electron):
 
     npm install --save-dev electron-rebuild
     npm install && npm start
