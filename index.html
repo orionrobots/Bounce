@@ -1,5 +1,6 @@
 <html>
-<head></head>
+<head>
+</head>
 <body>
     
 Hello World!
@@ -7,5 +8,42 @@ We are using node <script>document.write(process.versions.node)</script>,
 Chrome <script>document.write(process.versions.chrome)</script>,
 and Electron <script>document.write(process.versions.electron)</script>.
 
+<select id="ports"></select>
+<button id="LED ON">LED ON</button>
+<button id="LED OFF">LED OFF</button>
+<div id="serial_log"></div>
+<script>
+    const SerialPort = require("serialport");
+    var port = new SerialPort.SerialPort("COM4", {
+    parser: SerialPort.parsers.readline('>')
+    });
+
+    port.on('data', function (data) {
+      console.log('Data: ' + data + '>');
+      if(data.indexOf("Experiment ready") > -1 || data.indexOf('is now OFF') > -1) {
+          // console.log("Sending LED on...\n");
+          port.write("LED ON\n", function(err) {
+              // console.log("LED should be on\n");
+          });
+      }
+      // if(data.indexOf('LED is now ON') > -1) {
+      //     // console.log("Sending LED off...\n");
+      //     port.write("LED OFF\n", function(err) {
+      //         // console.log("LED should be OFF\n");
+      //     });
+      // }
+  });
+
+  port.on('error', function(err) {
+    console.log('Error: ', err.message);
+  });  
+
+//   SerialPort.list(function(err, ports) {
+//     ports.forEach(function(port) {
+
+//     });
+//   });
+
+</script>
 </body>
 </html>

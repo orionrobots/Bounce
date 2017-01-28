@@ -2,13 +2,8 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
 
-const SerialPort = require("serialport");
-
 let win;
 
-var port = new SerialPort.SerialPort("COM4", {
-  parser: SerialPort.parsers.readline('>')
-});
 
 function createWindow () {
   // Create the browser window.
@@ -32,25 +27,8 @@ function createWindow () {
     win = null
   })
 
-  port.on('data', function (data) {
-      console.log('Data: ' + data + '>');
-      if(data.indexOf("Experiment ready") > -1 || data.indexOf('is now OFF') > -1) {
-          // console.log("Sending LED on...\n");
-          port.write("LED ON\n", function(err) {
-              // console.log("LED should be on\n");
-          });
-      }
-      // if(data.indexOf('LED is now ON') > -1) {
-      //     // console.log("Sending LED off...\n");
-      //     port.write("LED OFF\n", function(err) {
-      //         // console.log("LED should be OFF\n");
-      //     });
-      // }
-  });
 
-  port.on('error', function(err) {
-    console.log('Error: ', err.message);
-  });  
+  
 }
 
 // This method will be called when Electron has finished
