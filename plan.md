@@ -2,18 +2,19 @@ Install Node + NPM on my windowss box.
 
 * Get Node= NPM going - done.
 
-* Create simple arduino tool.
+* Create simple arduino tool. - done
     * Prompt "CMD>"
     * LED ON - Turn on the LED, Respond "LED is now ON"
     * LED OFF - Turn off the LED, respond "LED is now OFF"
     * SAY lksjjhgdfkljghd - "lkjhfslkjfhs"
     (Partially done - LED ON and LED OFF is enough. Forget the other bit.)
-* Get the serial native extension to work - documenting how. 
+* Get the serial native extension to work - documenting how. - done
     (NPM install works for plain node.)
     - Use an arduino with simple known 9600 code first - we can get more elaborate later. - this just works. Done.
 * Start following this: http://electron.atom.io/docs/tutorial/quick-start/ - done
 * Get a simple app to run.- done
 * Try getting node serialport up to scratch like above again INSIDE an electron app. - done
+* Package for windows - 
 * Get this to work on a VM runing linux.
 * Get this to work on Carol's mac.
 * Keep the results documented and source controlled.
@@ -37,4 +38,8 @@ Now from the app root do these things (https://github.com/EmergingTechnologyAdvi
     npm install && npm start
 
 The app should start
+
+## Packaging
+
+    npm install electron-packager --save-dev
 

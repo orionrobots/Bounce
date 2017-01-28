@@ -5,12 +5,13 @@
   "scripts": {
     "install": "electron-rebuild",
     "start": "electron main.js",
-    "build": "node_modules\\.bin\\electron-packager . ElectronSerial --all"
+    "package": "node_modules/.bin/electron-packager . ElectronSerial --overwrite"
   },
   "dependencies": {
-    "serialport": "^3.1.2",
     "electron": "1.4.15",
-    "jquery": "3.1.1"
+    "jquery": "3.1.1",
+    "node-blockly": "^1.0.16",
+    "serialport": "^3.1.2"
   },
   "devDependencies": {
     "electron-packager": "^8.5.1",

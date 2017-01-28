@@ -17,6 +17,7 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
 <script>
     const SerialPort = require("serialport");
     const jquery = require("jquery");
+    const Blockly = require("node-blockly/lua");
 
     var current_port = null;
 
@@ -34,7 +35,7 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
         }
     }
 
-    jquery(function() {
+    function setup_serial_ui() {
         var ports_ui = jquery("#ports");
         var element = jquery('<option> --- </option>').attr({title: 'Disconnected', value: null});
         ports_ui.append(element);
@@ -64,6 +65,39 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
                 ports_ui.append(element);                
             });
         });
+    }
+
+    function setup_blockly() {
+        var xmlText = `<xml xmlns="http://www.w3.org/1999/xhtml">
+            <block type="variables_set">
+                <field name="VAR">blockly</field>
+                <value name="VALUE">
+                    <block type="text">
+                        <field name="TEXT">Hello Node.js!</field>
+                    </block>
+                </value>
+            </block>
+        </xml>`;
+
+        try {
+            var xml = Blockly.Xml.textToDom(xmlText);
+        }
+        catch (e) {
+            console.log(e);
+            return
+        }
+
+        var workspace = new Blockly.Workspace();
+        Blockly.Xml.domToWorkspace(xml, workspace);
+        var code = Blockly.Lua.workspaceToCode(workspace);
+
+        console.log(code);
+
+    }
+
+    jquery(function() {
+        setup_serial_ui();
+        setup_blockly();
     });
 </script>
 </body>
