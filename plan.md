@@ -38,27 +38,3 @@ Now from the app root do these things (https://github.com/EmergingTechnologyAdvi
 
 The app should start
 
-## Packaging
-
-* Try and package up
-* Start with App creation - http://electron.atom.io/docs/tutorial/application-distribution/
-* Then move on to the "ASAR" thingie - get it to run on my surface.
-
-## App creation
-
-* Downloaded the electron zip.
-* Copy my main.js, package.json, index.html and node-modules files right in there. (may be able to strip it back again later...)
-OUCH - destination too long.
-* Retry further up - a path closer to the root. It may yet mean using a tool to flatten that tree.
-* ARG - Dialog stole focus - as I was typing. what did it do?
-* I double clicked and it ran. I've zipped up the folder - the zip is 115Mb. Some trimming/optimizing to do. Lets transfer it. - done
-* Try NPM prune in my source dir. - does that still run? Yes.
-
-* Try running my transferred file on the surface (serial port may need to change) - other than the serial port needing changing - that worked!
-
-* Try going to my "out" folder and running "npm prune --production". Saved 2mb - 
-* Ok - out3 - try a "dedupe". Another -2mb - this is 111mb. Not quite worth it. 
-* How big is VSCode? 34Mb.... Hmmm.
-* Can I remove the electron bits from the node-modules dir in that out3 to make out4? Yes - it still lives. Zip it up. 60.42Mb - HALVED IT!
-
-* NExt step automating this - the main concern here is that path length - tomorrow - try and do that path length unlimit, or work closer to root.
