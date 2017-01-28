@@ -2,48 +2,69 @@
 <head>
 </head>
 <body>
-    
-Hello World!
-We are using node <script>document.write(process.versions.node)</script>,
-Chrome <script>document.write(process.versions.chrome)</script>,
-and Electron <script>document.write(process.versions.electron)</script>.
 
-<select id="ports"></select>
-<button id="LED ON">LED ON</button>
-<button id="LED OFF">LED OFF</button>
+Hello World!</br>
+<p>We are using node <script>document.write(process.versions.node)</script>,
+Chrome <script>document.write(process.versions.chrome)</script>,
+and Electron <script>document.write(process.versions.electron)</script>.</p>
+
+<select id="ports">
+</select><br>
+<button id="ledon">LED ON</button>
+<button id="ledoff">LED OFF</button>
+<br>
 <div id="serial_log"></div>
 <script>
     const SerialPort = require("serialport");
-    var port = new SerialPort.SerialPort("COM4", {
-    parser: SerialPort.parsers.readline('>')
-    });
+    const jquery = require("jquery");
 
-    port.on('data', function (data) {
-      console.log('Data: ' + data + '>');
-      if(data.indexOf("Experiment ready") > -1 || data.indexOf('is now OFF') > -1) {
-          // console.log("Sending LED on...\n");
-          port.write("LED ON\n", function(err) {
-              // console.log("LED should be on\n");
+    var current_port = null;
+
+    function connect_port(comName) {
+        if(comName) {
+            console.log("Connecting: " + comName);
+            current_port = new SerialPort.SerialPort(comName);
+
+            current_port.on('error', function(err) {
+                console.log('Error: ', err.message);
+            });  
+        } else {
+            console.log("Disconnecting");
+            current_port = null;
+        }
+    }
+
+    jquery(function() {
+        var ports_ui = jquery("#ports");
+        var element = jquery('<option> --- </option>').attr({title: 'Disconnected', value: null});
+        ports_ui.append(element);
+        ports_ui.change(function() {connect_port(ports_ui.val());});
+
+        jquery('#ledon').click(function() {
+          console.log("Sending LED on...\n");
+          current_port.write("LED ON\n", function(err) {
+              console.log("LED should be on\n");
           });
-      }
-      // if(data.indexOf('LED is now ON') > -1) {
-      //     // console.log("Sending LED off...\n");
-      //     port.write("LED OFF\n", function(err) {
-      //         // console.log("LED should be OFF\n");
-      //     });
-      // }
-  });
+        });
 
-  port.on('error', function(err) {
-    console.log('Error: ', err.message);
-  });  
+        
+        jquery('#ledoff').click(function() {
+          console.log("Sending LED off...\n");
+          current_port.write("LED OFF\n", function(err) {
+              console.log("LED should be on\n");
+          });
+        });
 
-//   SerialPort.list(function(err, ports) {
-//     ports.forEach(function(port) {
 
-//     });
-//   });
-
+        SerialPort.list(function(err, ports) {
+            ports.forEach(function(port) {
+                // Create element representing this port
+                var element = jquery('<option>' + port.comName + '</option>').attr({title: port.manufacturer, value: port.comName});
+                // Add it to the ports selection.
+                ports_ui.append(element);                
+            });
+        });
+    });
 </script>
 </body>
 </html>
