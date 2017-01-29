@@ -1,0 +1,18 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+
+#blocklyArea {
+    height: 200px;
+    width: 50%;
+    /*float: left;*/
+}
+
+
+#blocklyDiv {
+    position: absolute;
+}
