@@ -1,5 +1,8 @@
 const Blockly = require("node-blockly/browser");
 const jquery = require('jquery');
+const CustomNodeBlocks = require("./CustomNodeBlocks.js");
+
+CustomNodeBlocks.add_custom_blocks(Blockly);
 
 var BlocklyManager = function() {
     this.workspace = null;
