@@ -1,5 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.css"/>
     <link href="bounce.css" rel="stylesheet"/>
 </head>
 <body>
@@ -9,12 +12,39 @@ Hello World!</br>
 Chrome <script>document.write(process.versions.chrome)</script>,
 and Electron <script>document.write(process.versions.electron)</script>.</p>
 
-<select id="ports">
-</select><br>
-<button id="ledon">LED ON</button>
-<button id="ledoff">LED OFF</button>
-<br>
-<div id="serial_log"></div>
+<ul class="nav nav-pills">
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-link"></span>Ports <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a>COM4</a></li>
+        </ul>
+    </li>
+    <li> <a><span class="glyphicon glyphicon-play"></span> Go!</a></li>
+    <li>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li> <a id="upload_as_init"><span class="glyphicon glyphicon-repeat"></span>Set as start code</a></li>
+        </ul>
+    </li>
+    <li> <a><span class="glyphicon glyphicon-stop"></span> Stop!</a></li>
+
+</ul>
+<div class="form-group">
+    <select id="ports" class="form-control" >
+    </select>
+    <button id="ledon" class="btn btn-default">LED ON</button>
+    <button id="ledoff" class="btn btn-default">LED OFF</button>
+</div>
+
+<pre id="serial_log" class="well">
+    testing
+    first
+    second    
+</pre>
 <xml id="toolbox" style="display: none">
         <category name="Core">
             <category id="catLogic" name="logic" colour="210">
@@ -418,9 +448,11 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
 
 <script>
     const SerialPort = require("serialport");
-    const jquery = require("jquery");
+    const jQuery = require("jquery");
     const BlocklyManager = require("./BlocklyManager.js");
-    const BounceMenu = require('./BounceMenu.js');
+    // const BounceMenu = require('./BounceMenu.js');
+
+    require('bootstrap');
 
     var current_port = null;
 
@@ -439,12 +471,12 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
     }
 
     function setup_serial_ui() {
-        var ports_ui = jquery("#ports");
-        var element = jquery('<option> --- </option>').attr({title: 'Disconnected', value: null});
+        var ports_ui = jQuery("#ports");
+        var element = jQuery('<option> --- </option>').attr({title: 'Disconnected', value: null});
         ports_ui.append(element);
         ports_ui.change(function() {connect_port(ports_ui.val());});
 
-        jquery('#ledon').click(function() {
+        jQuery('#ledon').click(function() {
           console.log("Sending LED on...\n");
           current_port.write("LED ON\n", function(err) {
               console.log("LED should be on\n");
@@ -452,7 +484,7 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
         });
 
         
-        jquery('#ledoff').click(function() {
+        jQuery('#ledoff').click(function() {
           console.log("Sending LED off...\n");
           current_port.write("LED OFF\n", function(err) {
               console.log("LED should be on\n");
@@ -463,14 +495,14 @@ and Electron <script>document.write(process.versions.electron)</script>.</p>
         SerialPort.list(function(err, ports) {
             ports.forEach(function(port) {
                 // Create element representing this port
-                var element = jquery('<option>' + port.comName + '</option>').attr({title: port.manufacturer, value: port.comName});
+                var element = jQuery('<option>' + port.comName + '</option>').attr({title: port.manufacturer, value: port.comName});
                 // Add it to the ports selection.
                 ports_ui.append(element);                
             });
         });
     }
     var blockly_man;
-    jquery(function() {
+    jQuery(function() {
         setup_serial_ui();
         blockly_man = new BlocklyManager.BlocklyManager();
         blockly_man.setup();
