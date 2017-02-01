@@ -14,7 +14,7 @@ Install Node + NPM on my windowss box.
 * Start following this: http://electron.atom.io/docs/tutorial/quick-start/ - done
 * Get a simple app to run.- done
 * Try getting node serialport up to scratch like above again INSIDE an electron app. - done
-* Package for windows - 
+* Package for windows - done
 * Get this to work on a VM runing linux.
 * Get this to work on Carol's mac.
 * Keep the results documented and source controlled.
