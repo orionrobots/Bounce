@@ -12,7 +12,8 @@
     "electron": "1.4.15",
     "jquery": "3.1.1",
     "node-blockly": "^1.0.16",
-    "serialport": "^3.1.2"
+    "serialport": "^3.1.2",
+    "split.js": "^1.2.0"
   },
   "devDependencies": {
     "electron-packager": "^8.5.1",

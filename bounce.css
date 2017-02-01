@@ -1,17 +1,21 @@
 
 html, body {
-    height: 100%;
+    height: 100vh;
     margin: 0;
     font-family: sans-serif;
 }
 
-
-#blocklyArea {
-    height: 200px;
-    width: 50%;
-    /*float: left;*/
+#panes {
+    display: inline-flex;
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }
 
+#blocklyArea {
+    width: 100%;
+    margin: 0;
+}
 
 #blocklyDiv {
     position: absolute;

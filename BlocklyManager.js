@@ -40,9 +40,9 @@ BlocklyManager.prototype.resizeHandler = function() {
     } while (element);
     // Position blocklyDiv over blocklyArea.
     this.blocklyDiv.style.left = x + 'px';
-    this.blocklyDiv.style.top = y + 'px';
+    // this.blocklyDiv.style.top = y + 'px';
     this.blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-    this.blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+    this.blocklyDiv.style.height = (blocklyArea.offsetHeight - y) + 'px';
     Blockly.svgResize(this.workspace);
 };
 
