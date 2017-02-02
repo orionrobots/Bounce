@@ -7,16 +7,23 @@ html, body {
 
 #panes {
     display: inline-flex;
-    height: 100%;
+    bottom: 0px;
     width: 100%;
     margin: 0;
 }
 
-#blocklyArea {
+#blocklyArea, #rightHand {
     width: 100%;
+    margin: 0;
+    bottom: 0;
+}
+
+#serial_log {
+    height: calc(100vh - 45px);
     margin: 0;
 }
 
 #blocklyDiv {
     position: absolute;
+    bottom: 0;
 }
