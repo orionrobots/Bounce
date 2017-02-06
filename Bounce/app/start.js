@@ -229,6 +229,7 @@ BounceUI.prototype._export = function() {
 
 /**
  * Prepare the ui and menu
+ * TODO: About box - accredit Sway Grantham for planting this seed.
  */
 BounceUI.prototype.setup_menu = function() {
     var _ui = this;
