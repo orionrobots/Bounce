@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/orionrobots/Bounce.png?label=ready&title=Ready)](https://waffle.io/orionrobots/Bounce)
 # Bounce
 
 Bounce is a visual language using Google Blockly- somewhat like Scratch.
