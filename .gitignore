@@ -1,3 +1,4 @@
 node_modules
 ElectronSerial-linux*
 ElectronSerial-win*
+*.bak
