@@ -1,0 +1,32 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="lists_combine" x="57" y="114">
+    <value name="first">
+      <block type="lists_create_with">
+        <mutation items="3"></mutation>
+        <value name="ADD0">
+          <block type="colour_random"></block>
+        </value>
+        <value name="ADD1">
+          <block type="colour_random"></block>
+        </value>
+        <value name="ADD2">
+          <block type="colour_random"></block>
+        </value>
+      </block>
+    </value>
+    <value name="second">
+      <block type="lists_create_with">
+        <mutation items="3"></mutation>
+        <value name="ADD0">
+          <block type="colour_random"></block>
+        </value>
+        <value name="ADD1">
+          <block type="colour_random"></block>
+        </value>
+        <value name="ADD2">
+          <block type="colour_random"></block>
+        </value>
+      </block>
+    </value>
+  </block>
+</xml>

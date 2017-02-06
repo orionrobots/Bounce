@@ -1,0 +1,105 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="pin_mode" x="12" y="76">
+    <field name="MODE">gpio.INPUT</field>
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">8</field>
+      </block>
+    </value>
+    <next>
+      <block type="ws2812_writergb">
+        <value name="data">
+          <block type="text_rep">
+            <value name="TEXT">
+              <block type="colour_picker">
+                <field name="COLOUR">#66cccc</field>
+              </block>
+            </value>
+            <value name="COUNT">
+              <block type="math_number">
+                <field name="NUM">32</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="pin">
+          <block type="math_number">
+            <field name="NUM">8</field>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml></field>
+                <field name="d0_5">#ffcc66</field>
+                <field name="d0_6">#ff9966</field>
+                <field name="d0_7">#ffff66</field>
+                <field name="d1_0">#ff6600</field>
+                <field name="d1_1">#ff0000</field>
+                <field name="d1_2">#ff9966</field>
+                <field name="d1_3">#ff9966</field>
+                <field name="d1_4">#ffff66</field>
+                <field name="d1_5">#ffff66</field>
+                <field name="d1_6">#ffff99</field>
+                <field name="d1_7">#ffcc00</field>
+                <field name="d2_0">#cc0000</field>
+                <field name="d2_1">#ff6600</field>
+                <field name="d2_2">#cccccc</field>
+                <field name="d2_3">#ffcc33</field>
+                <field name="d2_4">#ffffff</field>
+                <field name="d2_5">#ffff99</field>
+                <field name="d2_6">#ff9900</field>
+                <field name="d2_7">#33cc00</field>
+                <field name="d3_0">#990000</field>
+                <field name="d3_1">#ff0000</field>
+                <field name="d3_2">#ff9900</field>
+                <field name="d3_3">#ff9900</field>
+                <field name="d3_4">#006600</field>
+                <field name="d3_5">#999900</field>
+                <field name="d3_6">#000000</field>
+                <field name="d3_7">#333333</field>
+                <field name="d4_0">#cc6600</field>
+                <field name="d4_1">#ffcc33</field>
+                <field name="d4_2">#ff9966</field>
+                <field name="d4_3">#ff9900</field>
+                <field name="d4_4">#ffcc66</field>
+                <field name="d4_5">#ffff66</field>
+                <field name="d4_6">#ffcc66</field>
+                <field name="d4_7">#ff0000</field>
+                <field name="d5_0">#999999</field>
+                <field name="d5_1">#ff6600</field>
+                <field name="d5_2">#ff0000</field>
+                <field name="d5_3">#ff6666</field>
+                <field name="d5_4">#ffff66</field>
+                <field name="d5_5">#996633</field>
+                <field name="d5_6">#993300</field>
+                <field name="d5_7">#ff9966</field>
+                <field name="d6_0">#990000</field>
+                <field name="d6_1">#ffcc66</field>
+                <field name="d6_2">#ff9900</field>
+                <field name="d6_3">#ff6666</field>
+                <field name="d6_4">#ff9900</field>
+                <field name="d6_5">#ffcc33</field>
+                <field name="d6_6">#990000</field>
+                <field name="d6_7">#ff9966</field>
+                <field name="d7_0">#993300</field>
+                <field name="d7_1">#ff6600</field>
+                <field name="d7_2">#ff9966</field>
+                <field name="d7_3">#ff9966</field>
+                <field name="d7_4">#ffcc00</field>
+                <field name="d7_5">#cc0000</field>
+                <field name="d7_6">#ff9900</field>
+                <field name="d7_7">#ffcc99</field>
+              </block>
+            </value>
+            <value name="pin">
+              <block type="math_number">
+                <field name="NUM">8</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

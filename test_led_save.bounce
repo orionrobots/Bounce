@@ -1,0 +1,262 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="variables_set" x="74" y="61">
+    <field name="VAR">threshold</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">200</field>
+      </block>
+    </value>
+    <next>
+      <block type="procedures_callnoreturn">
+        <mutation name="sensor_led">
+          <arg name="input_n_junction"></arg>
+          <arg name="output_pin"></arg>
+          <arg name="timer_no"></arg>
+        </mutation>
+        <value name="ARG0">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="math_number">
+            <field name="NUM">2</field>
+          </block>
+        </value>
+        <value name="ARG2">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+  <block type="procedures_defnoreturn" x="81" y="232">
+    <mutation>
+      <arg name="input_n_junction"></arg>
+      <arg name="output_pin"></arg>
+      <arg name="timer_no"></arg>
+    </mutation>
+    <field name="NAME">sensor_led</field>
+    <statement name="STACK">
+      <block type="pin_mode">
+        <field name="MODE">gpio.INPUT</field>
+        <value name="pin">
+          <block type="variables_get">
+            <field name="VAR">input_n_junction</field>
+          </block>
+        </value>
+        <next>
+          <block type="pin_mode">
+            <field name="MODE">gpio.OUTPUT</field>
+            <value name="pin">
+              <block type="variables_get">
+                <field name="VAR">output_pin</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set">
+                <field name="VAR">led_time</field>
+                <value name="VALUE">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set">
+                    <field name="VAR">state</field>
+                    <comment pinned="false" h="80" w="160">state is 0 when we are charging and
+1 when we are reading
+                    </comment>
+                    <value name="VALUE">
+                      <block type="math_number">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="tmr_alarm">
+                        <field name="REPEAT">1</field>
+                        <value name="timer">
+                          <block type="variables_get">
+                            <field name="VAR">timer_no</field>
+                          </block>
+                        </value>
+                        <value name="interval">
+                          <block type="math_number">
+                            <field name="NUM">10</field>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="controls_if">
+                            <mutation elseif="1"></mutation>
+                            <value name="IF0">
+                              <block type="logic_compare">
+                                <field name="OP">EQ</field>
+                                <value name="A">
+                                  <block type="variables_get">
+                                    <field name="VAR">state</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="variables_set">
+                                <field name="VAR">led_time</field>
+                                <comment pinned="false" h="80" w="160">charging</comment>
+                                <value name="VALUE">
+                                  <block type="math_number">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variables_set">
+                                    <field name="VAR">state</field>
+                                    <value name="VALUE">
+                                      <block type="math_number">
+                                        <field name="NUM">1</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="pin_mode">
+                                        <field name="MODE">gpio.OUTPUT</field>
+                                        <value name="pin">
+                                          <block type="variables_get">
+                                            <field name="VAR">input_n_junction</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="pin_write">
+                                            <value name="pin">
+                                              <block type="variables_get">
+                                                <field name="VAR">input_n_junction</field>
+                                              </block>
+                                            </value>
+                                            <value name="level">
+                                              <block type="logic_boolean">
+                                                <field name="BOOL">TRUE</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <value name="IF1">
+                              <block type="logic_compare">
+                                <field name="OP">EQ</field>
+                                <comment pinned="false" h="80" w="160">Waiting</comment>
+                                <value name="A">
+                                  <block type="variables_get">
+                                    <field name="VAR">state</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO1">
+                              <block type="pin_mode">
+                                <field name="MODE">gpio.INPUT</field>
+                                <value name="pin">
+                                  <block type="variables_get">
+                                    <field name="VAR">input_n_junction</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variables_set">
+                                    <field name="VAR">led_time</field>
+                                    <comment pinned="false" h="80" w="160">waiting</comment>
+                                    <value name="VALUE">
+                                      <block type="math_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR">led_time</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="controls_if">
+                                        <value name="IF0">
+                                          <block type="logic_compare">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                              <block type="pin_read">
+                                                <value name="pin">
+                                                  <block type="variables_get">
+                                                    <field name="VAR">input_n_junction</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number">
+                                                <field name="NUM">0</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="pin_write">
+                                            <value name="pin">
+                                              <block type="variables_get">
+                                                <field name="VAR">output_pin</field>
+                                              </block>
+                                            </value>
+                                            <value name="level">
+                                              <block type="logic_compare">
+                                                <field name="OP">LT</field>
+                                                <value name="A">
+                                                  <block type="variables_get">
+                                                    <field name="VAR">led_time</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <block type="variables_get">
+                                                    <field name="VAR">threshold</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
