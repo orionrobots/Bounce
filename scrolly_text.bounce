@@ -1,0 +1,552 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="variables_set" x="78" y="-361">
+    <field name="VAR">t</field>
+    <value name="VALUE">
+      <block type="lights_led_grid">
+        <field name="d0_0">#000000</field>
+        <field name="d0_1">#000000</field>
+        <field name="d0_2">#000000</field>
+        <field name="d0_3">#000000</field>
+        <field name="d0_4">#000000</field>
+        <field name="d0_5">#000000</field>
+        <field name="d0_6">#000000</field>
+        <field name="d0_7">#000000</field>
+        <field name="d1_0">#cc0000</field>
+        <field name="d1_1">#cc0000</field>
+        <field name="d1_2">#cc0000</field>
+        <field name="d1_3">#cc0000</field>
+        <field name="d1_4">#ff0000</field>
+        <field name="d1_5">#cc0000</field>
+        <field name="d1_6">#cc0000</field>
+        <field name="d1_7">#000000</field>
+        <field name="d2_0">#000000</field>
+        <field name="d2_1">#000000</field>
+        <field name="d2_2">#000000</field>
+        <field name="d2_3">#cc0000</field>
+        <field name="d2_4">#000000</field>
+        <field name="d2_5">#000000</field>
+        <field name="d2_6">#000000</field>
+        <field name="d2_7">#000000</field>
+        <field name="d3_0">#000000</field>
+        <field name="d3_1">#000000</field>
+        <field name="d3_2">#000000</field>
+        <field name="d3_3">#cc0000</field>
+        <field name="d3_4">#000000</field>
+        <field name="d3_5">#000000</field>
+        <field name="d3_6">#000000</field>
+        <field name="d3_7">#000000</field>
+        <field name="d4_0">#000000</field>
+        <field name="d4_1">#000000</field>
+        <field name="d4_2">#000000</field>
+        <field name="d4_3">#cc0000</field>
+        <field name="d4_4">#000000</field>
+        <field name="d4_5">#000000</field>
+        <field name="d4_6">#000000</field>
+        <field name="d4_7">#000000</field>
+        <field name="d5_0">#000000</field>
+        <field name="d5_1">#000000</field>
+        <field name="d5_2">#000000</field>
+        <field name="d5_3">#cc0000</field>
+        <field name="d5_4">#000000</field>
+        <field name="d5_5">#000000</field>
+        <field name="d5_6">#000000</field>
+        <field name="d5_7">#000000</field>
+        <field name="d6_0">#000000</field>
+        <field name="d6_1">#000000</field>
+        <field name="d6_2">#000000</field>
+        <field name="d6_3">#cc0000</field>
+        <field name="d6_4">#000000</field>
+        <field name="d6_5">#000000</field>
+        <field name="d6_6">#000000</field>
+        <field name="d6_7">#000000</field>
+        <field name="d7_0">#000000</field>
+        <field name="d7_1">#000000</field>
+        <field name="d7_2">#000000</field>
+        <field name="d7_3">#cc0000</field>
+        <field name="d7_4">#000000</field>
+        <field name="d7_5">#000000</field>
+        <field name="d7_6">#000000</field>
+        <field name="d7_7">#000000</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR">e</field>
+        <value name="VALUE">
+          <block type="lights_led_grid">
+            <field name="d0_0">#000000</field>
+            <field name="d0_1">#000000</field>
+            <field name="d0_2">#000000</field>
+            <field name="d0_3">#000000</field>
+            <field name="d0_4">#000000</field>
+            <field name="d0_5">#000000</field>
+            <field name="d0_6">#000000</field>
+            <field name="d0_7">#000000</field>
+            <field name="d1_0">#000000</field>
+            <field name="d1_1">#ff0000</field>
+            <field name="d1_2">#ff0000</field>
+            <field name="d1_3">#ff0000</field>
+            <field name="d1_4">#ff0000</field>
+            <field name="d1_5">#000000</field>
+            <field name="d1_6">#000000</field>
+            <field name="d1_7">#000000</field>
+            <field name="d2_0">#000000</field>
+            <field name="d2_1">#ff0000</field>
+            <field name="d2_2">#000000</field>
+            <field name="d2_3">#000000</field>
+            <field name="d2_4">#000000</field>
+            <field name="d2_5">#000000</field>
+            <field name="d2_6">#000000</field>
+            <field name="d2_7">#000000</field>
+            <field name="d3_0">#000000</field>
+            <field name="d3_1">#ff0000</field>
+            <field name="d3_2">#000000</field>
+            <field name="d3_3">#000000</field>
+            <field name="d3_4">#000000</field>
+            <field name="d3_5">#000000</field>
+            <field name="d3_6">#000000</field>
+            <field name="d3_7">#000000</field>
+            <field name="d4_0">#000000</field>
+            <field name="d4_1">#ff0000</field>
+            <field name="d4_2">#ff0000</field>
+            <field name="d4_3">#ff0000</field>
+            <field name="d4_4">#ff0000</field>
+            <field name="d4_5">#000000</field>
+            <field name="d4_6">#000000</field>
+            <field name="d4_7">#000000</field>
+            <field name="d5_0">#000000</field>
+            <field name="d5_1">#ff0000</field>
+            <field name="d5_2">#000000</field>
+            <field name="d5_3">#000000</field>
+            <field name="d5_4">#000000</field>
+            <field name="d5_5">#000000</field>
+            <field name="d5_6">#000000</field>
+            <field name="d5_7">#000000</field>
+            <field name="d6_0">#000000</field>
+            <field name="d6_1">#ff0000</field>
+            <field name="d6_2">#000000</field>
+            <field name="d6_3">#000000</field>
+            <field name="d6_4">#000000</field>
+            <field name="d6_5">#000000</field>
+            <field name="d6_6">#000000</field>
+            <field name="d6_7">#000000</field>
+            <field name="d7_0">#000000</field>
+            <field name="d7_1">#ff0000</field>
+            <field name="d7_2">#ff0000</field>
+            <field name="d7_3">#ff0000</field>
+            <field name="d7_4">#ff0000</field>
+            <field name="d7_5">#000000</field>
+            <field name="d7_6">#000000</field>
+            <field name="d7_7">#000000</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set">
+            <field name="VAR">x</field>
+            <value name="VALUE">
+              <block type="lights_led_grid">
+                <field name="d0_0">#000000</field>
+                <field name="d0_1">#000000</field>
+                <field name="d0_2">#000000</field>
+                <field name="d0_3">#000000</field>
+                <field name="d0_4">#000000</field>
+                <field name="d0_5">#000000</field>
+                <field name="d0_6">#000000</field>
+                <field name="d0_7">#000000</field>
+                <field name="d1_0">#000000</field>
+                <field name="d1_1">#ff0000</field>
+                <field name="d1_2">#000000</field>
+                <field name="d1_3">#000000</field>
+                <field name="d1_4">#000000</field>
+                <field name="d1_5">#000000</field>
+                <field name="d1_6">#ff0000</field>
+                <field name="d1_7">#000000</field>
+                <field name="d2_0">#000000</field>
+                <field name="d2_1">#000000</field>
+                <field name="d2_2">#ff0000</field>
+                <field name="d2_3">#000000</field>
+                <field name="d2_4">#000000</field>
+                <field name="d2_5">#ff0000</field>
+                <field name="d2_6">#000000</field>
+                <field name="d2_7">#000000</field>
+                <field name="d3_0">#000000</field>
+                <field name="d3_1">#000000</field>
+                <field name="d3_2">#000000</field>
+                <field name="d3_3">#ff0000</field>
+                <field name="d3_4">#ff0000</field>
+                <field name="d3_5">#000000</field>
+                <field name="d3_6">#000000</field>
+                <field name="d3_7">#000000</field>
+                <field name="d4_0">#000000</field>
+                <field name="d4_1">#000000</field>
+                <field name="d4_2">#000000</field>
+                <field name="d4_3">#ff0000</field>
+                <field name="d4_4">#ff0000</field>
+                <field name="d4_5">#000000</field>
+                <field name="d4_6">#000000</field>
+                <field name="d4_7">#000000</field>
+                <field name="d5_0">#000000</field>
+                <field name="d5_1">#000000</field>
+                <field name="d5_2">#ff0000</field>
+                <field name="d5_3">#000000</field>
+                <field name="d5_4">#000000</field>
+                <field name="d5_5">#ff0000</field>
+                <field name="d5_6">#000000</field>
+                <field name="d5_7">#000000</field>
+                <field name="d6_0">#000000</field>
+                <field name="d6_1">#ff0000</field>
+                <field name="d6_2">#000000</field>
+                <field name="d6_3">#000000</field>
+                <field name="d6_4">#000000</field>
+                <field name="d6_5">#000000</field>
+                <field name="d6_6">#ff0000</field>
+                <field name="d6_7">#000000</field>
+                <field name="d7_0">#ff0000</field>
+                <field name="d7_1">#000000</field>
+                <field name="d7_2">#000000</field>
+                <field name="d7_3">#000000</field>
+                <field name="d7_4">#000000</field>
+                <field name="d7_5">#000000</field>
+                <field name="d7_6">#000000</field>
+                <field name="d7_7">#ff0000</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set">
+                <field name="VAR">qu</field>
+                <value name="VALUE">
+                  <block type="lights_led_grid">
+                    <field name="d0_0">#000000</field>
+                    <field name="d0_1">#000000</field>
+                    <field name="d0_2">#000000</field>
+                    <field name="d0_3">#ff0000</field>
+                    <field name="d0_4">#ff0000</field>
+                    <field name="d0_5">#000000</field>
+                    <field name="d0_6">#000000</field>
+                    <field name="d0_7">#000000</field>
+                    <field name="d1_0">#000000</field>
+                    <field name="d1_1">#000000</field>
+                    <field name="d1_2">#ff0000</field>
+                    <field name="d1_3">#000000</field>
+                    <field name="d1_4">#000000</field>
+                    <field name="d1_5">#ff0000</field>
+                    <field name="d1_6">#000000</field>
+                    <field name="d1_7">#000000</field>
+                    <field name="d2_0">#000000</field>
+                    <field name="d2_1">#000000</field>
+                    <field name="d2_2">#000000</field>
+                    <field name="d2_3">#000000</field>
+                    <field name="d2_4">#000000</field>
+                    <field name="d2_5">#ff0000</field>
+                    <field name="d2_6">#000000</field>
+                    <field name="d2_7">#000000</field>
+                    <field name="d3_0">#000000</field>
+                    <field name="d3_1">#000000</field>
+                    <field name="d3_2">#000000</field>
+                    <field name="d3_3">#000000</field>
+                    <field name="d3_4">#000000</field>
+                    <field name="d3_5">#ff0000</field>
+                    <field name="d3_6">#000000</field>
+                    <field name="d3_7">#000000</field>
+                    <field name="d4_0">#000000</field>
+                    <field name="d4_1">#000000</field>
+                    <field name="d4_2">#000000</field>
+                    <field name="d4_3">#000000</field>
+                    <field name="d4_4">#ff0000</field>
+                    <field name="d4_5">#000000</field>
+                    <field name="d4_6">#000000</field>
+                    <field name="d4_7">#000000</field>
+                    <field name="d5_0">#000000</field>
+                    <field name="d5_1">#000000</field>
+                    <field name="d5_2">#000000</field>
+                    <field name="d5_3">#000000</field>
+                    <field name="d5_4">#ff0000</field>
+                    <field name="d5_5">#000000</field>
+                    <field name="d5_6">#000000</field>
+                    <field name="d5_7">#000000</field>
+                    <field name="d6_0">#000000</field>
+                    <field name="d6_1">#000000</field>
+                    <field name="d6_2">#000000</field>
+                    <field name="d6_3">#000000</field>
+                    <field name="d6_4">#000000</field>
+                    <field name="d6_5">#000000</field>
+                    <field name="d6_6">#000000</field>
+                    <field name="d6_7">#000000</field>
+                    <field name="d7_0">#000000</field>
+                    <field name="d7_1">#000000</field>
+                    <field name="d7_2">#000000</field>
+                    <field name="d7_3">#000000</field>
+                    <field name="d7_4">#ff0000</field>
+                    <field name="d7_5">#000000</field>
+                    <field name="d7_6">#000000</field>
+                    <field name="d7_7">#000000</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set">
+                    <field name="VAR">TEXT</field>
+                    <value name="VALUE">
+                      <block type="text_join">
+                        <mutation items="5"></mutation>
+                        <value name="ADD0">
+                          <block type="variables_get">
+                            <field name="VAR">t</field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="variables_get">
+                            <field name="VAR">e</field>
+                          </block>
+                        </value>
+                        <value name="ADD2">
+                          <block type="variables_get">
+                            <field name="VAR">x</field>
+                          </block>
+                        </value>
+                        <value name="ADD3">
+                          <block type="variables_get">
+                            <field name="VAR">t</field>
+                          </block>
+                        </value>
+                        <value name="ADD4">
+                          <block type="variables_get">
+                            <field name="VAR">qu</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="variables_set">
+                        <field name="VAR">lines</field>
+                        <value name="VALUE">
+                          <block type="math_arithmetic">
+                            <field name="OP">DIVIDE</field>
+                            <value name="A">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="text_length">
+                                <value name="VALUE">
+                                  <shadow type="text">
+                                    <field name="TEXT">abc</field>
+                                  </shadow>
+                                  <block type="variables_get">
+                                    <field name="VAR">TEXT</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="math_number">
+                                <field name="NUM">24</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="variables_set">
+                            <field name="VAR">last_line</field>
+                            <value name="VALUE">
+                              <block type="math_arithmetic">
+                                <field name="OP">MINUS</field>
+                                <value name="A">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                  <block type="variables_get">
+                                    <field name="VAR">lines</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <shadow type="math_number">
+                                    <field name="NUM">1</field>
+                                  </shadow>
+                                  <block type="math_number">
+                                    <field name="NUM">8</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="variables_set">
+                                <field name="VAR">current_line</field>
+                                <value name="VALUE">
+                                  <block type="math_number">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="tmr_alarm">
+                                    <field name="REPEAT">1</field>
+                                    <value name="timer">
+                                      <block type="math_number">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <value name="interval">
+                                      <block type="math_number">
+                                        <field name="NUM">500</field>
+                                      </block>
+                                    </value>
+                                    <statement name="DO">
+                                      <block type="variables_set">
+                                        <field name="VAR">start_of_data</field>
+                                        <value name="VALUE">
+                                          <block type="math_arithmetic">
+                                            <field name="OP">MULTIPLY</field>
+                                            <value name="A">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="variables_get">
+                                                <field name="VAR">current_line</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <shadow type="math_number">
+                                                <field name="NUM">1</field>
+                                              </shadow>
+                                              <block type="math_number">
+                                                <field name="NUM">24</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="ws2812_writergb">
+                                            <value name="data">
+                                              <block type="text_getSubstring">
+                                                <mutation at1="true" at2="true"></mutation>
+                                                <field name="WHERE1">FROM_START</field>
+                                                <field name="WHERE2">FROM_START</field>
+                                                <value name="STRING">
+                                                  <block type="variables_get">
+                                                    <field name="VAR">text</field>
+                                                  </block>
+                                                </value>
+                                                <value name="AT1">
+                                                  <block type="variables_get">
+                                                    <field name="VAR">start_of_data</field>
+                                                  </block>
+                                                </value>
+                                                <value name="AT2">
+                                                  <block type="math_arithmetic">
+                                                    <field name="OP">ADD</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get">
+                                                        <field name="VAR">start_of_data</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="math_arithmetic">
+                                                        <field name="OP">MULTIPLY</field>
+                                                        <value name="A">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                          <block type="math_number">
+                                                            <field name="NUM">8</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <shadow type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </shadow>
+                                                          <block type="math_number">
+                                                            <field name="NUM">24</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="pin">
+                                              <block type="math_number">
+                                                <field name="NUM">7</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="variables_set">
+                                                <field name="VAR">current_line</field>
+                                                <value name="VALUE">
+                                                  <block type="math_arithmetic">
+                                                    <field name="OP">ADD</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get">
+                                                        <field name="VAR">current_line</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="controls_if">
+                                                    <value name="IF0">
+                                                      <block type="logic_compare">
+                                                        <field name="OP">GT</field>
+                                                        <value name="A">
+                                                          <block type="variables_get">
+                                                            <field name="VAR">current_line</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="B">
+                                                          <block type="variables_get">
+                                                            <field name="VAR">last_line</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <statement name="DO0">
+                                                      <block type="variables_set">
+                                                        <field name="VAR">current_line</field>
+                                                        <value name="VALUE">
+                                                          <block type="math_number">
+                                                            <field name="NUM">1</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </statement>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
