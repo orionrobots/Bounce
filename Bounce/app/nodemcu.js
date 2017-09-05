@@ -75,7 +75,7 @@ bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
         }
         output_console.writeLine("Connecting to device on " + serial_port_path);
         try {
-            chrome.serial.connect(serial_port_path, {bitrate: baud_rate}, connected_inner);
+            chrome.serial.connect(serial_port_path, {bitrate: baud_rate, ctsFlowControl: true}, connected_inner);
         } catch(e) {
             throw new bounce.Nodemcu.ConnectionFailed(this, e);
         }
@@ -191,10 +191,10 @@ bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
         // - A timeout - it didn't respond confirming - disconnect the port.
         var timeout = new goog.async.Delay(_timed_out, timeout_millis);
         timeout.start();
+        _node_instance.send_data("\r\n");
         // - A receive - the node response confirms it - cancel the timeout.
         _node_instance.addLineEventListener(function(e) {
-            if(goog.string.contains(e.detail.line, 'node mcu confirmed')||
-                goog.string.contains(e.detail.line, 'powered by Lua')) {
+            if(goog.string.contains(e.detail.line, '\r\n>')) {
                 _node_instance._output_console.writeLine("Confirmed - NodeMCU found");
                 _node_instance.disconnect(_found_wrapper);
                 timeout.stop();
