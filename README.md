@@ -4,7 +4,7 @@
 Bounce is a visual language using Google Blockly- somewhat like Scratch.
 It is designed for the esp8266/NodeMCu using the LUA NodeMCU firmware.
 
-The system is currently a chrome app - you can download it at https://github.com/orionrobots/Bounce/releases/tag/r0.1.1, download then install the CRX using the instructions there.
+The system is currently a chrome app - you can download it at https://github.com/orionrobots/Bounce/releases/tag/0.4, download then install the CRX using the instructions there.
 
 See this video for an introduction to it:
 
