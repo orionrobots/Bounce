@@ -1,6 +1,7 @@
 {
     "name": "Bounce",
-    "version": "0.5",
+    "version": "0.5.0",
+    "description": "NodeMCU/Esp8266 Visual Programming Language.",    
     "main": "main.js",
     "scripts": {
       "install": "electron-rebuild",
@@ -9,11 +10,8 @@
       "package": "node_modules/.bin/electron-packager . ElectronSerial --overwrite"
     },
     "dependencies": {
-      // "bootstrap": "^3.3.7",
-      // "electron": "1.4.15",
-      // "jquery": "3.1.1",
+      "electron": "1.4.15",      
       "serialport": "^3.1.2"
-      // "split.js": "^1.2.0"
     },
     "devDependencies": {
       "electron-packager": "^8.5.1",
