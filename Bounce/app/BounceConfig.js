@@ -3,7 +3,7 @@
  * @constructor
  */
 const {app} = require('electron').remote;
-
+const fs = require('fs');
 
 var BounceConfig = function () {
     var _cfg = this;
@@ -47,7 +47,7 @@ BounceConfig.prototype.setupBaudControl = function() {
     var _cfg = this;
     var _initialValue = this.defaults.baud_rate;
     if('baud_rate' in this.settings) {
-        _initialValue = this.settings['baud_rate'];
+        _initialValue = this.settings.baud_rate;
     }
     this.baudControl.val(_initialValue);
 
@@ -59,8 +59,8 @@ BounceConfig.prototype.setupBaudControl = function() {
 BounceConfig.prototype.setupTimeout = function() {
     var _cfg = this;
     var _initialValue = this.defaults.serial_timeout;
-    if('serial_timeout' in this.configData) {
-        _initialValue = this.configData['serial_timeout'];
+    if('serial_timeout' in this.settings) {
+        _initialValue = this.settings.serial_timeout;
     }
     this.timeoutControl.val(_initialValue);
     this.timeoutControl.change(function() { _cfg.timeoutChanged(); });
