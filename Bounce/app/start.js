@@ -145,14 +145,18 @@ BounceUI.prototype.run = function(mcu) {
  */
 BounceUI.prototype._save = function() {
     var _ui = this;
-    this._currentFileEntry.createWriter(function(writer) {
-        writer.onwriteend = function(e) {
-            console.log('write complete');
-        };
-        writer.write(new Blob([_ui.blocklyManager.getDocument()], {type: 'text/plain'}));
-    })
+    var data = _ui.blocklyManager.getDocument();
+    fs.writeFile(this._currentFileEntry, data, function(err) {
+        if (err) throw err;
+        console.log('write complete');
+    });
 };
 
+const bounce_file_filters = [{
+    description: "Bounce code",
+    name: "Bounce code",
+    extensions: ['bounce', 'node']
+}];
 /**
  * Open a file from the filesystem. Load into blockly workspace.
  *
@@ -160,13 +164,8 @@ BounceUI.prototype._save = function() {
  */
 BounceUI.prototype._open_file = function() {
     var _ui = this;
-    var accepts = [{
-        description: "Bounce code",
-        name: "Bounce code",
-        extensions: ['bounce', 'node']
-    }];
     // Show a file open
-    dialog.showOpenDialog({filters: accepts}, function(filePaths) {
+    dialog.showOpenDialog({filters: bounce_file_filters}, function(filePaths) {
         console.log("opening file");
         var filePath = filePaths[0];
         data = fs.readFile(filePath, function(err, data) {
@@ -189,8 +188,8 @@ BounceUI.prototype._save_as = function() {
         extensions: ['bounce', 'node'],
         description: "Bounce code"
     }];
-    chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
-        _ui._currentFileEntry = writableFileEntry;
+    dialog.showSaveDialog({filters:bounce_file_filters}, function(filename) {
+        _ui._currentFileEntry = filename;
         _ui._save();
     });
 };
