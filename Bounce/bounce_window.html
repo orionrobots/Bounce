@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Bounce!</title>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    
     <script src="jquery-1.11.3.js"></script>
     <script type="text/javascript" src="bounce_base_compressed.js"></script>
     <script src="blockly-nodemcu/blocks_compressed.js"></script>
@@ -11,10 +13,12 @@
     <script src="blockly-nodemcu/msg/messages.js"></script>
     <script src="highlight/highlight.pack.js"></script>
     <link rel="stylesheet" href="highlight/styles/default.css">
+    
+    <script>if (window.module) module = window.module;</script>
     <script src="CustomNodeBlocks.js"></script> <!-- Add new blocks here -->
     <script src="app/nodemcu.js"></script> <!-- Serial port interactions here -->
     <script src="app/GeneratedCode.js"></script>
-    <script src="app/BounceConfig.js"></script>
+    <script>const BounceConfig=require('./app/BounceConfig.js');</script>
     <script src="app/OutputConsole.js"></script>
     <script type="text/javascript" src="app/start.js"></script> <!-- Main ui here -->
     <link rel="stylesheet" href="goog_combined.css">
