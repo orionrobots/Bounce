@@ -199,21 +199,20 @@ BounceUI.prototype._save_as = function() {
  */
 BounceUI.prototype._export = function() {
     var _ui = this;
-    var accepts = [{
+    var filters = [{
         extensions: ['lua'],
-        description: 'Lua File'
+        name: 'Lua File'
     }, {
         extensions: ['txt'],
-        description: 'Plain text'
+        name: 'Plain text'
     }];
-    chrome.fileSystem.chooseEntry({type: 'saveFile', accepts:accepts}, function(writableFileEntry) {
-        writableFileEntry.createWriter(function(writer) {
-            writer.onwriteend = function(e) {
-                console.log('write complete');
-            };
-            writer.write(
-                new Blob([_ui.blocklyManager.getDocument()], {type: 'text/plain'}));
-        })
+
+    dialog.showSaveDialog({filters: filters}, function(filePath) {
+        var data = Blockly.Lua.workspaceToCode(_ui.blocklyManager.workspace);
+        fs.writeFile(filePath, data, function(err) {
+            if (err) throw err;
+            console.log('write complete');
+        });
     });
 };
 
