@@ -1,6 +1,8 @@
 ﻿var mcu_console;
 var ui;
 
+const {dialog} = require('electron').remote;
+const fs = require('fs');
 /**
  *
  * @constructor Prompt for a filename - use "display(ok_callback, cancel_callback)" to prompt.
@@ -160,29 +162,18 @@ BounceUI.prototype._open_file = function() {
     var _ui = this;
     var accepts = [{
         description: "Bounce code",
+        name: "Bounce code",
         extensions: ['bounce', 'node']
     }];
     // Show a file open
-    chrome.fileSystem.chooseEntry({type: 'openFile', accepts: accepts}, function(theEntry) {
-        if (!theEntry) {
-            mcu_console.writeLine('No file selected.');
-            return;
-        }
-        // On ok
-        // use local storage to retain access to this file
-        //chrome.storage.local.set({'chosenFile': chrome.fileSystem.retainEntry(theEntry)});
-        // Inject that code.
-        console.log("turning entry into file");
-        theEntry.file(function(file) {
-            console.log("opening file");
-            var reader = new FileReader();
-            reader.onloadend = function(e) {
-                _ui.is_preparing = true;
-                _ui.blocklyManager.loadDocument(e.target.result);
-            };
-            reader.readAsText(file);
+    dialog.showOpenDialog({filters: accepts}, function(filePaths) {
+        console.log("opening file");
+        var filePath = filePaths[0];
+        data = fs.readFile(filePath, function(err, data) {
+            _ui.is_preparing = true;
+            _ui.blocklyManager.loadDocument(data);
         });
-        _ui._currentFileEntry = theEntry;
+        _ui._currentFileEntry = filePath;
     });
 };
 
