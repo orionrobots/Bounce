@@ -1,7 +1,7 @@
 ﻿var mcu_console;
 var ui;
 
-const {dialog} = require('electron').remote;
+const {dialog, Menu, MenuItem} = require('electron').remote;
 const fs = require('fs');
 /**
  *
@@ -231,17 +231,27 @@ BounceUI.prototype.setup_menu = function() {
     // var testItem = new goog.ui.MenuItem('test');
     // testItem.setId("test");
     // this.connectMenu.addChild(testItem, true);
-
-    this.fileMenu = new goog.ui.Menu();
-    this.fileMenu.decorate(goog.dom.getElement('file_menu'));
+    template = [{
+        label: 'File',
+        submenu: [
+            {label: 'New', click: () => { _ui.new_document(); }},
+            {label: 'Open', click: ()=> { _ui._open_file(); }},
+            {label: 'Save', enabled: false, click: ()=> { _ui._save(); }},
+            {label: 'Save As', enabled: false, click: ()=> { _ui._save_as(); }},
+            {type: 'separator'},
+            {label: 'Export', click: ()=> {_ui._export(); }}
+        ]
+    }]
+    // #TODO: Disabling menu buttons when not right.
+    this.menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(this.menu);
+    
+    fileMenu = this.menu.items[0].submenu;
+    this.save_button = fileMenu.items[2];
+    this.save_as_button = fileMenu.items[3];
 
     $("#run_button").click(function() { _ui.run(); });
     $("#stop_button").click(function() { _ui.currentMcu.stop(); });
-    $("#new_button").click(function() { _ui.new_document(); });
-    $("#open_button").click(function() { _ui._open_file(); });
-    $("#saveas_button").click(function() { _ui._save_as(); });
-    $("#save_button").click(function() { _ui._save(); });
-    $("#export_button").click(function() { _ui._export(); });
     $("#upload_as_init").click(function() { _ui._upload_as_init(); });
     $("#upload").click(function() { _ui._upload(_ui.currentMcu); });
 
@@ -265,9 +275,9 @@ BounceUI.prototype.changed = function () {
         this._is_preparing = false;
         this._modified = true;
     } else {
-        this.fileMenu.getChild("saveas_button").setEnabled(true);
+        this.save_as_button.enabled = true;
         if (this._currentFileEntry) {
-            this.fileMenu.getChild("save_button").setEnabled(true);
+            this.save_button.enabled = true;
         }
     }
 };
