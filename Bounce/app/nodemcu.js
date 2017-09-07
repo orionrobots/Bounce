@@ -1,31 +1,22 @@
 // NodeMCU Handler
-// Utility bits
-
-
-var string_to_array_buffer = function(string_data) {
-    var buf=new ArrayBuffer(string_data.length);
-    var bufView=new Uint8Array(buf);
-    for (var i=0; i<string_data.length; i++) {
-        bufView[i]=string_data.charCodeAt(i);
-  }
-  return buf;
-};
+const SerialPort = require("serialport");
 
 /**
  * Class to handle the interactions with the NodeMCU device
  *
  * @param baud_rate Baud rate to establish connection with.
  * @param output_console to write output to
- * @param serial_port_path The serial port to make this with.
+ * @param port A serial port to make this with.
  *
  * @constructor
  */
-bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
-    this.port = serial_port_path;
-    var _connection_info = null; //If connected - the chrome connection info.
+bounce.Nodemcu = function(port_info, baud_rate, output_console) {
+    this.port_info = port_info;
+    this._port = null;// If connected - the port connection object
     var _received_str = '';
     var _node_instance = this;
     this._output_console = output_console;
+    this._multiline_listener = false; // Chains multiline data sends
 
     /**
      * Register a an event for a line of text received.
@@ -47,12 +38,11 @@ bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
      * @param info
      * @private
      */
-    function _data_received(info) {
-        if(info.connectionId == _connection_info.connectionId && info.data) {
-            var str = bounce.Nodemcu._decoder.decode(info.data);
-            output_console.write(str);
+    function _data_received(data) {
+        if(data) {
+            output_console.write(data);
             // Append str to received str
-            _received_str += str;
+            _received_str += data;
             if(_received_str.indexOf('\n') > 0) {
                 var parts = _received_str.split("\n");
                 for(var n=0; n<parts.length-1; n++) {
@@ -64,27 +54,27 @@ bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
     }
 
     function _setup_data_listener() {
-        chrome.serial.onReceive.addListener(_data_received);
+        _node_instance._port.on('data', (data)=>{
+            if (_node_instance._multiline_listener) {
+                _node_instance._multiline_listener();
+            }
+            _data_received(data)
+        });
     }
 
     this.connect = function (connected_callback) {
-        function connected_inner(connectionInfo) {
-            _connection_info = connectionInfo;
-            _setup_data_listener();
-            connected_callback(_node_instance);
-        }
-        output_console.writeLine("Connecting to device on " + serial_port_path);
-        try {
-            chrome.serial.connect(serial_port_path, {bitrate: baud_rate}, connected_inner);
-        } catch(e) {
-            throw new bounce.Nodemcu.ConnectionFailed(this, e);
-        }
+        output_console.writeLine("Connecting to device on " + this.port_info.comName);
+        this._port = new SerialPort.SerialPort(this.port_info.comName, {baudRate: baud_rate});
+        this._port.on('error', function(err) {
+            output_console.writeLine('Error: ', err.message);
+        });
+        _setup_data_listener();
+        connected_callback(_node_instance);
     };
 
     this.disconnect = function(disconnected_callback) {
         output_console.writeLine("Disconnecting");
-        chrome.serial.onReceive.removeListener(_data_received);
-        chrome.serial.disconnect(_connection_info.connectionId, function() {disconnected_callback && disconnected_callback()});
+        this._port.close(()=>{if (disconnected_callback) disconnected_callback()});
     };
 
     /**
@@ -95,14 +85,8 @@ bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
      */
     this.send_data = function(data, sent_callback) {
         // Send, flush when done, then perform the callback after this.
-        chrome.serial.send(_connection_info.connectionId,
-            //bounce.Nodemcu._encoder.encode(data),
-            string_to_array_buffer(data),
-            function(){
-                chrome.serial.flush(_connection_info.connectionId, function() {
-                    sent_callback && sent_callback();
-            });
-        });
+        this._port.write(data);
+        this._port.drain(()=>{if (sent_callback) sent_callback});
     };
 
     /**
@@ -122,11 +106,9 @@ bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
         var send_next;
         var last_data = '';
 
-        var multiline_listener = function(info) {
-            console.log("Received call. Info data is ", JSON.stringify(info));
-            var data = bounce.Nodemcu._decoder.decode(info.data);
-            console.log('Data was :', JSON.stringify(data));
-            if(info.connectionId == _connection_info.connectionId && goog.string.endsWith(last_data + data, "> ")) {
+        this._multiline_listener = function(data) {
+            console.log("Received call. Data is ", JSON.stringify(data));
+            if(goog.string.endsWith(last_data + data, "> ")) {
                 send_next();
             } else {
                 last_data = data;
@@ -139,19 +121,14 @@ bounce.Nodemcu = function(serial_port_path, baud_rate, output_console) {
                 _node_instance.send_data(lines[current_line++] + "\n", function() {});
             } else {
                 console.log("Last line sent. Removing listener....");
-                chrome.serial.onReceive.removeListener(multiline_listener);
+                this._multiline_listener = null;
                 completed_callback();
             }
         };
 
-        chrome.serial.onReceive.addListener(multiline_listener);
-
         send_next();
     };
 };
-
-bounce.Nodemcu._decoder = new TextDecoder('utf8');
-bounce.Nodemcu._encoder = new TextEncoder('utf8');
 
 /**
  * Exception to raise when the connection failed
@@ -174,10 +151,6 @@ bounce.Nodemcu.ConnectionFailed = function(mcu, original) {
 bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
     var _node_instance = this;
 
-    function _found_wrapper() {
-        found_callback(_node_instance);
-    }
-
     function _timed_out() {
         _node_instance._output_console.writeLine("Timed out - not running NodeMCU");
         _node_instance.disconnect();
@@ -196,7 +169,7 @@ bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
             if(goog.string.contains(e.detail.line, 'node mcu confirmed')||
                 goog.string.contains(e.detail.line, 'powered by Lua')) {
                 _node_instance._output_console.writeLine("Confirmed - NodeMCU found");
-                _node_instance.disconnect(_found_wrapper);
+                _node_instance.disconnect(()=>found_callback(_node_instance));
                 timeout.stop();
             }
         });
@@ -241,13 +214,13 @@ bounce.Nodemcu.prototype.stop = function() {
  */
 bounce.Nodemcu.scan = function(console, baud_rate, timeout, found_callback) {
     console.writeLine("Starting scan at " + baud_rate + "...");
-    var onGetDevices = function(ports) {
-        for (var i = 0; i < ports.length; i++) {
-            console.writeLine('Found serial port ' + ports[i].path + '. Testing...');
-            var mcu = new bounce.Nodemcu(ports[i].path, baud_rate, console);
+    var onGetDevices = function(err, ports) {
+        ports.forEach((port)=> {
+            console.writeLine('Found serial port ' + port.comName + ', ' + port.manufacturer + '. Testing...');
+            var mcu = new bounce.Nodemcu(port, baud_rate, console);
             mcu.validate(found_callback, timeout * 1000);
-        }
+        });
     };
 
-    chrome.serial.getDevices(onGetDevices);
+    SerialPort.list(onGetDevices);
 };
