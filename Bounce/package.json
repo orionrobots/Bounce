@@ -5,7 +5,7 @@
     "homepage": "https://github.com/orionrobots/bounce",
     "main": "main.js",
     "scripts": {
-      "install": "electron-rebuild",
+      "windows-rebuild": "electron-rebuild",
       "start": "electron main.js",
       "test": "node_modules/.bin/jasmine",
       "package": "node_modules/.bin/electron-zip-packager . Bounce --overwrite --out=output"
