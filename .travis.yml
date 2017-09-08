@@ -1,5 +1,9 @@
+language: node_js
+
 script:
   - ./update_libs.sh
+  - cd Bounce; npm install
+  - cd Bounce; npm run-script package
 after_script:
   - ls -l
 
