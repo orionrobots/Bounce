@@ -2,26 +2,24 @@
 html, body {
     height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 #panes {
-    height: -webkit-calc(100% - 45px);
+    height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
-/*#panes tr {*/
-    /*height: 100%;*/
-/*}*/
-
 #blocklyArea {
-    height: 99%;
+    height: 100%;
     width: 50%;
     float: left;
 }
 
 #rightHand {
     width: 50%;
-    height: 99%;
+    height: 100%;
     padding: 0;
     float: right;
 }
@@ -186,7 +184,7 @@ code {
 
 
 .goog-tabpane-cont {
-    /* 37 - measurement of the bar */
+    /* 37 - measurement of the tabpane? */
     height: -webkit-calc(100% - 37px);
 }
 
