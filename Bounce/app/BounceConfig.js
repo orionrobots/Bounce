@@ -13,7 +13,7 @@ var BounceConfig = function () {
     this.file = app.getPath('userData') + "/prefs.js";
 
     this.defaults = {
-        baud_rate: '9600',
+        baud_rate: '115200',
         serial_timeout: '2'
     }
 

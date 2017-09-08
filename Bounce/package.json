@@ -7,13 +7,13 @@
       "install": "electron-rebuild",
       "start": "electron main.js",
       "test": "node_modules/.bin/jasmine",
-      "package": "node_modules/.bin/electron-packager . ElectronSerial --overwrite"
+      "package": "node_modules/.bin/electron-packager . Bounce --overwrite --out=output"
     },
     "dependencies": {
-      "electron": "1.4.15",      
       "serialport": "^5.0.0"
     },
     "devDependencies": {
+      "electron": "1.4.15",      
       "electron-packager": "^8.5.1",
       "electron-rebuild": "^1.5.7",
       "jasmine": "^2.5.3"
