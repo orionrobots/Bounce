@@ -222,43 +222,59 @@ BounceUI.prototype._export = function() {
  */
 BounceUI.prototype.setup_menu = function() {
     var _ui = this;
-
-    this.toolbar = new goog.ui.Toolbar();
-    this.toolbar.decorate(goog.dom.getElement('toolbar'));
-    this.connectMenu = new goog.ui.Menu();
-    this.connectMenu.decorate(goog.dom.getElement('connect_menu'));
-
-    // var testItem = new goog.ui.MenuItem('test');
-    // testItem.setId("test");
-    // this.connectMenu.addChild(testItem, true);
-    template = [{
-        label: 'File',
-        submenu: [
-            {label: 'New', click: () => { _ui.new_document(); }},
-            {label: 'Open', click: ()=> { _ui._open_file(); }},
-            {label: 'Save', enabled: false, click: ()=> { _ui._save(); }},
-            {label: 'Save As', enabled: false, click: ()=> { _ui._save_as(); }},
-            {type: 'separator'},
-            {label: 'Export', click: ()=> {_ui._export(); }}
-        ]
-    }]
+    
+    template = [
+        {
+            label: 'File',
+            submenu: [
+                {label: 'New', click: () => { _ui.new_document(); }},
+                {label: 'Open', click: ()=> { _ui._open_file(); }},
+                {label: 'Save', enabled: false, click: ()=> { _ui._save(); }},
+                {label: 'Save As', enabled: false, click: ()=> { _ui._save_as(); }},
+                {type: 'separator'},
+                {label: 'Export', click: ()=> {_ui._export(); }}
+            ]
+        },
+        {
+            label: 'Examples',
+            submenu: this.get_examples()
+        },
+        {
+            label: 'Connect',
+            submenu: [
+                {label: 'Find Chips', click: () => _ui.start_scan()}
+            ]
+        },
+        {
+            label: '> Go!',//fa-play
+            enabled: false,
+            click: ()=>_ui.run(),
+        },
+        {
+            label: '[] Stop',////fa-stop
+            enabled: false,
+            click: ()=>_ui.currentMcu.stop()
+        },
+        {
+            label: 'Upload',
+            enabled: false,
+            click: ()=>_ui._upload(_ui.currentMcu)
+        },
+        {
+            label: 'Upload as Init',
+            enabled: false,
+            click: ()=>_ui._upload_as_init()
+        }
+    ]
     // #TODO: Disabling menu buttons when not right.
     this.menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(this.menu);
     
-    fileMenu = this.menu.items[0].submenu;
+    fileMenu = this.menu.items.find(i=>i.label == 'File').submenu;
     this.save_button = fileMenu.items[2];
     this.save_as_button = fileMenu.items[3];
+    this.connectMenu = this.menu.items.find(i=>i.label == 'Connect').submenu;
 
-    $("#run_button").click(function() { _ui.run(); });
-    $("#stop_button").click(function() { _ui.currentMcu.stop(); });
-    $("#upload_as_init").click(function() { _ui._upload_as_init(); });
-    $("#upload").click(function() { _ui._upload(_ui.currentMcu); });
-
-    // When the scanButton is clicked, scan for mcu's to add.
-    $("#scan_button").click(function() {_ui.start_scan()});
-
-    this.setup_examples();
 };
 
 BounceUI.prototype.new_document = function() {
@@ -300,19 +316,16 @@ BounceUI.prototype._upload_as_init = function() {
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
     bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
-        if($("#" + mcu.port).length > 0) {
+        if (_ui.connectMenu.items.find(i=>i==mcu.get_name())) {
             mcu_console.writeLine("Port already added");
             return;
         }
 
-        mcu_console.writeLine('Adding found item... ' + mcu.port);
-        var connectItem = new goog.ui.MenuItem(mcu.port);
-        connectItem.setId(mcu.port);
-        _ui.connectMenu.addChild(connectItem, true);
-
-        $(connectItem.getContentElement()).click(function() {
-            _ui.connect_menu_item_clicked_(connectItem, mcu);
-        });
+        mcu_console.writeLine('Adding found item... ' + mcu.get_name());
+        _ui.connectMenu.append(new MenuItem({
+            label: mcu.get_name(), 
+            click: () => _ui.connect_menu_item_clicked_(connectItem, mcu)
+        }))
     });
 };
 
@@ -353,18 +366,24 @@ BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
 /**
  * Prepare menu of examples
  */
-BounceUI.prototype.setup_examples = function() {
-    var _ui = this;
-    var examples_menu = new goog.ui.Menu();
-    examples_menu.decorate(goog.dom.getElement("examples_menu"));
-    $("#examples_menu").find(".example").click(function(event) {
-        /* Load appropriate example */
-        var filename = event.target.parentElement.getAttribute("data-value");
-        $.get("Examples/" + filename, function(data){
-            _ui.blocklyManager.loadDocument(data);
-        });
+BounceUI.prototype.load_example = function(filename) {
+    $.get("Examples/" + filename, (data)=>{
+        this.blocklyManager.loadDocument(data);
     });
+}
+
+BounceUI.prototype.get_examples = function() {
+    return [
+        {click: ()=> this.load_example("blink.node"), label: "Blink an LED"},
+        {click: ()=>this.load_example("loops.node"), label: "Loops"},
+        {click: ()=>this.load_example("pin_write.node"), label: "Writing to an IO Pin"},
+        {click: ()=>this.load_example("print_hello_world.node"), label: "Print Hello World"},
+        {click: ()=>this.load_example("timers.node"), label: "Timers"},
+        // <!--<div id="temperature_dh11" data-value="dh11sense.node" class="example">DH11 Temp Sensor"},-->
+        {click: ()=>this.load_example("ws2812_test.node"), label: "WS2812 Led Demo"},
+    ]
 };
+
 
 BounceUI.prototype.connect_code = function() {
     var code_element = $('#code');
@@ -408,7 +427,6 @@ BounceApp = function() {
 BounceApp.prototype.setup = function() {
     this.output_console = new OutputConsole();
     this.output_console.setup($('#output'), $('#consoleInput'));
-
 };
 
 $(function () {

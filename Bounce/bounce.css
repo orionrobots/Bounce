@@ -64,50 +64,6 @@ html, body {
     -webkit-border-radius: 2px;
 }
 
-.toolbar_close:before {
-    content: "×";
-
-}
-.toolbar_close {
-    float:right;
-    margin-top:-20px;
-    margin-right:-20px;
-    cursor:pointer;
-    color: #fff;
-    border: 1px solid #AEAEAE;
-    border-radius: 30px;
-    background: #605F61;
-    font-size: 31px;
-    font-weight: bold;
-    display: inline-block;
-    line-height: 0;
-    padding: 12px 3px;
-}
-
-/*.panels {*/
-    /*width: 100%;*/
-    /*!*height: 100%;*!*/
-    /*margin: auto;*/
-/*}*/
-
-/*.panel-left {*/
-    /*width: 50%;*/
-    /*height: 200px;*/
-    /*border: 0;*/
-    /*float: left;*/
-/*}*/
-
-/*.panel-left select {*/
-    /*width: 95%;*/
-    /*height: 100%;*/
-/*}*/
-
-/*.panel-right {*/
-    /*height: 200px;*/
-    /*border: 0;*/
-    /*padding-left: 10px;*/
-/*}*/
-
 .fa-stop {
     color: red;
 }
