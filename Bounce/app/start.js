@@ -229,8 +229,8 @@ BounceUI.prototype.setup_menu = function() {
             submenu: [
                 {label: 'New', click: () => { _ui.new_document(); }},
                 {label: 'Open', click: ()=> { _ui._open_file(); }},
-                {label: 'Save', enabled: false, click: ()=> { _ui._save(); }},
-                {label: 'Save As', enabled: false, click: ()=> { _ui._save_as(); }},
+                {label: 'Save', id: 'save', enabled: false, click: ()=> { _ui._save(); }},
+                {label: 'Save As', id: 'saveas', enabled: false, click: ()=> { _ui._save_as(); }},
                 {type: 'separator'},
                 {label: 'Export', click: ()=> {_ui._export(); }}
             ]
@@ -241,38 +241,42 @@ BounceUI.prototype.setup_menu = function() {
         },
         {
             label: 'Connect',
+            id: 'connect',
             submenu: [
                 {label: 'Find Chips', click: () => _ui.start_scan()}
             ]
         },
         {
             label: '> Go!',//fa-play
+            id: 'go',
             enabled: false,
             click: ()=>_ui.run(),
         },
         {
             label: '[] Stop',////fa-stop
+            id: 'stop',
             enabled: false,
             click: ()=>_ui.currentMcu.stop()
         },
         {
             label: 'Upload',
+            id: 'upload',
             enabled: false,
             click: ()=>_ui._upload(_ui.currentMcu)
         },
         {
             label: 'Upload as Init',
+            id: 'upload_init',
             enabled: false,
             click: ()=>_ui._upload_as_init()
         }
     ]
-    // #TODO: Disabling menu buttons when not right.
     this.menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(this.menu);
     
     fileMenu = this.menu.items.find(i=>i.label == 'File').submenu;
-    this.save_button = fileMenu.items[2];
-    this.save_as_button = fileMenu.items[3];
+    this.save_button = fileMenu.items.find(i=>i.id == 'save');
+    this.save_as_button = fileMenu.items.find(i=>i.id == 'saveas');
     this.connectMenu = this.menu.items.find(i=>i.label == 'Connect').submenu;
 
 };
@@ -316,16 +320,20 @@ BounceUI.prototype._upload_as_init = function() {
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
     bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
-        if (_ui.connectMenu.items.find(i=>i==mcu.get_name())) {
+        if (_ui.connectMenu.items.find(i => i.label==mcu.get_name())) {
             mcu_console.writeLine("Port already added");
             return;
         }
 
         mcu_console.writeLine('Adding found item... ' + mcu.get_name());
-        _ui.connectMenu.append(new MenuItem({
+        var connectItem = new MenuItem({
             label: mcu.get_name(), 
-            click: () => _ui.connect_menu_item_clicked_(connectItem, mcu)
-        }))
+            click: function() {
+                mcu_console.writeLine("Connecting.. outer");
+                _ui.connect_menu_item_clicked_(connectItem, mcu);   
+            }
+        });
+        _ui.connectMenu.append(connectItem);
     });
 };
 
@@ -337,6 +345,7 @@ BounceUI.prototype.start_scan = function() {
  */
 BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
     var _ui = this;
+    mcu_console.writeLine("Connecting..");
     // if(this.currentMcu == mcu) {
     //     mcu_console.writeLine("Already connected to this mcu - disconnecting");
     //     mcu.disconnect();
@@ -349,13 +358,13 @@ BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
             _ui.currentMcu = mcu;
             mcu_console.lineTyped(mcu.send_data);
             // Add a tick (Check) to the connection menu item
-            //connectItem.setChecked(true);
+            connectItem.checked = true;
             // disconnect any others
             // Enable the run menu
-            _ui.toolbar.getChild("run_button").setEnabled(true);
-            _ui.toolbar.getChild("stop_button").setEnabled(true);
-            //_ui.toolbar.getChild("upload").setEnabled(true);
-            _ui.toolbar.getChild("upload_as_init").setEnabled(true);
+            _ui.menu.items.find(i=>i.id=="go").enabled = true;
+            _ui.menu.items.find(i=>i.id=="stop").enabled = true;
+            // _ui.menu.items.find(i=>i.id=="upload").enabled = true;
+            _ui.menu.items.find(i=>i.id=="upload_as_init").enabled = true;
         });
     } catch(e) {
         mcu_console.writeLine("Unable to connect to that chip");
