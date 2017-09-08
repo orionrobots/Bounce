@@ -57,9 +57,9 @@ bounce.Nodemcu = function(port_info, baud_rate, output_console) {
         _node_instance._port.on('data', (data)=>{
             console.log(data);
             if (_node_instance._multiline_listener) {
-                _node_instance._multiline_listener();
+                _node_instance._multiline_listener(data);
             }
-            _data_received(data)
+            _data_received(data);
         });
     }
 
