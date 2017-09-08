@@ -55,6 +55,7 @@ bounce.Nodemcu = function(port_info, baud_rate, output_console) {
 
     function _setup_data_listener() {
         _node_instance._port.on('data', (data)=>{
+            console.log(data);
             if (_node_instance._multiline_listener) {
                 _node_instance._multiline_listener();
             }
@@ -64,12 +65,19 @@ bounce.Nodemcu = function(port_info, baud_rate, output_console) {
 
     this.connect = function (connected_callback) {
         output_console.writeLine("Connecting to device on " + this.port_info.comName);
-        this._port = new SerialPort.SerialPort(this.port_info.comName, {baudRate: baud_rate});
-        this._port.on('error', function(err) {
-            output_console.writeLine('Error: ', err.message);
+        this._port = new SerialPort(this.port_info.comName, {baudRate: baud_rate}, (err)=>{
+            if (err) {
+                console.log(err.message);
+                throw err;
+            }
+            this._port.on('error', function(err) {
+                output_console.writeLine('Error: ', err.message);
+                throw err;
+            });
+            this._port.setEncoding('utf-8');
+            _setup_data_listener();
+            connected_callback(_node_instance);
         });
-        _setup_data_listener();
-        connected_callback(_node_instance);
     };
 
     this.disconnect = function(disconnected_callback) {
@@ -86,7 +94,7 @@ bounce.Nodemcu = function(port_info, baud_rate, output_console) {
     this.send_data = function(data, sent_callback) {
         // Send, flush when done, then perform the callback after this.
         this._port.write(data);
-        this._port.drain(()=>{if (sent_callback) sent_callback});
+        this._port.drain(()=>{if (sent_callback) sent_callback();});
     };
 
     /**
