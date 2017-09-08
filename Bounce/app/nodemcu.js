@@ -149,6 +149,9 @@ bounce.Nodemcu.ConnectionFailed = function(mcu, original) {
     this.original = original;
 };
 
+bounce.Nodemcu.prototype.get_name = function() {
+    return this.port_info.comName;
+}
 
 /**
  * USed by scan to validate this is a node.
