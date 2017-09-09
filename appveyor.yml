@@ -29,12 +29,13 @@ build_script:
       npm run-script windows-rebuild
       npm run-script package
       dir output
+      move output/Bounce-win32-x64.zip Bounce-win32-x64-{version}.zip || move output/Bounce-win32-ia32.zip Bounce-win32-ia32-{version}.zip
 
 artifacts:
-  - path: Bounce/output/Bounce-win32-x64.zip
-    name: Bounce-win32-x64-$version.zip
-  - path: Bounce/output/Bounce-win32-ia32.zip
-    name: Bounce-win32-ia32-$version.zip
+  - path: Bounce-win32-x64-{version}.zip
+    name: Bounce-win32-x64-{version}.zip
+  - path: Bounce-win32-ia32-{version}.zip
+    name: Bounce-win32-ia32-{version}.zip
 # deploy:
   # - provider: GitHub
   #   artifact: /.*\.nupkg/           # upload all NuGet packages to release assets
