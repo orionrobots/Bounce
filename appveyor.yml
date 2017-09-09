@@ -17,13 +17,12 @@ install:
 test_script:
   # Output useful info for debugging.
   - node --version
-  - cd Bounce; npm --version
+  - npm --version
   # run tests
   # - npm test
 
 build_script:
   - ps: |
-      cd Bounce
       npm run-script windows-rebuild
       npm run-script package
 
