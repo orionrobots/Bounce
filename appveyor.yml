@@ -22,7 +22,7 @@ test_script:
   # - npm test
 
 build_script:
-  - ps: |
+  - cmd: |
       npm run-script windows-rebuild
       npm run-script package
 
