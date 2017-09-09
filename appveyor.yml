@@ -2,7 +2,10 @@ environment:
   nodejs_version: "6"
 
 version: '0.5.{build}'
-
+platform:
+  - x86
+  - x64
+  
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
@@ -28,9 +31,9 @@ build_script:
       dir output
 
 artifacts:
-  - path: output/Bounce-win32-x64.zip
+  - path: Bounce/output/Bounce-win32-x64.zip
     name: Bounce-win32-x64.zip
-  - path: output/Bounce-win32-ia32.zip
+  - path: Bounce/output/Bounce-win32-ia32.zip
     name: Bounce-win32-ia32.zip
 # deploy:
   # - provider: GitHub
