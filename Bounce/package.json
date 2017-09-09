@@ -14,7 +14,7 @@
       "serialport": "^5.0.0"
     },
     "devDependencies": {
-      "electron": "1.4.15",      
+      "electron": "1.4.15",
       "electron-packager": "^8.5.1",
       "electron-rebuild": "^1.5.7",
       "electron-zip-packager": "^4.0.2",
