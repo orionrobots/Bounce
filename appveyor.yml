@@ -25,6 +25,7 @@ build_script:
   - cmd: |
       npm run-script windows-rebuild
       npm run-script package
+      dir output
 
 artifacts:
   - path: output/Bounce-win32-x64.zip
