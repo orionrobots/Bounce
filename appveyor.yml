@@ -5,12 +5,12 @@ version: '0.5.{build}'
 platform:
   - x86
   - x64
-  
+
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
   - ps: |
-      Install-Product node $env:nodejs_version
+      Install-Product node $env:nodejs_version $PLATFORM
   # install modules
   - cmd: |
       cd Bounce
