@@ -27,7 +27,7 @@ build_script:
       npm run-script package
 
 artifacts:
-  - path: Bounce/output/Bounce-win32-x64.zip
+  - path: output/Bounce-win32-x64.zip
     name: Bounce-win32-x64.zip
 
 # deploy:
