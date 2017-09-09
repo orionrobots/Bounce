@@ -1,6 +1,8 @@
 [![Stories in Ready](https://badge.waffle.io/orionrobots/Bounce.png?label=ready&title=Ready)](https://waffle.io/orionrobots/Bounce)
 # Bounce
 
+[![Build status](https://ci.appveyor.com/api/projects/status/sba8kmdkd240njh6/branch/master?svg=true)](https://ci.appveyor.com/project/dannystaple/bounce/branch/master)
+
 Bounce is a visual language using Google Blockly- somewhat like Scratch.
 It is designed for the esp8266/NodeMCu using the LUA NodeMCU firmware.
 
