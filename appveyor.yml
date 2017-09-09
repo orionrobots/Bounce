@@ -1,6 +1,8 @@
 environment:
   nodejs_version: "6"
 
+version: '0.5.{build}'
+
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
@@ -16,7 +18,9 @@ test_script:
   # run tests
   - npm test
 
-# Don't actually build.
-build:
+build: off
+before-package:
   - npm run-script windows-rebuild
+
+package:
   - npm run-script package
