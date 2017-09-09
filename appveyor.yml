@@ -8,7 +8,11 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # install modules
-  - cd Bounce; npm install
+  - ps: |
+      pwd
+      ls
+      cd Bounce
+      npm install
 
 # Post-install test scripts.
 test_script:
@@ -19,7 +23,7 @@ test_script:
   # - npm test
 
 build_script:
-  - cmd: |
+  - ps: |
       cd Bounce
       npm run-script windows-rebuild
       npm run-script package
