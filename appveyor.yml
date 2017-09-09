@@ -8,9 +8,8 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: |
       Install-Product node $env:nodejs_version
-      npm install -g node-gyp@3.6.2
   # install modules
-  - ps: |
+  - cmd: |
       cd Bounce
       npm install
 
