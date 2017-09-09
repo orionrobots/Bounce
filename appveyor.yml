@@ -18,7 +18,7 @@ test_script:
   # run tests
   # - npm test
 
-build-script:
+build_script:
   - cmd: |
       cd Bounce
       npm run-script windows-rebuild
