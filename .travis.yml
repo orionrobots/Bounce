@@ -8,6 +8,7 @@ addons:
     - g++-4.8-multilib
     - gcc-multilib
 script:
+- pwd
 - cd Bounce
 - npm install
 - npm run-script package
