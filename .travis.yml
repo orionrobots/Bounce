@@ -1,14 +1,16 @@
 language: node_js
+node_js:
+  - "6.9.1"
 addons:
-  apt: 
+  apt:
     packages:
       - g++-4.8
       - g++-4.8-multilib
       - gcc-multilib
-before_script:
-  - chmod +x update_libs.sh
+# before_script:
+#   - chmod +x update_libs.sh
 script:
-  - ./update_libs.sh
+  # - ./update_libs.sh
   - cd Bounce; npm install
   - cd Bounce; npm run-script package
 after_script:
