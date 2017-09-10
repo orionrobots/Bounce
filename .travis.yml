@@ -14,6 +14,7 @@ script:
 after_script:
 - ls -l
 - ls -l output
+- pwd
 deploy:
   provider: releases
   api_key:
