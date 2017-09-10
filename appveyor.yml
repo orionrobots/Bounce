@@ -29,7 +29,8 @@ build_script:
       npm run-script windows-rebuild
       npm run-script package
       dir output
-      move Bounce/output/Bounce-win32-x64.zip Bounce-win32-x64-{version}.zip || move Bounce/output/Bounce-win32-ia32.zip Bounce-win32-ia32-{version}.zip
+      cd ..
+      move Bounce/output/*.zip .
 
 artifacts:
   - path: Bounce-win32-x64-{version}.zip
