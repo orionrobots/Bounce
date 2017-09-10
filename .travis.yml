@@ -16,3 +16,13 @@ script:
   - npm run-script package
 after_script:
   - ls -l
+  - ls -l output
+# addons:
+#   artifacts: true
+# deploy:
+#   provider: releases
+#   api_key: "GITHUB OAUTH TOKEN"
+#   file: "FILE TO UPLOAD"
+#   skip_cleanup: true
+#   on:
+#     tags: true
