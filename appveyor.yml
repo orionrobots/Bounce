@@ -28,14 +28,15 @@ build_script:
   - cmd: |
       npm run-script windows-rebuild
       npm run-script package
-      dir output
-      cd ..
-      move Bounce/output/*.zip .
+      # dir output
+      # cd ..
+      # cd
+      # move Bounce/output/*.zip .
 
 artifacts:
-  - path: Bounce-win32-x64-{version}.zip
+  - path: Bounce/output/Bounce-win32-x64.zip
     name: Bounce-win32-x64-{version}.zip
-  - path: Bounce-win32-ia32-{version}.zip
+  - path: Bounce/output/Bounce-win32-ia32.zip
     name: Bounce-win32-ia32-{version}.zip
 # deploy:
 #   - provider: GitHub

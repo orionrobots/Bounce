@@ -1,28 +1,23 @@
 language: node_js
 node_js:
-  - "6.9.1"
+- 6.9.1
 addons:
   apt:
     packages:
-      - g++-4.8
-      - g++-4.8-multilib
-      - gcc-multilib
-# before_script:
-#   - chmod +x update_libs.sh
+    - g++-4.8
+    - g++-4.8-multilib
+    - gcc-multilib
 script:
-  # - ./update_libs.sh
-  - cd Bounce
-  - npm install
-  - npm run-script package
+- cd Bounce
+- npm install
+- npm run-script package
 after_script:
-  - ls -l
-  - ls -l output
-# addons:
-#   artifacts: true
-# deploy:
-#   provider: releases
-#   api_key: "GITHUB OAUTH TOKEN"
-#   file: "FILE TO UPLOAD"
-#   skip_cleanup: true
-#   on:
-#     tags: true
+- ls -l
+- ls -l output
+deploy:
+  provider: releases
+  api_key:
+    secure: aBt27VsRpIunsxG2xCdSv1ZAC7XLqEuxG3ry7AaQv13tBskmJBLk6ZhvzL6j0xNIQfH2bQv/aX92O5fp7UtDzXBrOUkBa02AijoG47xU6HxG0MH/6NwiwX73QLHnuwQjcMwutQ617Z+chmN1n9yz/O+iKH+nrRRGXWOHq1hcncwCLddUhMvy6OyWOoSX75tbXyi7YuqeZ2y8nlFn1JgbFduXh0oC/nWtZUl8JowV4WY05JYE3yClVJml5hLq03Jj367KckNpS8dlx6cssh0ZtDrmkzXbE2g9zPwpkIDkCv1rMT21GjKdvI0pKd31AQFwHCv0x4AZFh3AmdI4ivcOdQ6vFXet2lvv+QHUKPZMb52KFEbCLcOGHZSxYyvc2lbJtzS/kfJeic/NJCBLTww+mGSH7yXszg2A0qhBtPUosIa8eqXyBX49+xKgk0aeFBlOo9S6BWKOp6XJY7ZOSl4MjqyGD96YEVUjbVK/xuc7ysFum/dLs+Hw9UJYPpgmbLg3oxZyd6kZbW7hFV6Y4OCb7PWBaxftepWHYHS+cvJ4HRUO2WImQQAEhl9YIayt8oCaCrNIPl80oqaED/vODCmQEoAV7YqXGAa8tvtjR0lN3CM/dpbwaJJYctGxiKwyqX6MUw/1y+1NuNVxfXyKjBEx8JiWqMcNanKLA4Bl8JJdSEs=
+  file: output/Bounce-linux-x64.zip
+  on:
+    repo: orionrobots/Bounce
