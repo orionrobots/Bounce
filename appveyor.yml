@@ -28,9 +28,10 @@ build_script:
   - cmd: |
       npm run-script windows-rebuild
       npm run-script package
-      # dir output
-      # cd ..
-      # cd
+      dir output
+      cd ..
+      cd
+      dir
       # move Bounce/output/*.zip .
 
 artifacts:
