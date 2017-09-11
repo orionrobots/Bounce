@@ -32,7 +32,7 @@ build_script:
       cd ..
       cd
       dir
-      # move Bounce/output/*.zip .
+#      move Bounce/output/*.zip .
 
 artifacts:
   - path: Bounce/output/Bounce-win32-x64.zip
