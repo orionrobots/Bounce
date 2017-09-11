@@ -6,7 +6,7 @@
 Bounce is a visual language using Google Blockly- somewhat like Scratch.
 It is designed for the esp8266/NodeMCu using the LUA NodeMCU firmware.
 
-Download the release zip file for your platform, unzip and you should be able to run it.
+Download the release zip file for your platform from <https://github.com/orionrobots/Bounce/releases>, unzip and you should be able to run it.
 
 See this video for an introduction to it:
 
