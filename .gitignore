@@ -214,5 +214,8 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+# Vagrant
+.vagrant
+
 # Output files
 Bounce.crx

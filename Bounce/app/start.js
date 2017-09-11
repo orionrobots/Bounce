@@ -3,6 +3,8 @@ var ui;
 
 const {dialog, Menu, MenuItem} = require('electron').remote;
 const fs = require('fs');
+const package_info = require('./package.json');
+
 /**
  *
  * @constructor Prompt for a filename - use "display(ok_callback, cancel_callback)" to prompt.
@@ -216,6 +218,14 @@ BounceUI.prototype._export = function() {
     });
 };
 
+BounceUI.prototype.show_about_box = function() {
+    dialog.showMessageBox({
+        type: "info",
+        title: "About Bounce",
+        message: "Bounce version:" + package_info.version  + "\nHomepage: " + package_info.homepage
+    })
+};
+
 /**
  * Prepare the ui and menu
  * TODO: About box - accredit Sway Grantham for planting this seed.
@@ -269,6 +279,19 @@ BounceUI.prototype.setup_menu = function() {
             id: 'upload_init',
             enabled: false,
             click: ()=>_ui._upload_as_init()
+        },
+        {
+            label: 'Help',
+            submenu: [
+                {
+                    label: 'Toggle Developer Tools',
+                    click: ()=> require('electron').remote.getCurrentWebContents().toggleDevTools()
+                },
+                {
+                    label: 'About',
+                    click: ()=> _ui.show_about_box()
+                }
+            ]
         }
     ]
     this.menu = Menu.buildFromTemplate(template);
