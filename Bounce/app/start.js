@@ -237,12 +237,15 @@ BounceUI.prototype.setup_menu = function() {
         {
             label: 'File',
             submenu: [
-                {label: 'New', click: () => { _ui.new_document(); }},
+                {label: 'New', click: () => { _ui.new_document(); }, accelerator: 'CommandOrControl+N'},
                 {label: 'Open', click: ()=> { _ui._open_file(); }},
-                {label: 'Save', id: 'save', enabled: false, click: ()=> { _ui._save(); }},
+                {label: 'Save', id: 'save', enabled: false, click: ()=> { _ui._save(); },
+                 accelerator: 'CommandOrControl+S'},
                 {label: 'Save As', id: 'saveas', enabled: false, click: ()=> { _ui._save_as(); }},
                 {type: 'separator'},
-                {label: 'Export', click: ()=> {_ui._export(); }}
+                {label: 'Export', click: ()=> {_ui._export(); }},
+                {type: 'separator'},
+                {role: 'quit'}
             ]
         },
         {
@@ -285,7 +288,8 @@ BounceUI.prototype.setup_menu = function() {
             submenu: [
                 {
                     label: 'Toggle Developer Tools',
-                    click: ()=> require('electron').remote.getCurrentWebContents().toggleDevTools()
+                    role: 'toggledevtools'
+                    // click: ()=> require('electron').remote.getCurrentWebContents().toggleDevTools()
                 },
                 {
                     label: 'About',
