@@ -7,10 +7,9 @@
     "license": "Apache-2.0",
     "main": "main.js",
     "scripts": {
-      "windows-rebuild": "electron-rebuild",
       "start": "electron main.js",
       "test": "node_modules/.bin/jasmine",
-      "package": "node_modules/.bin/electron-zip-packager . Bounce --overwrite --out=output"
+      "package": "node_modules/.bin/electron rebuild; node_modules/.bin/electron-zip-packager . Bounce --overwrite --out=output"
     },
     "dependencies": {
       "serialport": "^5.0.0"
