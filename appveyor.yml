@@ -38,15 +38,15 @@ artifacts:
     name: Bounce-win32-x64-{version}.zip
   - path: Bounce/output/Bounce-win32-ia32.zip
     name: Bounce-win32-ia32-{version}.zip
-# deploy:
-#   - provider: GitHub
-#     description: Unzip the release for your system, run Bounce.exe
-#     artifact: Bounce-win*.zip # Upload the zip files
-#     draft: false
-#     release: Bounce-win-v$(appveyor_build_version)
-    # auth_token:
-    #     secure: <your encrypted token> # your encrypted token from GitHub
-  #   prerelease: false
-  #   on:
-  #     branch: master                # release from master branch only
-  #     appveyor_repo_tag: true       # deploy on tag push only
+deploy:
+  - provider: GitHub
+    description: Unzip the release for your system, run Bounce.exe
+    artifact: Bounce-win*.zip # Upload the zip files
+    draft: false
+    release: Bounce-win-v$(appveyor_build_version)
+    auth_token:
+        secure: CA6aBSeMTeBZ1vRWDV1FN51/tkXMg6yudu1ir3BKWAHvwN4EtcwOP3ThyDMoq+i7 # your encrypted token from GitHub
+    prerelease: false
+    on:
+      branch: master                # release from master branch only
+      appveyor_repo_tag: true       # deploy on tag push only
