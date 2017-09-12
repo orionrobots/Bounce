@@ -26,7 +26,6 @@ test_script:
 
 build_script:
   - cmd: |
-      npm run-script windows-rebuild
       npm run-script package
       dir output
       cd ..
