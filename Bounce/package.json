@@ -22,5 +22,4 @@
       "electron-zip-packager": "^4.0.2",
       "jasmine": "^2.5.3"
     }
-  }
-  
+}
