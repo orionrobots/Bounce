@@ -306,6 +306,11 @@ BounceUI.prototype.setup_menu = function() {
     this.save_as_button = fileMenu.items.find(i=>i.id == 'saveas');
     this.connectMenu = this.menu.items.find(i=>i.label == 'Connect').submenu;
 
+
+    $('#toggle-connections').click(function() {
+        $('#connections').toggle();
+    });
+    $('#scan').click(() => _ui.start_scan());
 };
 
 BounceUI.prototype.new_document = function() {

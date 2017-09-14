@@ -70,6 +70,62 @@ html, body {
     color: green;
 }
 
+#buttons-layer {
+    position: fixed;
+    top: 10px;
+    right: calc(50% + 10px);
+    z-index: 1000;
+}
+
+.layered-button {
+    display: inline-block;
+    font-size: 1.5em;
+    background-color: lightgray;
+    -webkit-border-radius: 20px;
+    text-align: center;
+    padding: 14px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+}
+.layered-button > i {
+    padding: 4px;
+}
+.layered-button > .control  {
+    display: inline;
+    font-size: 1em;
+    border-left: 2px solid black;
+    color: darkgray;
+}
+.layered-button > .control:hover  {
+    color: white;
+}
+.layered-button:hover {
+    background-color: #EEE;
+}
+
+.layered-button > .toggle-list {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    border-top: 1px solid darkgray;
+    display: block;
+    position: absolute;
+    background: lightgray;
+    margin: 0px;
+    margin-top: 15px;
+    left: 15px;
+    list-style: None;
+    padding: 8px;
+    text-align: left;
+    display: None;
+}
+
+.layered-button > .toggle-list > li:hover {
+    background-color: #EEE;
+}
+
+
 .modal-dialog-bg {
     position: absolute;
     top: 0px;
