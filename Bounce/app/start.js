@@ -253,25 +253,6 @@ BounceUI.prototype.setup_menu = function() {
             submenu: this.get_examples()
         },
         {
-            label: 'Connect',
-            id: 'connect',
-            submenu: [
-                {label: 'Find Chips', click: () => _ui.start_scan()}
-            ]
-        },
-        {
-            label: '> Go!',//fa-play
-            id: 'go',
-            enabled: false,
-            click: ()=>_ui.run(),
-        },
-        {
-            label: '[] Stop',////fa-stop
-            id: 'stop',
-            enabled: false,
-            click: ()=>_ui.currentMcu.stop()
-        },
-        {
             label: 'Upload',
             id: 'upload',
             enabled: false,
@@ -304,13 +285,16 @@ BounceUI.prototype.setup_menu = function() {
     fileMenu = this.menu.items.find(i=>i.label == 'File').submenu;
     this.save_button = fileMenu.items.find(i=>i.id == 'save');
     this.save_as_button = fileMenu.items.find(i=>i.id == 'saveas');
-    this.connectMenu = this.menu.items.find(i=>i.label == 'Connect').submenu;
-
 
     $('#toggle-connections').click(function() {
         $('#connections').toggle();
+        return false;
     });
     $('#scan').click(() => _ui.start_scan());
+    this.connectMenu = $('#connections');
+
+    $('#play').click( ()=>_ui.run());
+    $('#stop').click( ()=>_ui.currentMcu.stop());
 };
 
 BounceUI.prototype.new_document = function() {
@@ -346,26 +330,28 @@ BounceUI.prototype._upload_as_init = function() {
     });
 };
 
+
 /**
  * Start the serial port scan
+ * Connect menu - li's - label is the port.
  */
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
     bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
-        if (_ui.connectMenu.items.find(i => i.label==mcu.get_name())) {
-            mcu_console.writeLine("Port already added");
+        if (_ui.connectMenu.find('#'+mcu.get_name()).length > 0) {
+            console.log("Port already added");
             return;
         }
 
         mcu_console.writeLine('Adding found item... ' + mcu.get_name());
-        var connectItem = new MenuItem({
-            label: mcu.get_name(), 
-            click: function() {
-                mcu_console.writeLine("Connecting.. outer");
-                _ui.connect_menu_item_clicked_(connectItem, mcu);   
-            }
-        });
+        var connectItem = $.parseHTML('<li id="' + mcu.get_name() + '">' + mcu.get_name() + "</li>");
         _ui.connectMenu.append(connectItem);
+        $(connectItem).click(()=> {
+            mcu_console.writeLine("Connecting.. outer");
+            _ui.connect_menu_item_clicked_(connectItem, mcu);
+            _ui.connectMenu.hide();
+            return false;
+        });
     });
 };
 

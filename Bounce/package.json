@@ -9,6 +9,7 @@
     "scripts": {
       "start": "electron main.js",
       "test": "node_modules/.bin/jasmine",
+      "rebuild": "node_modules/.bin/electron-rebuild",
       "package": "node_modules/.bin/electron-rebuild && node_modules/.bin/electron-zip-packager . Bounce --overwrite --out=output"
     },
     "dependencies": {

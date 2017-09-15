@@ -18,19 +18,19 @@ bounce.Nodemcu = function(port_info, baud_rate, output_console) {
     this._output_console = output_console;
     this._multiline_listener = false; // Chains multiline data sends
 
+    this._line_listener = null;
     /**
      * Register a an event for a line of text received.
      * Note - stuff like prompts, do not come as a line!
      *
      * @param listener
      */
-    this.addLineEventListener = function(listener) {
-        document.addEventListener('line_received', listener, false);
+    this.addLineCallback = function(listener) {
+        this._line_listener = listener;
     };
 
     this._fire_line_received_event = function(line) {
-        var event = new CustomEvent('line_received', {'detail': {node: _node_instance, line: line}});
-        document.dispatchEvent(event);
+        this._line_listener(line);
     };
 
     /**
@@ -176,9 +176,9 @@ bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
         var timeout = new goog.async.Delay(_timed_out, timeout_millis);
         timeout.start();
         // - A receive - the node response confirms it - cancel the timeout.
-        _node_instance.addLineEventListener(function(e) {
-            if(goog.string.contains(e.detail.line, 'node mcu confirmed')||
-                goog.string.contains(e.detail.line, 'powered by Lua')) {
+        _node_instance.addLineCallback(function(line) {
+            if(goog.string.contains(line, 'node mcu confirmed')||
+                goog.string.contains(line, 'powered by Lua')) {
                 _node_instance._output_console.writeLine("Confirmed - NodeMCU found");
                 _node_instance.disconnect(()=>found_callback(_node_instance));
                 timeout.stop();

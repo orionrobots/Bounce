@@ -6,6 +6,12 @@ To use this as a developer:
     npm install
     npm start
 
+* serialport usually needs a rebuild - to get this:
+    * npm install -g node-gyp
+    * On windows: npm install --global --production windows-build-tools
+    * On Ubuntu: sudo apt-get install build-essential
+    * Then do "npm run-script rebuil"
+
 * To create a package
 
     npm run-script package
