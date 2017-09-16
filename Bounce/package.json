@@ -1,6 +1,6 @@
 {
     "name": "Bounce",
-    "version": "0.5.2-r1",
+    "version": "0.5.2-r2",
     "description": "NodeMCU/Esp8266 Visual Programming Language.",
     "homepage": "https://github.com/orionrobots/bounce",
     "repository": "https://github.com/orionrobots/bounce",
@@ -9,8 +9,8 @@
     "scripts": {
       "start": "electron main.js",
       "test": "node_modules/.bin/jasmine",
-      "rebuild": "node_modules/.bin/electron-rebuild",
-      "package": "node_modules/.bin/electron-rebuild && node_modules/.bin/electron-zip-packager . Bounce --overwrite --out=output"
+      "rebuild": "electron-rebuild",
+      "package": "electron-zip-packager . Bounce --overwrite --out=output"
     },
     "dependencies": {
       "serialport": "^5.0.0"

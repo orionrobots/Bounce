@@ -16,6 +16,7 @@ script:
 - pwd
 - cd Bounce
 - npm install
+- nom rebuild
 - npm run-script package
 after_script:
 - ls -l

@@ -26,6 +26,7 @@ test_script:
 
 build_script:
   - cmd: |
+      npm rebuild
       npm run-script package
       dir output
       cd ..
