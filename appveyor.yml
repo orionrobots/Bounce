@@ -44,7 +44,6 @@ deploy:
     description: Unzip the release for your system, run Bounce.exe
     artifact: Bounce-win*.zip # Upload the zip files
     draft: false
-    release: Bounce-win-v$(appveyor_build_version)
     auth_token:
         secure: CA6aBSeMTeBZ1vRWDV1FN51/tkXMg6yudu1ir3BKWAHvwN4EtcwOP3ThyDMoq+i7 # your encrypted token from GitHub
     prerelease: false
