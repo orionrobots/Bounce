@@ -1,0 +1,24 @@
+{
+    "name": "Bounce",
+    "version": "0.5.2-r1",
+    "dependencies": {
+        "serialport": "^5.0.0"
+    },
+    "devDependencies": {
+        "electron": "1.4.15",
+        "electron-builder": "^19.27.7",
+        "electron-rebuild": "^1.5.7",
+        "jasmine": "^2.5.3"
+    },
+    "build": {
+        "appId": "orionrobots.bounce",
+        "mac": {
+            "category": "public.app-category.education"
+        }
+    },
+    "scripts": {
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "postinstall": "electron-builder install-app-deps"
+    }
+}
