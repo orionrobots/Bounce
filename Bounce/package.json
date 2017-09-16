@@ -1,6 +1,6 @@
 {
     "name": "Bounce",
-    "version": "0.5.2-r1",
+    "version": "0.5.2-r2",
     "description": "NodeMCU/Esp8266 Visual Programming Language.",
     "homepage": "https://github.com/orionrobots/bounce",
     "repository": "https://github.com/orionrobots/bounce",
