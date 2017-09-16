@@ -338,13 +338,13 @@ BounceUI.prototype._upload_as_init = function() {
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
     bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
-        if (_ui.connectMenu.find('#'+mcu.get_name()).length > 0) {
+        if (_ui.connectMenu.find('#'+mcu.get_slug()).length > 0) {
             console.log("Port already added");
             return;
         }
 
         mcu_console.writeLine('Adding found item... ' + mcu.get_name());
-        var connectItem = $.parseHTML('<li id="' + mcu.get_name() + '">' + mcu.get_name() + "</li>");
+        var connectItem = $.parseHTML('<li id="' + mcu.get_slug() + '">' + mcu.get_name() + "</li>");
         _ui.connectMenu.append(connectItem);
         $(connectItem).click(()=> {
             mcu_console.writeLine("Connecting.. outer");

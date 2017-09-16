@@ -153,6 +153,11 @@ bounce.Nodemcu.prototype.get_name = function() {
     return this.port_info.comName;
 }
 
+bounce.Nodemcu.prototype.get_slug = function() {
+    var slug = this.get_name().replace(/\W/g, '_');
+    return slug;
+}
+
 /**
  * USed by scan to validate this is a node.
  *
