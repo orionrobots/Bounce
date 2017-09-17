@@ -3,7 +3,6 @@ environment:
 
 version: '0.5.{build}'
 platform:
-  - x86
   - x64
 
 # Install scripts. (runs after repo cloning)
@@ -33,10 +32,8 @@ build_script:
       dir
 
 artifacts:
-  - path: Bounce/output/Bounce-win32-x64.zip
-    name: Bounce-win32-x64-{version}.zip
-  - path: Bounce/output/Bounce-win32-ia32.zip
-    name: Bounce-win32-ia32-{version}.zip
+  - path: "Bounce/output/Bounce Setup *.exe"
+    name: Bounce Setup
 deploy:
   - provider: GitHub
     description: Unzip the release for your system, run Bounce.exe
