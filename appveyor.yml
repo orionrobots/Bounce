@@ -1,9 +1,12 @@
 environment:
   nodejs_version: "6"
 
-version: '0.5.{build}'
 platform:
   - x64
+
+environment:
+  GH_TOKEN:
+    secure: CA6aBSeMTeBZ1vRWDV1FN51/tkXMg6yudu1ir3BKWAHvwN4EtcwOP3ThyDMoq+i7 # your encrypted token from GitHub
 
 # Install scripts. (runs after repo cloning)
 install:
@@ -15,33 +18,13 @@ install:
       cd Bounce
       npm install
 
-# Post-install test scripts.
-test_script:
-  # Output useful info for debugging.
-  - node --version
-  - npm --version
-  # run tests
-  # - npm test
+test: off
 
 build_script:
-  - cmd: |
-      npm run-script dist
-      dir output
-      cd ..
-      cd
-      dir
+  - npm run dist
+
+test: off
 
 artifacts:
   - path: "Bounce/output/Bounce Setup *.exe"
     name: Bounce Setup
-deploy:
-  - provider: GitHub
-    description: Unzip the release for your system, run Bounce.exe
-    artifact: Bounce-win*.zip # Upload the zip files
-    draft: false
-    auth_token:
-        secure: CA6aBSeMTeBZ1vRWDV1FN51/tkXMg6yudu1ir3BKWAHvwN4EtcwOP3ThyDMoq+i7 # your encrypted token from GitHub
-    prerelease: false
-    on:
-      branch: master                # release from master branch only
-      appveyor_repo_tag: true       # deploy on tag push only

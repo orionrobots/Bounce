@@ -17,7 +17,11 @@
     "appId": "com.orionrobots.Bounce",
     "mac": {
       "category": "public.app-category.education",
-      "icon": "icon.icns"
+      "icon": "icon.icns",
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
       "icon": "icon.ico"
