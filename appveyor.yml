@@ -23,8 +23,6 @@ test: off
 build_script:
   - npm run dist
 
-test: off
-
 artifacts:
   - path: "Bounce/output/Bounce Setup *.exe"
     name: Bounce Setup
