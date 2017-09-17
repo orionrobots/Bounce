@@ -18,6 +18,9 @@
     "mac": {
       "category": "public.app-category.education",
       "icon": "icon.icns"
+    },
+    "win": {
+      "icon": "icon.ico"
     }
   },
   "scripts": {

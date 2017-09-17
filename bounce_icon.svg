@@ -16,9 +16,9 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="bounce_icon.svg"
-   inkscape:export-filename="C:\Users\danny\Source\Repos\bounce_chrome_app\Bounce\bounce_icon_16.png"
-   inkscape:export-xdpi="3.175"
-   inkscape:export-ydpi="3.175">
+   inkscape:export-filename="C:\Users\dastaple\Bounce\Bounce\bounce-256.png"
+   inkscape:export-xdpi="50.799999"
+   inkscape:export-ydpi="50.799999">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -29,15 +29,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="119.76567"
+     inkscape:cx="-357.37719"
      inkscape:cy="48.902902"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1440"
-     inkscape:window-height="897"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1125"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
