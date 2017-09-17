@@ -26,13 +26,11 @@ test_script:
 
 build_script:
   - cmd: |
-      npm rebuild
-      npm run-script package
+      npm run-script dist
       dir output
       cd ..
       cd
       dir
-#      move Bounce/output/*.zip .
 
 artifacts:
   - path: Bounce/output/Bounce-win32-x64.zip
