@@ -12,7 +12,11 @@
   "main": "main.js",
   "build": {
     "directories": {
-      "output": "output"
+      "output": "output",
+      "exclude": [
+        "tests",
+        "closure_build_deps"
+      ]
     },
     "appId": "com.orionrobots.Bounce",
     "mac": {
@@ -30,7 +34,7 @@
   "scripts": {
     "start": "electron main.js",
     "test": "node_modules/.bin/jasmine",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "electron-rebuild",
     "pack": "electron-builder -dir",
     "dist": "electron-builder"
   },
@@ -40,6 +44,7 @@
   "devDependencies": {
     "electron": "1.4.15",
     "electron-builder": "^19.27.7",
+    "electron-rebuild": "^1.5.7",
     "jasmine": "^2.5.3"
   }
 }
