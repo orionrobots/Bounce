@@ -14,9 +14,7 @@ install:
   - ps: |
       Install-Product node $env:nodejs_version $env:platform
   # install modules
-  - cmd: |
-      cd Bounce
-      npm install
+  - npm install
 
 test: off
 
@@ -24,5 +22,5 @@ build_script:
   - npm run dist
 
 artifacts:
-  - path: "Bounce/output/Bounce Setup *.exe"
+  - path: "output/Bounce Setup *.exe"
     name: Bounce Setup
