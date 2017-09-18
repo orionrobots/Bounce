@@ -1,12 +1,11 @@
 environment:
   nodejs_version: "6"
+  GH_TOKEN:
+    secure: CA6aBSeMTeBZ1vRWDV1FN51/tkXMg6yudu1ir3BKWAHvwN4EtcwOP3ThyDMoq+i7 # your encrypted token from GitHub
 
 platform:
   - x64
 
-environment:
-  GH_TOKEN:
-    secure: CA6aBSeMTeBZ1vRWDV1FN51/tkXMg6yudu1ir3BKWAHvwN4EtcwOP3ThyDMoq+i7 # your encrypted token from GitHub
 
 # Install scripts. (runs after repo cloning)
 install:
