@@ -28,6 +28,9 @@
     },
     "win": {
       "icon": "icon.ico"
+    },
+    "linux": {
+      "icon": "bounce-128x128.png"
     }
   },
   "scripts": {
