@@ -88,6 +88,12 @@ html, body {
     padding-bottom: 20px;
     margin: 0;
 }
+
+.layered-button.disabled, .layered-button.disabled > i, .layered-button.disabled > control, .layered-button.disabled > :hover, .layered-button.disabled:hover {
+    color: darkgray;
+    background-color: lightgray;
+}
+
 .layered-button > i {
     padding: 4px;
 }
@@ -95,7 +101,6 @@ html, body {
     display: inline;
     font-size: 1em;
     border-left: 2px solid black;
-    color: darkgray;
 }
 .layered-button > .control:hover  {
     color: white;

@@ -292,10 +292,14 @@ BounceUI.prototype.setup_menu = function() {
     });
     $('#scan').click(() => _ui.start_scan());
     this.connectMenu = $('#connections');
-
-    $('#play').click( ()=>_ui.run());
-    $('#stop').click( ()=>_ui.currentMcu.stop());
 };
+
+BounceUI.prototype.enable_connected_menu_items_ = function() {
+    $('#play').removeClass('disabled');
+    $('#stop').removeClass('disabled');
+    $('#play').click( ()=>this.run());
+    $('#stop').click( ()=>this.currentMcu.stop());    
+};    
 
 BounceUI.prototype.new_document = function() {
     /* todo - request confirmation */
@@ -350,6 +354,7 @@ BounceUI.prototype.start_scan = function() {
             mcu_console.writeLine("Connecting.. outer");
             _ui.connect_menu_item_clicked_(connectItem, mcu);
             _ui.connectMenu.hide();
+            _ui.enable_connected_menu_items_();
             return false;
         });
     });
