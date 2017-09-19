@@ -13,8 +13,6 @@ addons:
     - g++-4.8-multilib
     - gcc-multilib
     - icnsutils
-env:
-  global:
-      secure: aBt27VsRpIunsxG2xCdSv1ZAC7XLqEuxG3ry7AaQv13tBskmJBLk6ZhvzL6j0xNIQfH2bQv/aX92O5fp7UtDzXBrOUkBa02AijoG47xU6HxG0MH/6NwiwX73QLHnuwQjcMwutQ617Z+chmN1n9yz/O+iKH+nrRRGXWOHq1hcncwCLddUhMvy6OyWOoSX75tbXyi7YuqeZ2y8nlFn1JgbFduXh0oC/nWtZUl8JowV4WY05JYE3yClVJml5hLq03Jj367KckNpS8dlx6cssh0ZtDrmkzXbE2g9zPwpkIDkCv1rMT21GjKdvI0pKd31AQFwHCv0x4AZFh3AmdI4ivcOdQ6vFXet2lvv+QHUKPZMb52KFEbCLcOGHZSxYyvc2lbJtzS/kfJeic/NJCBLTww+mGSH7yXszg2A0qhBtPUosIa8eqXyBX49+xKgk0aeFBlOo9S6BWKOp6XJY7ZOSl4MjqyGD96YEVUjbVK/xuc7ysFum/dLs+Hw9UJYPpgmbLg3oxZyd6kZbW7hFV6Y4OCb7PWBaxftepWHYHS+cvJ4HRUO2WImQQAEhl9YIayt8oCaCrNIPl80oqaED/vODCmQEoAV7YqXGAa8tvtjR0lN3CM/dpbwaJJYctGxiKwyqX6MUw/1y+1NuNVxfXyKjBEx8JiWqMcNanKLA4Bl8JJdSEs=
-after_success:
+
+script:
 - npm run dist
