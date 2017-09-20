@@ -396,3 +396,83 @@ Blockly.Lua['lights_led_grid'] = function(block) {
     code += ')';
     return [code, Blockly.Lua.ORDER_ATOMIC]
 };
+
+Blockly.Blocks['pwm_setup'] ={
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Setup PWM:");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.appendValueInput("frequency")
+            .setCheck("Number")
+            .appendField("frequency");
+        this.setColour(block_color_io);
+        this.setTooltip("Setup a pin for PWM");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);        
+    }
+};
+
+Blockly.Lua['pwm_setup'] = function(block) {
+    // Get the pin
+    var pin = Blockly.Lua.valueToCode(block, 'pin',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    var frequency = Blockly.Lua.valueToCode(block, 'frequency',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    var code= 'pwm.setup(' + pin + ', ' + frequency + ', 0)\n';
+    return code;
+};
+
+
+Blockly.Blocks['pwm_start'] ={
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Start PWM:");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.appendValueInput("amount")
+            .setCheck("Number")
+            .appendField("amount");
+        this.setColour(block_color_io);
+        this.setTooltip("Start PWM output at a ratio - 0-1023");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        
+    }
+};
+
+Blockly.Lua['pwm_start'] = function(block) {
+    // Get the pin
+    var pin = Blockly.Lua.valueToCode(block, 'pin',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    var ratio = Blockly.Lua.valueToCode(block, 'amount',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    var code= 'pwm.setduty(' + pin + ', ' + ratio + '); pwm.start(' + pin + ')\n';
+    return code;
+};
+
+
+Blockly.Blocks['pwm_stop'] ={
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Stop PWM:");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.setColour(block_color_io);
+        this.setTooltip("Stop PWM");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        
+    }
+};
+
+Blockly.Lua['pwm_stop'] = function(block) {
+    // Get the pin
+    var pin = Blockly.Lua.valueToCode(block, 'pin',
+        Blockly.Lua.ORDER_ATOMIC) || 0;
+    var code= 'pwm.stop(' + pin + ')\n';
+    return code;
+};

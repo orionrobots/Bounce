@@ -1,0 +1,186 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="variables_set" x="126" y="92">
+    <field name="VAR">ratio</field>
+    <value name="VALUE">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR">direction</field>
+        <value name="VALUE">
+          <block type="math_number">
+            <field name="NUM">64</field>
+          </block>
+        </value>
+        <next>
+          <block type="pwm_setup">
+            <value name="pin">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <value name="frequency">
+              <block type="math_number">
+                <field name="NUM">50</field>
+              </block>
+            </value>
+            <next>
+              <block type="tmr_alarm">
+                <field name="REPEAT">1</field>
+                <value name="timer">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <value name="interval">
+                  <block type="math_number">
+                    <field name="NUM">50</field>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="variables_set">
+                    <field name="VAR">ratio</field>
+                    <value name="VALUE">
+                      <block type="math_arithmetic">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR">ratio</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR">direction</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="pwm_start">
+                        <value name="pin">
+                          <block type="math_number">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                        <value name="amount">
+                          <block type="variables_get">
+                            <field name="VAR">ratio</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="controls_if">
+                            <value name="IF0">
+                              <block type="logic_operation">
+                                <field name="OP">OR</field>
+                                <value name="A">
+                                  <block type="logic_compare">
+                                    <field name="OP">GT</field>
+                                    <value name="A">
+                                      <block type="math_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR">ratio</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR">direction</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number">
+                                        <field name="NUM">1023</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="logic_compare">
+                                    <field name="OP">LT</field>
+                                    <value name="A">
+                                      <block type="math_arithmetic">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR">ratio</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <shadow type="math_number">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get">
+                                            <field name="VAR">direction</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="variables_set">
+                                <field name="VAR">direction</field>
+                                <value name="VALUE">
+                                  <block type="math_arithmetic">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="math_number">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR">direction</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

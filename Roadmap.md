@@ -4,11 +4,27 @@
 
 * Fix new button not prompting - done
 * Make blocks lists default to open - the top two. - done
-* Fill the black blocks in or remove them.
+* Fill the black blocks in or remove them. - done
+* PWM LED Block. - done
+  * PWM init - pin
+
+    pwm.setup(pin, clock, duty) 
+    clock - pwm frequency
+    duty - duty cycle max 1023.
+    pwm.start()
+
+  * PWM Set value (0-1023?)
+
+  * PWM stop
+    pwm.stop()
+
+* Servo blocks
+  * Servo init - pin
+  * Servo set angle -
+  * servo detach
+* Fix or hide the Ws2812 lights blocks. (hidden for now)
+    
 * Fix comments not regenerating
-* Fix or hide the Ws2812 lights blocks.
-* Servo block
-* PWM LED Block.
 
 ## 0.7
 

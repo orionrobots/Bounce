@@ -417,6 +417,17 @@
                         </block>
                     </value>
                 </block>
+                <block type="pwm_setup">
+                    <value name="pin"><block type="math_number"><field name="NUM">0</field></block></value>
+                    <value name="frequency"><block type="math_number"><field name="NUM">50</field></block></value>
+                </block>
+                <block type="pwm_start">
+                    <value name="pin"><block type="math_number"><field name="NUM">0</field></block></value>
+                    <value name="amount"><block type="math_number"><field name="NUM">512</field></block></value>
+                </block>
+                <block type="pwm_stop">
+                    <value name="pin"><block type="math_number"><field name="NUM">0</field></block></value>
+                </block>
             </category>
             <category name="timers" colour="60">
                 <!-- <block type="tmr_delay"></block> -->
