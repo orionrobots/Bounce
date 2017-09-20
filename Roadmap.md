@@ -2,7 +2,8 @@
 
 ## 0.6
 
-* Fix new button not prompting
+* Fix new button not prompting - done
+* Make blocks lists default to open - the top two. - done
 * Fill the black blocks in or remove them.
 * Fix comments not regenerating
 * Fix or hide the Ws2812 lights blocks.
