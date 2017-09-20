@@ -1,26 +1,34 @@
-# Roadmap for Bounce
+# Roadmap For Bounce
 
-* 0.1.1 Upload to NodeMCU As init.lua
-* 0.1.2 Upload to NodeMCU as a file. Needs DoFile and NodeMCU FileBrowser tool. - done
-* 0.2. Big red STOP button to stop all timers. - done
-* 0.2.1 - Add h11 temp sensor blocks - done
-* - Examples menu - done, ws2812 fixed, serial fixes, new button fixed. -done
-* 0.2.3
-* - Blocks - analog read - done, 
-* 0.3. Show Lua Code - done
-* - Finish file browsing tool
-* - blocks  timers
-* 0.7. Export Lua code to file
-* 1.0 Polish, bug fixes, CI to build/release, all visible blocks work.  
+## 0.6
+
+* Fix new button not prompting
+* Fill the black blocks in or remove them.
+* Fix comments not regenerating
+* Fix or hide the Ws2812 lights blocks.
+* Servo block
+* PWM LED Block.
+
+## 0.7
+
+* File Browser tab
+  * List, upload, delete, go (switching to main tab)
+* Traffic lights example
+* Tutorial Backgrounds in examples.
+* Help link to Github.
+
+# Linux
+
+Show linux help - you need to add your user to the Dialout group or run as root.
 
 # Blocks To add
 
-1. Fully test/bugfix ws2812 block - may need a better name. - done
-2. Test analog read block.
-3. Esp12e motor board block.
-4. Generic PWM output block.
-5. Motor encoder/opto-interrupter block.
-6. ON input pin state change event block.
+* Test analog read block.
+* Generic PWM output block.
+* Motor encoder/opto-interrupter block.
+* ON input pin state change event block. Trigger on input.
+* Servo motor block.
+* Esp12e/H-Bridge motor board block.
 
 # Future (Speculative)
 
@@ -30,5 +38,5 @@
   * Uploading code via WiFi 
   * Set up wifi event handlers - probably sticking to a simple http + named trigger, perhaps JSON. 
   * Send a variable (set of variables) via JSON and HTTP to a URL.
+  * A block for setting up a Lua Table (as dict), and for setting/getting members.
 4. Possible low power modes.
-5. Package somehow with drivers for windows.

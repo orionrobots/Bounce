@@ -106,7 +106,7 @@ function BounceUI() {
     var _ui = this;
     this._currentFileEntry=null;
     this._modified = false;
-    this._is_preparing = false;
+    this._is_preparing_new_document = false;
 }
 
 BounceUI.prototype.connectBlockly = function(blocklyManager) {
@@ -190,10 +190,9 @@ BounceUI.prototype._save_as = function() {
         extensions: ['bounce', 'node'],
         description: "Bounce code"
     }];
-    dialog.showSaveDialog({filters:bounce_file_filters}, function(filename) {
-        _ui._currentFileEntry = filename;
-        _ui._save();
-    });
+    var filename = dialog.showSaveDialog({filters:bounce_file_filters});
+    this._currentFileEntry = filename;
+    this._save();
 };
 
 /**
@@ -301,20 +300,48 @@ BounceUI.prototype.enable_connected_menu_items_ = function() {
     $('#stop').click( ()=>this.currentMcu.stop());    
 };    
 
+BounceUI.prototype.show_save_first_dialog = function() {
+    if(this._modified) {
+        var response = dialog.showMessageBox({
+            type: "warning",
+            buttons: ["Save", "Don't Save", "Cancel"],
+            message: "This work has not been saved",
+            detail: "Do you want to save your changes?",
+        });
+        switch(response) {
+            case 0:
+                if (this._currentFileEntry) {
+                    this._save();
+                } else {
+                    this._save_as();
+                }
+                return true;
+                break;
+            case 1:
+                return true;
+            default:
+                return false;
+        }
+    } else {
+        return true;
+    }
+};
+
 BounceUI.prototype.new_document = function() {
-    /* todo - request confirmation */
-    this._is_preparing = true;
-    Blockly.mainWorkspace.clear();
-    this._currentFileEntry = null;
-    this._modified = false;
+    if(this.show_save_first_dialog()) {
+        this._is_preparing_new_document = true;
+        Blockly.mainWorkspace.clear();
+        this._currentFileEntry = null;
+        this._modified = false;
+    }
 };
 
 BounceUI.prototype.changed = function () {
     console.log("Workspace changed");
-    if (this._is_preparing) {
-        this._is_preparing = false;
-        this._modified = true;
+    if (this._is_preparing_new_document) {
+        this._is_preparing_new_document = false;
     } else {
+        this._modified = true;
         this.save_as_button.enabled = true;
         if (this._currentFileEntry) {
             this.save_button.enabled = true;
