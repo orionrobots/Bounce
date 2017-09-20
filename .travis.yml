@@ -15,4 +15,5 @@ addons:
     - icnsutils
 
 script:
+- npm run electron-rebuild
 - npm run dist
