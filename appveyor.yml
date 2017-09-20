@@ -14,7 +14,6 @@ install:
       Install-Product node $env:nodejs_version $env:platform
   # install modules
   - npm install
-  - npm run electron-rebuild
 
 test: off
 
