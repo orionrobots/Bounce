@@ -1,0 +1,160 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="Servo_setup" x="158" y="111">
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">8</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR">direction</field>
+        <value name="VALUE">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set">
+            <field name="VAR">angle</field>
+            <value name="VALUE">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <next>
+              <block type="tmr_alarm">
+                <field name="REPEAT">1</field>
+                <value name="timer">
+                  <block type="math_number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <value name="interval">
+                  <block type="math_number">
+                    <field name="NUM">50</field>
+                  </block>
+                </value>
+                <statement name="DO">
+                  <block type="variables_set">
+                    <field name="VAR">next_angle</field>
+                    <value name="VALUE">
+                      <block type="math_arithmetic">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR">angle</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get">
+                            <field name="VAR">direction</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="Servo_set_position">
+                        <value name="pin">
+                          <block type="math_number">
+                            <field name="NUM">8</field>
+                          </block>
+                        </value>
+                        <value name="angle">
+                          <block type="variables_get">
+                            <field name="VAR">angle</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="controls_if">
+                            <mutation else="1"></mutation>
+                            <value name="IF0">
+                              <block type="logic_operation">
+                                <field name="OP">OR</field>
+                                <value name="A">
+                                  <block type="logic_compare">
+                                    <field name="OP">GT</field>
+                                    <value name="A">
+                                      <block type="variables_get">
+                                        <field name="VAR">next_angle</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number">
+                                        <field name="NUM">90</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="logic_compare">
+                                    <field name="OP">LT</field>
+                                    <value name="A">
+                                      <block type="variables_get">
+                                        <field name="VAR">next_angle</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number">
+                                        <field name="NUM">-90</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="variables_set">
+                                <field name="VAR">direction</field>
+                                <value name="VALUE">
+                                  <block type="math_arithmetic">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="math_number">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <shadow type="math_number">
+                                        <field name="NUM">1</field>
+                                      </shadow>
+                                      <block type="variables_get">
+                                        <field name="VAR">direction</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                            <statement name="ELSE">
+                              <block type="variables_set">
+                                <field name="VAR">angle</field>
+                                <value name="VALUE">
+                                  <block type="variables_get">
+                                    <field name="VAR">next_angle</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

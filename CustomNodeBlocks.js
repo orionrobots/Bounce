@@ -464,8 +464,7 @@ Blockly.Blocks['pwm_stop'] ={
         this.setColour(block_color_io);
         this.setTooltip("Stop PWM");
         this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        
+        this.setNextStatement(true);        
     }
 };
 
@@ -475,4 +474,82 @@ Blockly.Lua['pwm_stop'] = function(block) {
         Blockly.Lua.ORDER_ATOMIC) || 0;
     var code= 'pwm.stop(' + pin + ')\n';
     return code;
+};
+
+Blockly.Blocks['Servo_setup'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Setup Servo:");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.setColour(block_color_io);
+        this.setTooltip("Setup a Pin for use on a servo motor");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);        
+}};
+Blockly.Lua['Servo_setup'] = function(block) {
+    var pin = Blockly.Lua.valueToCode(block, 'pin', Blockly.Lua.ORDER_ATOMIC) || 0;
+    var functionName = Blockly.Lua.provideFunction_(
+        'servo_setup',
+        ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ + '(pin)',
+          '  pwm.setup(pin, 50, 0)',
+          'end']);
+    return functionName + '(' + pin + ')\n';
+};
+
+Blockly.Blocks['Servo_set_position'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Set Servo Position:");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.appendValueInput("angle")
+            .setCheck("Number")
+            .appendField("angle (-90 to 90)");
+        this.setColour(block_color_io);
+        this.setTooltip("Set the angle of a servo motor");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);        
+}};
+Blockly.Lua['Servo_set_position'] = function(block) {
+    var pin = Blockly.Lua.valueToCode(block, 'pin', Blockly.Lua.ORDER_ATOMIC) || 0;
+    var angle = Blockly.Lua.valueToCode(block, 'angle', Blockly.Lua.ORDER_ATOMIC) || 0;
+    // Currently need 115 degrees to get 90. It's centred - so some scaling needed. - call it 1.3
+    var functionName = Blockly.Lua.provideFunction_(
+        'servo_set_position',
+        ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ + '(pin, angle)',
+          '  range_scale = 0.5 * 1.7',
+          '  range_start = (1023 * (1.5 - range_scale))/20.0',
+          '  range_end = (1023 * (1.5 + range_scale))/20.0',
+          '  ratio = range_start + ((range_end - range_start) * (angle+90))/180',
+        //   '  print(range_start, range_end, angle, ratio)',
+          '  pwm.setduty(pin, ratio)',
+          '  pwm.start(pin)',
+          'end']);
+    return functionName + '(' + pin + ',' + angle + ')\n';
+};
+
+
+Blockly.Blocks['Servo_detach'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Detach (stop) Servo:");
+        this.appendValueInput("pin")
+            .setCheck("Number")
+            .appendField("pin");
+        this.setColour(block_color_io);
+        this.setTooltip("Detach/Stop a servo motor");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);        
+}};
+Blockly.Lua['Servo_detach'] = function(block) {
+    var pin = Blockly.Lua.valueToCode(block, 'pin', Blockly.Lua.ORDER_ATOMIC) || 0;
+    var functionName = Blockly.Lua.provideFunction_(
+        'Servo_detach',
+        ['function ' + Blockly.Lua.FUNCTION_NAME_PLACEHOLDER_ + '(pin)',
+          '  pwm.stop(pin)',
+          'end']);
+    return functionName + '(' + pin + ')\n';
 };

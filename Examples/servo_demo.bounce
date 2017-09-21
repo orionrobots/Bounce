@@ -1,0 +1,47 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="Servo_setup" x="158" y="111">
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">8</field>
+      </block>
+    </value>
+    <next>
+      <block type="Servo_set_position">
+        <value name="pin">
+          <block type="math_number">
+            <field name="NUM">8</field>
+          </block>
+        </value>
+        <value name="angle">
+          <block type="math_number">
+            <field name="NUM">-30</field>
+          </block>
+        </value>
+        <next>
+          <block type="tmr_alarm">
+            <field name="REPEAT">0</field>
+            <value name="timer">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="interval">
+              <block type="math_number">
+                <field name="NUM">500</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="Servo_detach">
+                <value name="pin">
+                  <block type="math_number">
+                    <field name="NUM">8</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
