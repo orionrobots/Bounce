@@ -5,8 +5,10 @@ const {dialog, Menu, MenuItem} = require('electron').remote;
 const fs = require('fs');
 const package_info = require('./package.json');
 
+const BounceConfig=require('./app/BounceConfig.js');
 require("./CustomNodeBlocks.js");
 require("./app/nodemcu.js");
+const OutputConsole = require("./app/OutputConsole.js");
 const GeneratedCode = require("./app/GeneratedCode.js");
 
 /**

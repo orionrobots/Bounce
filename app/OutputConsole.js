@@ -56,3 +56,5 @@ OutputConsole.prototype.setupInput = function(inputElement) {
        }
     });
 };
+
+module.exports = OutputConsole;
