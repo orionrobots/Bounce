@@ -5,6 +5,10 @@ const {dialog, Menu, MenuItem} = require('electron').remote;
 const fs = require('fs');
 const package_info = require('./package.json');
 
+require("./CustomNodeBlocks.js");
+require("./app/nodemcu.js");
+const GeneratedCode = require("./app/GeneratedCode.js");
+
 /**
  *
  * @constructor Prompt for a filename - use "display(ok_callback, cancel_callback)" to prompt.

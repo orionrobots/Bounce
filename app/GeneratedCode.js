@@ -24,3 +24,5 @@ GeneratedCode.prototype.setWorkspace = function (workspace) {
     var gc=this;
     workspace.addChangeListener(function() {gc.changed()});
 };
+
+module.exports = GeneratedCode;
