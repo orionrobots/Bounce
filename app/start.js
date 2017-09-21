@@ -406,7 +406,7 @@ BounceUI.prototype.connect_menu_item_clicked_ = function(connectItem, mcu) {
             // We've now connected the mcu. Update the UI
             mcu_console.writeLine("Connected");
             _ui.currentMcu = mcu;
-            mcu_console.lineTyped(mcu.send_data);
+            mcu_console.lineTyped((line) => mcu.send_data(line));
             // Add a tick (Check) to the connection menu item
             connectItem.checked = true;
             // disconnect any others
