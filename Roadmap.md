@@ -24,7 +24,7 @@
   * servo detach
 * Fix or hide the Ws2812 lights blocks. (hidden for now)
     
-* Fix comments not regenerating
+* Fix comments not regenerating - done
 
 ## 0.7
 
@@ -33,6 +33,7 @@
 * Traffic lights example
 * Tutorial Backgrounds in examples.
 * Help link to Github.
+* ws2812 fix
 
 # Linux
 
