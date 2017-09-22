@@ -69,7 +69,7 @@ BlocklyManager.prototype.setup = function() {
     this.blocklyArea = document.getElementById('blocklyArea');
     this.blocklyDiv =  document.getElementById('blocklyDiv');
     this.workspace = Blockly.inject(this.blocklyDiv,
-      {toolbox: document.getElementById('toolbox'), media: "blockly-nodemcu/media/" });
+      {toolbox: document.getElementById('toolbox'), media: "node_modules/node-blockly/blockly/media/" });
     window.addEventListener('resize', function() {_bm.resizeHandler()}, false);
     this.resizeHandler();
 };
