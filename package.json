@@ -15,7 +15,12 @@
       "output": "output"
     },
     "files": {
-      "filter": ["**/*", "!tests/*.js", "!closure_build_deps/**/*", "!output/**/*"]
+      "filter": [
+        "**/*",
+        "!tests/*.js",
+        "!closure_build_deps/**/*",
+        "!output/**/*"
+      ]
     },
     "appId": "com.orionrobots.Bounce",
     "mac": {
@@ -41,6 +46,8 @@
     "dist": "build"
   },
   "dependencies": {
+    "google-closure-library": "^20170910.0.0",
+    "node-blockly": "^1.0.26",
     "serialport": "^5.0.0"
   },
   "devDependencies": {

@@ -1,13 +1,18 @@
 ﻿var mcu_console;
 var ui;
 
+
 const {dialog, Menu, MenuItem} = require('electron').remote;
 const fs = require('fs');
 const package_info = require('./package.json');
 
+const Blockly = require('node-blockly/browser');
+require("google-closure-library");
+goog.require('goog.ui.TabPane');
+
 const BounceConfig=require('./app/BounceConfig.js');
 require("./CustomNodeBlocks.js");
-require("./app/nodemcu.js");
+const NodeMcu = require("./app/nodemcu.js");
 const OutputConsole = require("./app/OutputConsole.js");
 const GeneratedCode = require("./app/GeneratedCode.js");
 
@@ -62,9 +67,9 @@ var BlocklyManager = function() {
 BlocklyManager.prototype.setup = function() {
     var _bm = this;
     this.blocklyArea = document.getElementById('blocklyArea');
-    this.blocklyDiv = document.getElementById('blocklyDiv');
+    this.blocklyDiv =  document.getElementById('blocklyDiv');
     this.workspace = Blockly.inject(this.blocklyDiv,
-      {toolbox: goog.dom.$('toolbox'), media: "blockly-nodemcu/media/" });
+      {toolbox: document.getElementById('toolbox'), media: "blockly-nodemcu/media/" });
     window.addEventListener('resize', function() {_bm.resizeHandler()}, false);
     this.resizeHandler();
 };
@@ -96,8 +101,8 @@ BlocklyManager.prototype.getDocument = function() {
     return Blockly.Xml.domToPrettyText(xml);
 };
 
-BlocklyManager.prototype.loadDocument = function(document) {
-    var xml = Blockly.Xml.textToDom(document);
+BlocklyManager.prototype.loadDocument = function(data) {
+    var xml = Blockly.Xml.textToDom(data);
     Blockly.mainWorkspace.clear();
     Blockly.Xml.domToWorkspace(this.workspace, xml);
 };

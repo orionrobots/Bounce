@@ -10,7 +10,7 @@ const SerialPort = require("serialport");
  *
  * @constructor
  */
-bounce.Nodemcu = function(port_info, baud_rate, output_console) {
+Nodemcu = function(port_info, baud_rate, output_console) {
     this.port_info = port_info;
     this._port = null;// If connected - the port connection object
     var _received_str = '';
@@ -144,16 +144,16 @@ bounce.Nodemcu = function(port_info, baud_rate, output_console) {
  * @param original - the original exception
  * @constructor
  */
-bounce.Nodemcu.ConnectionFailed = function(mcu, original) {
+Nodemcu.ConnectionFailed = function(mcu, original) {
     this.mcu = mcu;
     this.original = original;
 };
 
-bounce.Nodemcu.prototype.get_name = function() {
+Nodemcu.prototype.get_name = function() {
     return this.port_info.comName;
 }
 
-bounce.Nodemcu.prototype.get_slug = function() {
+Nodemcu.prototype.get_slug = function() {
     var slug = this.get_name().replace(/\W/g, '_');
     return slug;
 }
@@ -164,7 +164,7 @@ bounce.Nodemcu.prototype.get_slug = function() {
  * @param found_callback - Function to call when found
  * @param timeout_millis - Time to wait before giving up/disconnecting.
  */
-bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
+Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
     var _node_instance = this;
 
     function _timed_out() {
@@ -201,7 +201,7 @@ bounce.Nodemcu.prototype.validate = function(found_callback, timeout_millis) {
  * @param filename  - Filename to store on the device as
  * @param completed_callback    - Function call when all sent.
  */
-bounce.Nodemcu.prototype.send_as_file= function(data, filename, completed_callback) {
+Nodemcu.prototype.send_as_file= function(data, filename, completed_callback) {
         var input_lines = data.split("\n");
         var output_lines = [];
         output_lines.push('file.open("' + filename + '", "w")');
@@ -216,7 +216,7 @@ bounce.Nodemcu.prototype.send_as_file= function(data, filename, completed_callba
 /**
  * Stop all timers.
  */
-bounce.Nodemcu.prototype.stop = function() {
+Nodemcu.prototype.stop = function() {
     this.send_multiline_data(["for i=0, 6 do", "tmr.stop(i)", "end"], function() {});
 };
 
@@ -228,7 +228,7 @@ bounce.Nodemcu.prototype.stop = function() {
  * @param timeout - how long to wait in seconds for a serial response to the sent text.
  * @param found_callback Called when it's found with the Serial path.
  */
-bounce.Nodemcu.scan = function(console, baud_rate, timeout, found_callback) {
+Nodemcu.scan = function(console, baud_rate, timeout, found_callback) {
     console.writeLine("Starting scan at " + baud_rate + "...");
     var onGetDevices = function(err, ports) {
         ports.forEach((port)=> {
@@ -240,3 +240,5 @@ bounce.Nodemcu.scan = function(console, baud_rate, timeout, found_callback) {
 
     SerialPort.list(onGetDevices);
 };
+
+module.exports = Nodemcu;

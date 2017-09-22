@@ -1,3 +1,5 @@
+require("google-closure-library");
+goog.require("goog.string");
 /**
  * Create a console to output data in visible in the UI.
  * @constructor
