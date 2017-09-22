@@ -379,7 +379,7 @@ BounceUI.prototype._upload_as_init = function() {
  */
 BounceUI.prototype.start_scan = function() {
     var _ui = this;
-    bounce.Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
+    Nodemcu.scan(mcu_console, this.config.getBaudRate(), this.config.getSerialTimeout(), function(mcu) {
         if (_ui.connectMenu.find('#'+mcu.get_slug()).length > 0) {
             console.log("Port already added");
             return;
