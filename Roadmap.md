@@ -18,10 +18,10 @@
   * PWM stop
     pwm.stop()
 
-* Servo blocks
+* Servo blocks - done
   * Servo init - pin
-  * Servo set angle -
-  * servo detach
+  * Servo set angle - done
+  * servo detach - done
 * Fix or hide the Ws2812 lights blocks. (hidden for now)
     
 * Fix comments not regenerating - done
