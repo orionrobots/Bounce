@@ -1,6 +1,6 @@
 {
   "name": "Bounce",
-  "version": "v0.6.0-r1",
+  "version": "v0.6.0-r2",
   "description": "NodeMCU/Esp8266 Visual Programming Language.",
   "homepage": "https://github.com/orionrobots/bounce",
   "repository": "https://github.com/orionrobots/bounce",
@@ -43,7 +43,7 @@
     "test": "node_modules/.bin/jasmine",
     "postinstall": "electron-rebuild",
     "pack": "electron-builder -dir",
-    "dist": "build"
+    "dist": "build --publish onTagOrDraft"
   },
   "dependencies": {
     "google-closure-library": "^20170910.0.0",
