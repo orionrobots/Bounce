@@ -1,0 +1,207 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="bZg(uch=nY:KjY*Ry@$t">led_state</variable>
+  </variables>
+  <block type="pin_mode" id=":CDa2m*Z9j*KVO*G3!0i" x="225" y="-173">
+    <field name="MODE">gpio.OUTPUT</field>
+    <value name="pin">
+      <block type="math_number" id="DyvF?KH9eC+pSFIyDzca">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <next>
+      <block type="pin_mode" id="f,Mee-*MyIAeCltK_{E-">
+        <field name="MODE">gpio.OUTPUT</field>
+        <value name="pin">
+          <block type="math_number" id="]7^a@Dh[qPZFeu(N3AVm">
+            <field name="NUM">4</field>
+          </block>
+        </value>
+        <next>
+          <block type="pin_mode" id="9@BfAvz]UgxOb)C)$}[y">
+            <field name="MODE">gpio.OUTPUT</field>
+            <value name="pin">
+              <block type="math_number" id="0(r_CD3za#aNluy@VTk/">
+                <field name="NUM">6</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="Z.(P}jmARfekut!E2T,H">
+                <field name="VAR" id="bZg(uch=nY:KjY*Ry@$t" variabletype="">led_state</field>
+                <value name="VALUE">
+                  <block type="math_number" id="RF^|5z8m~dG7h3$dTiy^">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="tmr_alarm" id="/I|@%(x0.2.gyDkEwx`K">
+                    <field name="REPEAT">1</field>
+                    <value name="timer">
+                      <block type="math_number" id="DoIL:HMzp+x*PVjo-Ia(">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <value name="interval">
+                      <block type="math_number" id="SOz;/)*UBBNyHa#vHuiZ">
+                        <field name="NUM">500</field>
+                      </block>
+                    </value>
+                    <statement name="DO">
+                      <block type="controls_if" id="TWB$4vc=[,!a47)+3P3e">
+                        <mutation elseif="1" else="1"></mutation>
+                        <value name="IF0">
+                          <block type="logic_compare" id="qN(oE}1=q*%?u!.dTA+u">
+                            <field name="OP">EQ</field>
+                            <value name="A">
+                              <block type="variables_get" id="=[jyVwY!y)*Lp!IwPp.2">
+                                <field name="VAR" id="bZg(uch=nY:KjY*Ry@$t" variabletype="">led_state</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="/fIbCuk^RfV3u3too}Tv">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="variables_set" id="Scner)-4Ps(~Jgx5O)ce">
+                            <field name="VAR" id="bZg(uch=nY:KjY*Ry@$t" variabletype="">led_state</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="49cx9}$?I$C4uX$qY#D{">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="pin_write" id="(e{2Cn-8My#vju5QKT`i">
+                                <value name="pin">
+                                  <block type="math_number" id="KsPtRyq+tQ,6PL`BvY9)">
+                                    <field name="NUM">0</field>
+                                  </block>
+                                </value>
+                                <value name="level">
+                                  <block type="logic_boolean" id="sE98R|DX;wAj=Mq33t.t">
+                                    <field name="BOOL">TRUE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="pin_write" id="5=[N8^ITl+NTdVuBvJgz">
+                                    <value name="pin">
+                                      <block type="math_number" id="N(lj!%5;/3;IZ7|//g,*">
+                                        <field name="NUM">6</field>
+                                      </block>
+                                    </value>
+                                    <value name="level">
+                                      <block type="logic_boolean" id="k,u~T3(le8jkRiUd8b+T">
+                                        <field name="BOOL">FALSE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <value name="IF1">
+                          <block type="logic_compare" id="DIVL~q.Y5K|EwK{Tt_?O">
+                            <field name="OP">EQ</field>
+                            <value name="A">
+                              <block type="variables_get" id="vZX[K!6D/VqKr,AR)jC:">
+                                <field name="VAR" id="bZg(uch=nY:KjY*Ry@$t" variabletype="">led_state</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="!a~f#wgK25l7M~(LR_HA">
+                                <field name="NUM">1</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO1">
+                          <block type="variables_set" id="1v|o[Hm!m_2[4p],kg?;">
+                            <field name="VAR" id="bZg(uch=nY:KjY*Ry@$t" variabletype="">led_state</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="#7=I(Vp~Mj0d?A:9L8(N">
+                                <field name="NUM">2</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="pin_write" id="p@UB6wen}-:I:gh`wir.">
+                                <value name="pin">
+                                  <block type="math_number" id="XOTm[pWir${Fvv(wEbyT">
+                                    <field name="NUM">4</field>
+                                  </block>
+                                </value>
+                                <value name="level">
+                                  <block type="logic_boolean" id="^+-O,/B@emf_ZKjGE?K|">
+                                    <field name="BOOL">TRUE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="pin_write" id="]iry.x):l)4Fz@g|8QTb">
+                                    <value name="pin">
+                                      <block type="math_number" id="=F_~aR2xGUCT{9=5sx]m">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <value name="level">
+                                      <block type="logic_boolean" id="UU$}*2_+qZ}gd,w}Axm$">
+                                        <field name="BOOL">FALSE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <statement name="ELSE">
+                          <block type="variables_set" id=":ys@{=@breKZEd`s]`~z">
+                            <field name="VAR" id="bZg(uch=nY:KjY*Ry@$t" variabletype="">led_state</field>
+                            <value name="VALUE">
+                              <block type="math_number" id=",r5`##wJ8ebBtZ@#~*Qt">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="pin_write" id="T`{$=6H7{Ckm7)L2Sum4">
+                                <value name="pin">
+                                  <block type="math_number" id="o{X4mSl$H,Zg^L6iPyWQ">
+                                    <field name="NUM">6</field>
+                                  </block>
+                                </value>
+                                <value name="level">
+                                  <block type="logic_boolean" id="DbpwT5#D(+l@+r@MC-w0">
+                                    <field name="BOOL">TRUE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="pin_write" id="l:su^GhW9A-o;GS`iMX1">
+                                    <value name="pin">
+                                      <block type="math_number" id="=#Rpd`q7$kYumM`/7Ul3">
+                                        <field name="NUM">4</field>
+                                      </block>
+                                    </value>
+                                    <value name="level">
+                                      <block type="logic_boolean" id="84?bJn0FZy[}hO}_-~%.">
+                                        <field name="BOOL">FALSE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
