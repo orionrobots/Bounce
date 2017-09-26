@@ -1,6 +1,6 @@
 // NodeMCU Handler
 const SerialPort = require("serialport");
-
+goog.require("goog.async.Delay");
 /**
  * Class to handle the interactions with the NodeMCU device
  *
@@ -233,7 +233,7 @@ Nodemcu.scan = function(console, baud_rate, timeout, found_callback) {
     var onGetDevices = function(err, ports) {
         ports.forEach((port)=> {
             console.writeLine('Found serial port ' + port.comName + ', ' + port.manufacturer + '. Testing...');
-            var mcu = new bounce.Nodemcu(port, baud_rate, console);
+            var mcu = new Nodemcu(port, baud_rate, console);
             mcu.validate(found_callback, timeout * 1000);
         });
     };
