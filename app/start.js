@@ -449,6 +449,7 @@ BounceUI.prototype.get_examples = function() {
         {click: ()=>this.load_example("pin_write.node"), label: "Writing to an IO Pin"},
         {click: ()=>this.load_example("print_hello_world.node"), label: "Print Hello World"},
         {click: ()=>this.load_example("timers.node"), label: "Timers"},
+        {click: ()=>this.load_example("servo_sweep.bounce"), label: "Servo motors"}
         // <!--<div id="temperature_dh11" data-value="dh11sense.node" class="example">DH11 Temp Sensor"},-->
         // {click: ()=>this.load_example("ws2812_test.node"), label: "WS2812 Led Demo"},
     ]
