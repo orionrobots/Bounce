@@ -28,10 +28,10 @@
 
 ## 0.7
 
+* Tutorial Backgrounds in examples.
 * File Browser tab
   * List, upload, delete, go (switching to main tab)
 * Traffic lights example
-* Tutorial Backgrounds in examples.
 * Help link to Github.
 * ws2812 fix
 
