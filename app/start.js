@@ -10,6 +10,7 @@ const Blockly = require('node-blockly/browser');
 require("google-closure-library");
 goog.require('goog.ui.TabPane');
 
+require("./app/BlocklyManager.js");
 const BounceConfig=require('./app/BounceConfig.js');
 require("./CustomNodeBlocks.js");
 const NodeMcu = require("./app/nodemcu.js");

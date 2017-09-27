@@ -133,6 +133,7 @@ html, body {
 
 .modal-dialog-bg {
     position: absolute;
+    z-index: 1000;
     top: 0px;
     left: 0px;
     background-color: #FFF;
@@ -140,6 +141,7 @@ html, body {
 
 .modal-dialog {
     position: absolute;
+    z-index: 1001;
     top: 0px;
     left: 0px;
     width: 300px;
