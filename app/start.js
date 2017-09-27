@@ -348,7 +348,7 @@ BounceUI.prototype.new_document = function() {
 };
 
 BounceUI.prototype.changed = function () {
-    console.log("Workspace changed");
+    // console.log("Workspace changed");
     if (this._is_preparing_new_document) {
         this._is_preparing_new_document = false;
     } else {

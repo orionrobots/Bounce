@@ -15,7 +15,7 @@ GeneratedCode.prototype.setCode = function(code) {
 };
 
 GeneratedCode.prototype.changed = function(e) {
-    console.log(this);
+    // console.log(this);
     this.setCode(Blockly.Lua.workspaceToCode(this.workspace));
 };
 
