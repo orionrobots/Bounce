@@ -455,6 +455,79 @@
                 <!-- <block type="tmr_wdclr"></block> -->
                 <!-- <block type="tmr_time"></block> -->
             </category>
+			<category name="gpio" colour="250">
+				<block type="gpio_pin"></block>
+				<block type="gpio_level">
+					<field name="LEVEL">LOW</field> 
+				</block>				
+                <block type="gpio_mode">
+                    <value name="PIN">
+                        <block type="math_number">
+                            <field name="NUM">1</field>
+                        </block>
+                    </value>
+					<field name="MODE">OUTPUT</field> 
+                </block>								
+                <block type="gpio_read" colour="250">
+                    <value name="PIN">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>								
+                <block type="gpio_write">
+                    <value name="PIN">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+					<value name="LEVEL">
+						<block type="gpio_level" id=";C6#9G7{!Q(%5j[vT8WB">
+							<field name="LEVEL">LOW</field>
+						</block>
+					</value> 
+				</block>								
+                <block type="gpio_trig">
+                    <value name="PIN">
+                        <block type="math_number">
+                            <field name="NUM">0</field>
+                        </block>
+                    </value>
+                </block>				
+            </category>			
+			<category name="I²C bus" colour="300">
+				<block type="i2c_setup">
+					<value name="sda">
+						<block type="math_number">
+							<field name="NUM">1</field>
+						</block>
+					</value>
+					<value name="scl">
+						<block type="math_number">
+							<field name="NUM">2</field>
+						</block>
+					</value>
+				</block>			
+            </category>
+			<category name="sensors" colour="320">
+				<category name="AM2320" colour="310">
+					<block type="am2320_setup"></block>
+					<block type="am2320_setup_info"></block>
+					<block type="am2320_read"></block>
+				</category>
+            </category>
+			<!--
+			<category name="wifi" colour="16">
+				<block type="wifi_mode"></block>
+				<block type="wifi_setmode"></block>
+				<block type="wifi_getmode"></block>		
+				<category name="wifi client" colour="18">
+					<block type="wifi_sta_status"></block>
+					<block type="wifi_sta_getstatus"></block>		
+					<block type="wifi_sta_config"></block>						
+				</category>
+            </category>
+			-->
             <!-- <category name="lights" colour="87">
                 <block type="ws2812_writergb">
                     <value name="pin">
