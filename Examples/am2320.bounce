@@ -1,0 +1,277 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="/OnJCuuTy:+$6_~Ld@V)">T alarm pin</variable>
+    <variable type="" id="//PAuf`l$(vCT@d/.tUe">H alarm pin</variable>
+    <variable type="" id="m{i(,V37*?[2|u8lD^~`">temperature</variable>
+    <variable type="" id="KZDUg0g,h5U-;B%.!,|7">humidity</variable>
+    <variable type="" id="bm3[:0x|0G]1e/qqQL;,">T</variable>
+    <variable type="" id="m9LmlfUgHStmZ;1bpw#]">H</variable>
+  </variables>
+  <block type="variables_set" id="|wfgPd@ufj=Z[f(X9+Gw" x="21" y="19">
+    <field name="VAR" id="/OnJCuuTy:+$6_~Ld@V)" variabletype="">T alarm pin</field>
+    <value name="VALUE">
+      <block type="math_number" id="vn=R7^yW38uxtmqHORR;">
+        <field name="NUM">4</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set" id="_(qUL_M//B70`^Ix1buR">
+        <field name="VAR" id="//PAuf`l$(vCT@d/.tUe" variabletype="">H alarm pin</field>
+        <value name="VALUE">
+          <block type="math_number" id="g[?B|yL%qq5_HS2.TKr:">
+            <field name="NUM">6</field>
+          </block>
+        </value>
+        <next>
+          <block type="gpio_mode" id="}IXa3S;(@BL#I*k,e[,u">
+            <field name="MODE">OUTPUT</field>
+            <field name="PULLUP">TRUE</field>
+            <value name="PIN">
+              <block type="variables_get" id="VNd.s9EL^gEwS1(ww9:1">
+                <field name="VAR" id="//PAuf`l$(vCT@d/.tUe" variabletype="">H alarm pin</field>
+              </block>
+            </value>
+            <next>
+              <block type="gpio_mode" id="riVmf7J2Q}Z`r0C~9@Rj">
+                <field name="MODE">OUTPUT</field>
+                <field name="PULLUP">TRUE</field>
+                <value name="PIN">
+                  <block type="variables_get" id="QtKYgVDpM^Rb/1071R|4">
+                    <field name="VAR" id="/OnJCuuTy:+$6_~Ld@V)" variabletype="">T alarm pin</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="gpio_write" id="qVf:L?#gBj=(1Th-lsn`">
+                    <value name="PIN">
+                      <block type="variables_get" id="p#a4X[FT.#Dpfr`*/1w1">
+                        <field name="VAR" id="//PAuf`l$(vCT@d/.tUe" variabletype="">H alarm pin</field>
+                      </block>
+                    </value>
+                    <value name="LEVEL">
+                      <block type="gpio_level" id=";C6#9G7{!Q(%5j[vT8WB">
+                        <field name="LEVEL">HIGH</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="gpio_write" id="d`s[%JDge)bf1!*[0B1w">
+                        <value name="PIN">
+                          <block type="variables_get" id="w1m0?[eH(cViGrrwF##I">
+                            <field name="VAR" id="/OnJCuuTy:+$6_~Ld@V)" variabletype="">T alarm pin</field>
+                          </block>
+                        </value>
+                        <value name="LEVEL">
+                          <block type="gpio_level" id="l0P,`Ejd#81teB9@/j1(">
+                            <field name="LEVEL">HIGH</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="i2c_setup" id="C5PvAfjCMb6MRCYk3`8,">
+                            <field name="SPEED">i2c.SLOW</field>
+                            <value name="sda">
+                              <block type="gpio_pin" id="2HdU-A,;)K7A56?2T$pd">
+                                <field name="GPIO">2</field>
+                              </block>
+                            </value>
+                            <value name="scl">
+                              <block type="gpio_pin" id="adtBDqO#YW9;UhU2xh0o">
+                                <field name="GPIO">1</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="am2320_setup" id="M}evk./30v8]p.1]4k(W">
+                                <next>
+                                  <block type="tmr_alarm" id="ep}6hGJB@pLX2qc8K7?`">
+                                    <field name="REPEAT">1</field>
+                                    <value name="timer">
+                                      <block type="math_number" id="Pw5~M:)CqYQ+SWw7;dSF">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <value name="interval">
+                                      <block type="math_number" id="G-A`]qZ2VDo3VqGTrPhE">
+                                        <field name="NUM">3000</field>
+                                      </block>
+                                    </value>
+                                    <statement name="DO">
+                                      <block type="am2320_read" id="~eQIn!u-pWG9C%xC[![k">
+                                        <field name="TEMPERATURE" id="bm3[:0x|0G]1e/qqQL;," variabletype="">T</field>
+                                        <field name="HUMIDITY" id="m9LmlfUgHStmZ;1bpw#]" variabletype="">H</field>
+                                        <next>
+                                          <block type="variables_set" id="V%E=]8zQoAL%h1#qbi{8">
+                                            <field name="VAR" id="m{i(,V37*?[2|u8lD^~`" variabletype="">temperature</field>
+                                            <value name="VALUE">
+                                              <block type="math_arithmetic" id="7$b9WLLBzx;cS5c.sVE)">
+                                                <field name="OP">DIVIDE</field>
+                                                <value name="A">
+                                                  <shadow type="math_number" id="zi^}Q$5NOQSEig3p}h(l">
+                                                    <field name="NUM">1</field>
+                                                  </shadow>
+                                                  <block type="variables_get" id="0)wB#W/z4KZR3vC6nOH1">
+                                                    <field name="VAR" id="bm3[:0x|0G]1e/qqQL;," variabletype="">T</field>
+                                                  </block>
+                                                </value>
+                                                <value name="B">
+                                                  <shadow type="math_number" id="=#l,W9zGw[O#2M?n[kq@">
+                                                    <field name="NUM">10</field>
+                                                  </shadow>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="variables_set" id="Ks,!dBdC65wJkDf7GD.q">
+                                                <field name="VAR" id="KZDUg0g,h5U-;B%.!,|7" variabletype="">humidity</field>
+                                                <value name="VALUE">
+                                                  <block type="math_arithmetic" id="b|IG(_9=kww0PfH+$wgw">
+                                                    <field name="OP">DIVIDE</field>
+                                                    <value name="A">
+                                                      <shadow type="math_number" id="zi^}Q$5NOQSEig3p}h(l">
+                                                        <field name="NUM">1</field>
+                                                      </shadow>
+                                                      <block type="variables_get" id="(i:-@]SGm(%VxhhQ~Kx-">
+                                                        <field name="VAR" id="m9LmlfUgHStmZ;1bpw#]" variabletype="">H</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="B">
+                                                      <shadow type="math_number" id="j1:?nSC!a+xS}Y,S[EOI">
+                                                        <field name="NUM">10</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="text_print" id="3zQe]$y[T|ab3D6`:up]">
+                                                    <value name="TEXT">
+                                                      <shadow type="text" id="Q=CV8e|2*%x(`.~:uG/~">
+                                                        <field name="TEXT">abc</field>
+                                                      </shadow>
+                                                      <block type="text_join" id="L*iF5.R]iYNQ)|04!Q6^" inline="true">
+                                                        <mutation items="5"></mutation>
+                                                        <value name="ADD0">
+                                                          <block type="text" id="@Ii/_mQpQ7*4`fG?u`VK">
+                                                            <field name="TEXT">T: </field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD1">
+                                                          <block type="variables_get" id="N6v/Va4wlp6(bF4|HTfQ">
+                                                            <field name="VAR" id="m{i(,V37*?[2|u8lD^~`" variabletype="">temperature</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD2">
+                                                          <block type="text" id="E`ROjd-{*qu+u(]z-K@n">
+                                                            <field name="TEXT">ºC; H: </field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD3">
+                                                          <block type="variables_get" id="Sol~?a?Ss~^cDIO*lAeg">
+                                                            <field name="VAR" id="KZDUg0g,h5U-;B%.!,|7" variabletype="">humidity</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ADD4">
+                                                          <block type="text" id="8Cjl+B*`UQawH`x_40wN">
+                                                            <field name="TEXT">%</field>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="gpio_write" id="Ia7Inuo1C1.(z(6N18J]">
+                                                        <value name="PIN">
+                                                          <block type="variables_get" id="CyU*Phk5~,1UZVg{#YN]">
+                                                            <field name="VAR" id="/OnJCuuTy:+$6_~Ld@V)" variabletype="">T alarm pin</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="LEVEL">
+                                                          <block type="logic_ternary" id="HM.+u7m!_GBSG*olLC:G" inline="false">
+                                                            <value name="IF">
+                                                              <block type="logic_compare" id="Q0dW}iz)S!hqSnK!q{Qi">
+                                                                <field name="OP">GTE</field>
+                                                                <value name="A">
+                                                                  <block type="variables_get" id=".TT~N-Nk^KL}@6!G;0~!">
+                                                                    <field name="VAR" id="m{i(,V37*?[2|u8lD^~`" variabletype="">temperature</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="B">
+                                                                  <block type="math_number" id="!i@/P)jZga{]*W[3`pFy">
+                                                                    <field name="NUM">25</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                            <value name="THEN">
+                                                              <block type="gpio_level" id="FUX?}D55Ybb083js?iy`">
+                                                                <field name="LEVEL">LOW</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="ELSE">
+                                                              <block type="gpio_level" id="(_=[:i5ifydc+r`$Ky-s">
+                                                                <field name="LEVEL">HIGH</field>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="gpio_write" id="LHp2#E37VuCpfAyG*SpZ">
+                                                            <value name="PIN">
+                                                              <block type="variables_get" id="NDnS+;mOIF@{)4QyD$N;">
+                                                                <field name="VAR" id="//PAuf`l$(vCT@d/.tUe" variabletype="">H alarm pin</field>
+                                                              </block>
+                                                            </value>
+                                                            <value name="LEVEL">
+                                                              <block type="logic_ternary" id="gAL:6I+0ah%f?Q4BK,x$" inline="false">
+                                                                <value name="IF">
+                                                                  <block type="logic_compare" id="NuOftlMMrhz1-+0,qB9$">
+                                                                    <field name="OP">GTE</field>
+                                                                    <value name="A">
+                                                                      <block type="variables_get" id="@PS(D^dP+Lfw}MdqJ7aL">
+                                                                        <field name="VAR" id="KZDUg0g,h5U-;B%.!,|7" variabletype="">humidity</field>
+                                                                      </block>
+                                                                    </value>
+                                                                    <value name="B">
+                                                                      <block type="math_number" id="gK?y126*bw{DEz_6a;BZ">
+                                                                        <field name="NUM">85</field>
+                                                                      </block>
+                                                                    </value>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="THEN">
+                                                                  <block type="gpio_level" id="_e+L?9,*6P?xruB1l2;B">
+                                                                    <field name="LEVEL">LOW</field>
+                                                                  </block>
+                                                                </value>
+                                                                <value name="ELSE">
+                                                                  <block type="gpio_level" id="wyzd^3Gb#TDk/f[)3zYR">
+                                                                    <field name="LEVEL">HIGH</field>
+                                                                  </block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

@@ -1,0 +1,91 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="KN5J$197kZ:9FJAJp*eW">LED</variable>
+  </variables>
+  <block type="variables_set" id="LQt3j6-0!3}fT.Twc)sP" x="21" y="19">
+    <field name="VAR" id="KN5J$197kZ:9FJAJp*eW" variabletype="">LED</field>
+    <value name="VALUE">
+      <block type="math_number" id="#)p|DNo=MpH9H!@CTJ]n">
+        <field name="NUM">4</field>
+      </block>
+    </value>
+    <next>
+      <block type="gpio_mode" id="blA:{Pf|t=zf2N[i:M(?">
+        <field name="MODE">OUTPUT</field>
+        <field name="PULLUP">FALSE</field>
+        <value name="PIN">
+          <block type="variables_get" id="cl9Ksg,bR[(1Q_u;b=*o">
+            <field name="VAR" id="KN5J$197kZ:9FJAJp*eW" variabletype="">LED</field>
+          </block>
+        </value>
+        <next>
+          <block type="tmr_alarm" id="Mi}(R`i{iZx+]tf`#2+q">
+            <field name="REPEAT">1</field>
+            <value name="timer">
+              <block type="math_number" id="j[cF%%*st2Ow)[Zj=`-#">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="interval">
+              <block type="math_number" id="s1f`VOW5_r_%qdkON;b$">
+                <field name="NUM">1500</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="controls_if" id="cR,31RTSdFW5KFj0)/VM">
+                <mutation else="1"></mutation>
+                <value name="IF0">
+                  <block type="logic_compare" id="1Ey-K=wj*Knws5HCQqH;">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="gpio_read" id="%,o}.d5ndrvyiIi9uUp)">
+                        <value name="PIN">
+                          <block type="variables_get" id="WC*^IO|TVhoCOih:%Qd5">
+                            <field name="VAR" id="KN5J$197kZ:9FJAJp*eW" variabletype="">LED</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="gpio_level" id="`cBx19%W`RhDIs1!@;Z)">
+                        <field name="LEVEL">HIGH</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="gpio_write" id="(-oYK`zCV,3qr{{gS}Tg">
+                    <value name="PIN">
+                      <block type="variables_get" id="K8I_f@YJ-34iDlA5+P5r">
+                        <field name="VAR" id="KN5J$197kZ:9FJAJp*eW" variabletype="">LED</field>
+                      </block>
+                    </value>
+                    <value name="LEVEL">
+                      <block type="gpio_level" id="=E;B3raE_{(pT{C/gn0A">
+                        <field name="LEVEL">LOW</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <statement name="ELSE">
+                  <block type="gpio_write" id="Dj;94LV4xztx,`:YL-@o">
+                    <value name="PIN">
+                      <block type="variables_get" id="iN@~{NMup[J^gn#,SIh~">
+                        <field name="VAR" id="KN5J$197kZ:9FJAJp*eW" variabletype="">LED</field>
+                      </block>
+                    </value>
+                    <value name="LEVEL">
+                      <block type="gpio_level" id=")s9~@)[SU{]#y~(me;*T">
+                        <field name="LEVEL">HIGH</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>
