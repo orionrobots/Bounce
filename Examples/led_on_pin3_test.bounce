@@ -1,0 +1,63 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="pin_mode" x="34" y="60">
+    <field name="MODE">gpio.OUTPUT</field>
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">3</field>
+      </block>
+    </value>
+    <next>
+      <block type="variables_set">
+        <field name="VAR">led_state</field>
+        <value name="VALUE">
+          <block type="logic_boolean">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+        <next>
+          <block type="tmr_alarm">
+            <field name="REPEAT">1</field>
+            <value name="timer">
+              <block type="math_number">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="interval">
+              <block type="math_number">
+                <field name="NUM">100</field>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="pin_write">
+                <value name="pin">
+                  <block type="math_number">
+                    <field name="NUM">3</field>
+                  </block>
+                </value>
+                <value name="level">
+                  <block type="variables_get">
+                    <field name="VAR">led_state</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set">
+                    <field name="VAR">led_state</field>
+                    <value name="VALUE">
+                      <block type="logic_negate">
+                        <value name="BOOL">
+                          <block type="variables_get">
+                            <field name="VAR">led_state</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

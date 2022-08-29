@@ -1,0 +1,77 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="ws2812_writergb" x="45" y="85">
+    <value name="data">
+      <block type="lights_led_grid">
+        <field name="d0_0">#000000</field>
+        <field name="d0_1">#000000</field>
+        <field name="d0_2">#000099</field>
+        <field name="d0_3">#000099</field>
+        <field name="d0_4">#000099</field>
+        <field name="d0_5">#000099</field>
+        <field name="d0_6">#000000</field>
+        <field name="d0_7">#000000</field>
+        <field name="d1_0">#000000</field>
+        <field name="d1_1">#000099</field>
+        <field name="d1_2">#000099</field>
+        <field name="d1_3">#000099</field>
+        <field name="d1_4">#000099</field>
+        <field name="d1_5">#000099</field>
+        <field name="d1_6">#000099</field>
+        <field name="d1_7">#000000</field>
+        <field name="d2_0">#000099</field>
+        <field name="d2_1">#000099</field>
+        <field name="d2_2">#003300</field>
+        <field name="d2_3">#003300</field>
+        <field name="d2_4">#003300</field>
+        <field name="d2_5">#003300</field>
+        <field name="d2_6">#000099</field>
+        <field name="d2_7">#000099</field>
+        <field name="d3_0">#000099</field>
+        <field name="d3_1">#000099</field>
+        <field name="d3_2">#003300</field>
+        <field name="d3_3">#666666</field>
+        <field name="d3_4">#666666</field>
+        <field name="d3_5">#003300</field>
+        <field name="d3_6">#000099</field>
+        <field name="d3_7">#000099</field>
+        <field name="d4_0">#000000</field>
+        <field name="d4_1">#000099</field>
+        <field name="d4_2">#003300</field>
+        <field name="d4_3">#666666</field>
+        <field name="d4_4">#666666</field>
+        <field name="d4_5">#003300</field>
+        <field name="d4_6">#000099</field>
+        <field name="d4_7">#000000</field>
+        <field name="d5_0">#ffff66</field>
+        <field name="d5_1">#000099</field>
+        <field name="d5_2">#cc9933</field>
+        <field name="d5_3">#003300</field>
+        <field name="d5_4">#ffcc33</field>
+        <field name="d5_5">#ffcc33</field>
+        <field name="d5_6">#000099</field>
+        <field name="d5_7">#ffff66</field>
+        <field name="d6_0">#ffff66</field>
+        <field name="d6_1">#000099</field>
+        <field name="d6_2">#cc9933</field>
+        <field name="d6_3">#003300</field>
+        <field name="d6_4">#cc9933</field>
+        <field name="d6_5">#cc9933</field>
+        <field name="d6_6">#000099</field>
+        <field name="d6_7">#ffff66</field>
+        <field name="d7_0">#ffff66</field>
+        <field name="d7_1">#000099</field>
+        <field name="d7_2">#cc9933</field>
+        <field name="d7_3">#cc9933</field>
+        <field name="d7_4">#cc9933</field>
+        <field name="d7_5">#cc9933</field>
+        <field name="d7_6">#000099</field>
+        <field name="d7_7">#ffff66</field>
+      </block>
+    </value>
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">8</field>
+      </block>
+    </value>
+  </block>
+</xml>

@@ -1,0 +1,14 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="pin_write" x="84" y="98">
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <value name="level">
+      <block type="logic_boolean">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </value>
+  </block>
+</xml>

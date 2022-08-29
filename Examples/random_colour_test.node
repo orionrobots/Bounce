@@ -1,0 +1,61 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="pin_mode" x="15" y="72">
+    <field name="MODE">gpio.INPUT</field>
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">8</field>
+      </block>
+    </value>
+    <next>
+      <block type="tmr_alarm">
+        <field name="REPEAT">1</field>
+        <value name="timer">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="interval">
+          <block type="math_number">
+            <field name="NUM">500</field>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="ws2812_writergb">
+            <value name="data">
+              <block type="lists_repeat">
+                <value name="ITEM">
+                  <block type="colour_random"></block>
+                </value>
+                <value name="NUM">
+                  <shadow type="math_number">
+                    <field name="NUM">5</field>
+                  </shadow>
+                  <block type="math_random_int">
+                    <value name="FROM">
+                      <shadow type="math_number">
+                        <field name="NUM">1</field>
+                      </shadow>
+                    </value>
+                    <value name="TO">
+                      <shadow type="math_number">
+                        <field name="NUM">100</field>
+                      </shadow>
+                      <block type="math_number">
+                        <field name="NUM">64</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="pin">
+              <block type="math_number">
+                <field name="NUM">8</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+</xml>

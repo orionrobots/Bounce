@@ -1,0 +1,151 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="text_print" x="98" y="92">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+      <block type="text">
+        <field name="TEXT">Hello WOrld</field>
+      </block>
+    </value>
+    <next>
+      <block type="pin_mode">
+        <field name="MODE">gpio.OUTPUT</field>
+        <value name="pin">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <next>
+          <block type="pin_mode">
+            <field name="MODE">gpio.OUTPUT</field>
+            <value name="pin">
+              <block type="math_number">
+                <field name="NUM">2</field>
+              </block>
+            </value>
+            <next>
+              <block type="pin_mode">
+                <field name="MODE">gpio.OUTPUT</field>
+                <value name="pin">
+                  <block type="math_number">
+                    <field name="NUM">3</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="pin_mode">
+                    <field name="MODE">gpio.OUTPUT</field>
+                    <value name="pin">
+                      <block type="math_number">
+                        <field name="NUM">4</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="pin_write">
+                        <value name="pin">
+                          <block type="math_number">
+                            <field name="NUM">3</field>
+                          </block>
+                        </value>
+                        <value name="level">
+                          <block type="logic_boolean">
+                            <field name="BOOL">FALSE</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="pin_write">
+                            <value name="pin">
+                              <block type="math_number">
+                                <field name="NUM">4</field>
+                              </block>
+                            </value>
+                            <value name="level">
+                              <block type="logic_boolean">
+                                <field name="BOOL">FALSE</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="pin_write">
+                                <value name="pin">
+                                  <block type="math_number">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
+                                <value name="level">
+                                  <block type="logic_boolean">
+                                    <field name="BOOL">TRUE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="pin_write">
+                                    <value name="pin">
+                                      <block type="math_number">
+                                        <field name="NUM">2</field>
+                                      </block>
+                                    </value>
+                                    <value name="level">
+                                      <block type="logic_boolean">
+                                        <field name="BOOL">TRUE</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="tmr_alarm">
+                                        <field name="REPEAT">0</field>
+                                        <value name="timer">
+                                          <block type="math_number">
+                                            <field name="NUM">0</field>
+                                          </block>
+                                        </value>
+                                        <value name="interval">
+                                          <block type="math_number">
+                                            <field name="NUM">2000</field>
+                                          </block>
+                                        </value>
+                                        <statement name="DO">
+                                          <block type="pin_write">
+                                            <value name="pin">
+                                              <block type="math_number">
+                                                <field name="NUM">1</field>
+                                              </block>
+                                            </value>
+                                            <value name="level">
+                                              <block type="logic_boolean">
+                                                <field name="BOOL">FALSE</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="pin_write">
+                                                <value name="pin">
+                                                  <block type="math_number">
+                                                    <field name="NUM">2</field>
+                                                  </block>
+                                                </value>
+                                                <value name="level">
+                                                  <block type="logic_boolean">
+                                                    <field name="BOOL">FALSE</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>

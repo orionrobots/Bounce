@@ -1,0 +1,59 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="pin_mode" x="12" y="76">
+    <field name="MODE">gpio.INPUT</field>
+    <value name="pin">
+      <block type="math_number">
+        <field name="NUM">8</field>
+      </block>
+    </value>
+    <next>
+      <block type="ws2812_writergb">
+        <value name="data">
+          <block type="lists_create_with">
+            <mutation items="7"></mutation>
+            <value name="ADD0">
+              <block type="colour_picker">
+                <field name="COLOUR">#cc0000</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="colour_picker">
+                <field name="COLOUR">#ff6600</field>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="colour_picker">
+                <field name="COLOUR">#ffff66</field>
+              </block>
+            </value>
+            <value name="ADD3">
+              <block type="colour_picker">
+                <field name="COLOUR">#33ff33</field>
+              </block>
+            </value>
+            <value name="ADD4">
+              <block type="colour_picker">
+                <field name="COLOUR">#3366ff</field>
+              </block>
+            </value>
+            <value name="ADD5">
+              <block type="colour_picker">
+                <field name="COLOUR">#66ffff</field>
+              </block>
+            </value>
+            <value name="ADD6">
+              <block type="colour_picker">
+                <field name="COLOUR">#cc66cc</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="pin">
+          <block type="math_number">
+            <field name="NUM">8</field>
+          </block>
+        </value>
+      </block>
+    </next>
+  </block>
+</xml>
