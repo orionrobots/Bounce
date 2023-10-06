@@ -51,7 +51,7 @@
     "serialport": "^5.0.0"
   },
   "devDependencies": {
-    "electron": "1.4.15",
+    "electron": "22.3.25",
     "electron-builder": "^19.27.7",
     "electron-rebuild": "^1.5.7",
     "jasmine": "^2.5.3"
