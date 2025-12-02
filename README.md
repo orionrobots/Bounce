@@ -1,3 +1,5 @@
+Archived: This repository is archived. Since Micropython and Arduino tools are mature for the ESP8266 I recommend using Blockly based tools like EduBlocks (for micropython) or Adrublockly and similar for the Arduino ecosystem.
+
 [![Stories in Ready](https://badge.waffle.io/orionrobots/Bounce.png?label=ready&title=Ready)](https://waffle.io/orionrobots/Bounce)
 # Bounce
 
